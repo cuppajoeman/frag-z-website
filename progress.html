@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>progress</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="wrapper">
+      <h1>
+        <div id="fire-text">
+          roadmap
+        </div>
+      </h1>
+      <p>
+        first we will develop a thin slice through the whole game, that way we will have a minimal working game that can be played.
+        this way we can get user feedback as fast as possible instead of building the whole game and then having to undo
+        previous work.
+      </p>
+      <p>
+        the thin slice will be a version of the game where you can connect to a server online through a UI, be able to ready
+        your players and then start the game, the game will be mpw with a single weapon (rail gun), rail gun beams will be
+        rendered on the client side and a scoreboard will be shown. After 10 minutes the game ends and you are returned to the
+        ready up state.
+      </p>
+      <ul>
+        <li><h2>slice</h2></li>
+        <ul>
+          <li>client side</li>
+          <ul>
+            <li><s>send over keypresses, mouse deltas to server</s>(2022-12-18)</li>
+            <li>terminal with sensitivity command</li>
+            <li>crosshair</li>
+            <li>display fired hitscan shots</li>
+          </ul>
+          <li>server side</li>
+          <ul>
+            <li><s>process keypresses and mouse deltas, send back rotation and position of player</s>(2022-12-20)</li>
+            <li>create a Match class</li>
+            <ul>
+              <li>contains the current state of the match preparation, live and complete</li>
+              <ul>
+                <li>the complete state shows the scoreboard for everyone for at least 30 seconds.</li>
+              </ul>
+              <li>contains a Referee class which monitors shots fired and allocates points to respective players</li>
+              <ul>
+                <li>it is aware of the current game type</li>
+                <li>each step of the game, we can ask the referee if the game is over.</li>
+              </ul>
+              <li>contains a list of players and their current score</li>
+              <li>contains a TCP socket which sends out the scoring information</li>
+              <li>if the Referee says the game is over, we move to the complete state</li>
+            </ul>
+          </ul>
+        </ul>
+        <li><h2>development</h2></li>
+        <ul>
+          <li>after the slice is developed we will work on features in the order most requested by the users it will probably be in this order</li>
+          <ul>
+            <li>new maps</li>
+            <li>add the other weapons</li>
+            <li>team based gameplay</li>
+          </ul>
+        </ul>
+        <li><h2>player base</h2></li>
+        <ul>
+          <li><s>make discord server</s>(2022-12-22)</li>
+          <li><s>make website</s>(2022-12-25)</li>
+        </ul>
+      </ul>
+
+    </div>
+</body>
+</html>

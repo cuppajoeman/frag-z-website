@@ -1,0 +1,31 @@
+body {
+    background-color: #4C3575;
+    color: yellow;
+    background-image: url("wall.jpg");
+    background-repeat: repeat;
+}
+
+.wrapper {
+    padding: 5% 15% 5% 15%;
+    margin: 0 15% 0 15%;
+    background-color: rgba(90, 10, 135, 0.5);
+    border-radius: 20%
+}
+
+#fire-text {
+    /*font-family: “Open Sans”, sans-serif;*/
+    color: #f5f5f5;
+    text-shadow: 0px -2px 4px #fff, 0px -2px 10px #FF3, 0px -10px 20px         #F90, 0px -20px 40px #C33;
+    font-size: 100px;
+}
+
+
+/* unvisited link */
+a:link {
+    color: yellow;
+}
+
+/* visited link */
+a:visited {
+    color: yellow;
+}
