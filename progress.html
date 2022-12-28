@@ -30,7 +30,7 @@
           <ul>
             <li><s>send over keypresses, mouse deltas to server</s>(2022-12-18)</li>
             <li>terminal with sensitivity command</li>
-            <li>crosshair</li>
+            <li><s>crosshair</s>(2022-12-27)</li>
             <li>display fired hitscan shots</li>
           </ul>
           <li>server side</li>
@@ -38,19 +38,19 @@
             <li><s>process keypresses and mouse deltas, send back rotation and position of player</s>(2022-12-20)</li>
             <li>create a Match class</li>
             <ul>
-              <li>contains the current state of the match preparation, live and complete</li>
+              <li><s>contains the current state of the match preparation, live and complete</s>(2022-12-26)</li>
               <ul>
                 <li>the complete state shows the scoreboard for everyone for at least 30 seconds.</li>
               </ul>
               <li>contains a Referee class which monitors shots fired and allocates points to respective players</li>
               <ul>
-                <li>it is aware of the current game type</li>
-                <li>each step of the game, we can ask the referee if the game is over.</li>
+                <li><s>it is aware of the current game type</s>(2022-12-26)</li>
+                <li><s>each step of the game, we can ask the referee if the game is over.</s>(2022-12-25)</li>
               </ul>
-              <li>contains a list of players and their current score</li>
-              <li>contains a TCP socket which sends out the scoring information</li>
+              <li><s>scoring information passed along with high frequency info</s>(2022-12-26)</li>
               <li>if the Referee says the game is over, we move to the complete state</li>
             </ul>
+            <li>chat messaging service</li>
           </ul>
         </ul>
         <li><h2>development</h2></li>
@@ -66,6 +66,13 @@
         <ul>
           <li><s>make discord server</s>(2022-12-22)</li>
           <li><s>make website</s>(2022-12-25)</li>
+          <li>headless server</li>
+          <ul>
+            <li>aquire remote linux machine</li>
+            <li>figure out how to compile game for headless</li>
+          </ul>
+          <li>create download section on website</li>
+          <li>auto updater (long term)</li>
         </ul>
       </ul>
 
