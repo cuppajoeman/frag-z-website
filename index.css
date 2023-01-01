@@ -1,16 +1,52 @@
 body {
     background-color: #4C3575;
-    color: yellow;
     background-image: url("wall.jpg");
     background-repeat: repeat;
+}
+
+table, th, td {
+    border:2px solid yellow;
 }
 
 .wrapper {
     padding: 5% 15% 5% 15%;
     margin: 0 15% 0 15%;
     background-color: rgba(90, 10, 135, 0.5);
-    border-radius: 20%
+    border-radius: 20%;
+    color: yellow;
 }
+
+.top_bar {
+    background-image: url("shiney_metals.png");
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border: 3px purple inset;
+}
+
+.top_bar ul {
+    display: flex;
+    justify-content: space-around;
+    width: 30%;
+}
+
+.top_bar ul li {
+    color: #356371;
+    list-style: none;
+    margin: 0;
+}
+
+.relative_vertical_center {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
 
 #fire-text {
     /*font-family: “Open Sans”, sans-serif;*/
@@ -21,11 +57,27 @@ body {
 
 
 /* unvisited link */
-a:link {
+.top_bar a:link {
+    color: #8DB8C2;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+/* visited link */
+.top_bar a:visited {
+    color: #8DB8C2;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+
+/* unvisited link */
+.wrapper a:link {
     color: yellow;
 }
 
 /* visited link */
-a:visited {
+.wrapper a:visited {
     color: yellow;
 }
+
+
+
