@@ -24,7 +24,7 @@ table, th, td {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    border: 3px purple inset;
+    margin: 5px 0 5px 0
 }
 
 .top_bar ul {
