@@ -183,6 +183,15 @@
         <h2>plan</h2>
         <ul>
             <li>death match</li>
+            <p>
+                On 2023-01-05 I decided that <code>Rulebook</code> isn't the right name for the class, it should just be
+                <code>Match</code> since a <code>Rulebook</code> shouldn't have methods, as it's only a book.
+            </p>
+            <p>
+                Notice that death match isn't actually that different from most points win, for example health can be
+                considered points, and that whenever your points go below 1, then you will respawn elsewhere on the map
+                with 100 points again.
+            </p>
             <ul>
                 <li>
                     implement abstract <code>Rulebook</code>, then create <code>Rulebooks</code> for deathmatch and
@@ -190,18 +199,55 @@
                 </li>
                 <ul>
                     <li>
-                        in the deathmatch rulebook, it will also contain the method <code>weapon_transaction(source_player, target_players)</code>
+                        in the deathmatch match, it will also contain the method <code>weapon_transaction(source_player, target_players)</code>
+                    </li>
+                    <ul>
+                        <li><s>create abstract match class</s>(2023-01-04)</li>
+                        <li><s>create subclasses for actual match types</s>(2023-01-04)</li>
+                        <li><s>add transaction method</s>(2023-01-04)</li>
+                    </ul>
+                    <li>
+                        for now deathmatch will be timed
                     </li>
                 </ul>
                 <li>
-                    restructure how the referee works so that it uses the rulebook class
+                    <s>remove the logic inside of the railgun, and simply use <code>GlobalPlayerEvents</code></s>(2023-01-06)
+                </li>
+            </ul>
+            <li>new map</li>
+            <p>
+                in order to support the new game mode, we are going to build a new map oriented more towards death match
+            </p>
+            <ul>
+                <li>more long flat areas to fight on, not as vertical as previous map</li>
+                <li>more wedges that aren't steep</li>
+            </ul>
+            <li>projectile launcher</li>
+            <ul>
+                <li>create projectile launcher class</li>
+                <li>implement the physics movement function</li>
+                <li>implement check to see if it's collided</li>
+                <li>implement explosion</li>
+                <ul>
+                    <li>create a sphere at the explosion point, with <code>explosion_radius</code></li>
+                    <li>
+                        for each colliding thing, if it's a player, then draw a ray from the blast origin to the
+                        center of the player, if it reaches that player, then we can apply a force to the player, also
+                        perform a transaction (no points lost if you shoot yourself, only to other players)
+                    </li>
+                </ul>
+            </ul>
+            <li>shotgun & lightning gun</li>
+            <ul>
+                <li>
+                    generalize the hitscan weapon, this generalized version has a method called <code>get_spray_pattern</code>
+                    which will returns a list of hitscan rays. It will also have a method called <code>fire</code> which
+                    iterates through the spray pattern and uses the referee to conduct a hitscan transaction.
                 </li>
                 <li>
-                    remove the logic inside of the railgun, and simply use <code>GlobalPlayerEvents</code>
+                    in order to play different sounds for the different weapons, more information needs to be added in
+                    players events pertaining to firing, we also have to specify which weapon is being fired.
                 </li>
-                <ul>
-                    <li>when we iterate through these events the <code>Referee</code> will </li>
-                </ul>
             </ul>
         </ul>
     </details>
