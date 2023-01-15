@@ -152,7 +152,7 @@
     <h2>dev log</h2>
 
     <details>
-        <summary>january 2022 development</summary>
+        <summary>january 2023 development</summary>
         <p>
             this month started off with the very first game test, with Nel, coli, Jacques, Teeare and me, the game test
             went well and fun was had.
@@ -241,6 +241,10 @@
                         perform a transaction (no points lost if you shoot yourself, only to other players)
                     </li>
                 </ul>
+                <li>
+                    We'll need a way to know who fired which projectile, so instead of embedding a reference
+                    to an entire player, we'll just add it to a group who's name is the id of the player.
+                </li>
             </ul>
             <li>shotgun & lightning gun</li>
             <ul>
@@ -260,6 +264,22 @@
                 <li>turn of auto jump, implement queue jump</li>
                 <ul>
                     <li>we don't jump if we never received a false for jump pressed before the next time we hit the ground</li>
+                </ul>
+            </ul>
+            <li>performance</li>
+            <ul>
+                <li>I've found that even running locally, it feels like aim is a little choppy.</li>
+                <ul>
+                    <li>
+                        First I created a version of the game with everything except movement, aiming and a map stripped
+                        away, next I checked the rates of the mouse polling, movement, and process function, all are
+                        being clocked at 60Hz, I also checked to see if data was being trucated across the network,
+                        which didn't seem to be the issue.
+                    </li>
+                    <li>
+                        My conclusion is that this choppiness is chalked up to the latency introduced by the network,
+                        this will be eventually remedied by using client side interpolation.
+                    </li>
                 </ul>
             </ul>
         </ul>
