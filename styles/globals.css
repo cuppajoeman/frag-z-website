@@ -2,8 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
+@font-face {
+  font-family: 'Windows-Regular';
+  src: url('../public/fonts/leviwindows/Windows\ Regular.ttf');
+}
 
+@font-face {
+  font-family: 'Arashnaz';
+  src: url('../public/fonts/arashnazblurb-cufonfonts/ARashNazBlurb.ttf');
+}
+
+@layer base {
+  :root {
+    background: #239867;
+  }
 }
 
 @layer utilities {
@@ -11,5 +23,32 @@
 }
 
 @layer components {
-  
+  .aid {
+    @apply
+    border border-red-500
+  }
+
+  .sizeTest {
+    @apply
+    sm:bg-green-400 md:bg-red-400 lg:bg-purple-400 xl:bg-amber-400
+  }
+
+  .root{
+    @apply
+    w-full h-screen
+  }
+
+  .page-container{
+    @apply
+    flex flex-col w-full h-full min-h-screen mx-auto items-center justify-center md:w-5/6 lg:w-4/6 max-w-[1220px]
+  }
+
+  .navbar {
+    @apply
+    bg-[#C5C5C5] w-full h-[45px] fixed bottom-0 overflow-x-scroll overflow-y-hidden py-1 z-10
+  }
+  .navbar-inner {
+    @apply
+    w-full h-full bg-[#BABABA] py-1 px-2 flex flex-row items-center justify-start
+  }
 }
