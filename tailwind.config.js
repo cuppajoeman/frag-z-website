@@ -9,7 +9,12 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'windows' : ['Windows-Regular','sans-serif'],
+        'arash' : ['Arashnaz','sans-serif'],
+      }
+    },
   },
   plugins: [],
 }
