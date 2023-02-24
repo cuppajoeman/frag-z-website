@@ -1,7 +1,9 @@
 import Head from 'next/head'
-import { StaticImageData } from 'next/image'
+import Image, { StaticImageData } from 'next/image'
 import React from 'react'
 import Navbar from './Navbar'
+import fragz from '../public/appIcons/fragz.png'
+import { useRouter } from 'next/router'
 
 interface AppProps {
     img: StaticImageData,
@@ -19,7 +21,34 @@ const appData = [
 ]
 
 const Layout = ( {children}:LayoutProps ) => {
+  const router = useRouter()
 
+  const Minimize = () => {
+
+    return (
+        <span className='tab-button'>
+            <span className='w-5/6 h-0 border absolute bottom-1 mx-auto border-black'/>
+        </span>
+    )
+  }
+
+  const Maximize = () => {
+
+    return (
+        <span className='tab-button'>
+            <span className='w-5/6 h-5/6 border border-black border-t-4'/>
+        </span>
+    )
+  }
+
+  const Close = () => {
+
+    return (
+        <span className='tab-button'>
+            <span className='text-lg font-semibold mr-[2px]'>X</span>
+        </span>
+    )
+  }
 
   return (
     <>  
@@ -30,17 +59,35 @@ const Layout = ( {children}:LayoutProps ) => {
             <link rel="icon" href="/favicon.ico" />
         </Head>
         {/* Root */}
-        <div className="border">
-            {/* App Row */}
-            <div className="border h-fit w-42 absolute top-3 left-3">
+        <div className="root">
+            {/* App Row - Lowest*/}
+            <div className="border md:h-96 md:w-42 absolute top-3 left-3 -z-10">
 
             </div>
-            {/* Page container */}
-            <div className="border">
+            {/* Page container - Highest*/}
+            <div className="border page-container">
+                {/* Top tab */}
+                <div className='w-full min-h-fit bg-[#C5C5C5] pt-[2px] pb-1'>
+                    <div className="page-container-tab">
+                        {/* Window info */}
+                        <div className="w-1/2 h-full flex flex-row items-center justify-start">
+                            <Image className='h-7 w-7 mx-2' src={fragz} alt='logo'/>
+                            <h1 className="font-windows text-white"> FRAG-Z &#8226; {(router.route ==='/') ? 'HOME' : router.route.toUpperCase()}</h1>
+                        </div>
+                        {/* Tab button group */}
+                        <div className="w-1/2 h-full flex flex-row items-center justify-end">
+                            <Minimize/>
+                            <Maximize/>
+                            <Close/>
+                        </div>
+                    </div>
+                </div>
                 {/* Page/Children */}
-                {children}
+                <div className='h-full border border-black border-l-2 border-t-2 border-b-slate-200 w-full'>
+                    {children}
+                </div>
             </div>
-            {/* Navbar */}
+            {/* Navbar - Middle*/}
             <Navbar/>
         </div>
     </>
