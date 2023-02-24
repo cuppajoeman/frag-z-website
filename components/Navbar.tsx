@@ -30,11 +30,10 @@ const tabdata: TabProps[] = [
 const Navbar = () => {
 
   const Tab = ( { img, title }: TabProps ) => {
-
     return (
-        <span className='flex flex-row items-center w-fit px-1 py-4 h-full mr-auto border-2 border-b-black border-r-black overflow-hidden '>
-            <Image className='w-6 h-6 mr-1' src={img} alt='img'/>
-            <h1 className='font-windows font-bold'>{title}</h1>
+        <span className='flex flex-row items-center min-w-fit px-1 py-4 h-full mr-3 border-2 border-b-black border-r-black overflow-hidden '>
+            <Image className='w-6 h-6 mr-' src={img} alt='img'/>
+            <h1 className='font-windows font-bold mx-1'>{title}</h1>
         </span>
     )
   }
