@@ -3,6 +3,9 @@ import Image, { StaticImageData } from 'next/image'
 import React from 'react'
 import Navbar from './Navbar'
 import fragz from '../public/appIcons/fragz.png'
+import computer from '../public/appIcons/computer.png'
+import folder from '../public/appIcons/folder.png'
+import bin from '../public/appIcons/bin.png'
 import { useRouter } from 'next/router'
 
 interface AppProps {
@@ -16,8 +19,21 @@ interface LayoutProps {
 
 const appData = [
     {
-
-    }
+        img: computer,
+        title: 'Computer'
+    },
+    {
+        img: folder,
+        title: 'User Files'
+    },
+    {
+        img: fragz,
+        title: 'FRAG-Z'
+    },
+    {
+        img: bin,
+        title: 'Recycle Bin'
+    },
 ]
 
 const Layout = ( {children}:LayoutProps ) => {
@@ -50,6 +66,17 @@ const Layout = ( {children}:LayoutProps ) => {
     )
   }
 
+  const App = ( { img, title }: AppProps ) => {
+    return (
+        <div className='flex flex-col my-3'>
+            <span className="w-16 h-16 overflow-hidden mb-2">
+                <Image className='object-fill' src={img} alt='img'/>
+            </span>
+            <h1 className='font-windows text-white text-center'>{title}</h1>
+        </div>
+    )
+  }
+
   return (
     <>  
         <Head>
@@ -59,13 +86,17 @@ const Layout = ( {children}:LayoutProps ) => {
             <link rel="icon" href="/favicon.ico" />
         </Head>
         {/* Root */}
-        <div className="root">
+        <div className="root border">
             {/* App Row - Lowest*/}
-            <div className="border md:h-96 md:w-42 absolute top-3 left-3 -z-10">
-
+            <div className="flex flex-col items-center h-fit w-42 absolute top-3 left-3 -z-10">
+            {
+                appData.map((val,i) => (
+                    <App key={i} img={val.img} title={val.title} />
+                ))
+            }
             </div>
             {/* Page container - Highest*/}
-            <div className="border page-container">
+            <div className="border lg:border-4 page-container">
                 {/* Top tab */}
                 <div className='w-full min-h-fit bg-[#C5C5C5] pt-[2px] pb-1'>
                     <div className="page-container-tab">
