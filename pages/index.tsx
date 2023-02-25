@@ -1,6 +1,11 @@
 import Head from 'next/head'
+import Image, { StaticImageData } from 'next/image'
+import React from 'react'
+import logo from '../public/appIcons/fragz-logo.png'
 
 export default function Home() {
+  const [toggle,setToggle] = React.useState(false)
+
   return (
     <>
       <Head>
@@ -9,8 +14,16 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="">
-        <h1>Test</h1>
+      <main className="h-full flex flex-col items-center justify-center">
+        {/* Main screen */}
+        <div className="flex flex-col items-center">
+          {/* logo */}
+          <div className="my-14">
+            <Image src={logo} alt='logo'/>
+          </div>
+          {/* Enter */}
+          <h1 className="font-arash text-white text-6xl hover:scale-110 tracking-wide">ENTER</h1>
+        </div>
       </main>
     </>
   )
