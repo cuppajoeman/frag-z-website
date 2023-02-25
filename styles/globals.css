@@ -40,7 +40,7 @@
 
   .page-container{
     @apply
-    flex flex-col w-full h-[94%] xl:h-[90%] xl:my-4 mx-auto items-center justify-start max-w-[1220px] border-2 border-[#C5C5C5] bg-black
+    flex flex-col w-full h-[94%] xl:my-4 mx-auto items-center justify-start max-w-[1220px] border-2 border-[#C5C5C5] sizeTest
   }
 
   .page-container-tab{
@@ -55,7 +55,7 @@
 
   .navbar {
     @apply
-    bg-[#C5C5C5] w-full h-[6%] min-h-fit bottom-0 overflow-x-scroll overflow-y-hidden py-1 z-10
+    bg-[#C5C5C5] w-full h-12 min-h-fit fixed bottom-0 overflow-x-scroll overflow-y-hidden py-1 z-10
   }
   .navbar-inner {
     @apply

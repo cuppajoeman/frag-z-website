@@ -88,7 +88,7 @@ const Layout = ( {children}:LayoutProps ) => {
         {/* Root */}
         <div className="root border">
             {/* App Row - Lowest*/}
-            <div className="flex flex-col items-center h-fit w-42 absolute top-3 left-3 -z-10">
+            <div className="flex flex-col items-center h-0 overflow-hidden md:h-fit w-0 md:w-42 absolute top-3 left-3 -z-10">
             {
                 appData.map((val,i) => (
                     <App key={i} img={val.img} title={val.title} />
