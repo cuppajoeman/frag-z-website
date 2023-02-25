@@ -13,6 +13,9 @@ module.exports = {
       fontFamily: {
         'windows' : ['Windows-Regular','sans-serif'],
         'arash' : ['Arashnaz','sans-serif'],
+      },
+      backgroundImage: {
+        'wall' : "url('/textures/wall.jpg')"
       }
     },
   },
