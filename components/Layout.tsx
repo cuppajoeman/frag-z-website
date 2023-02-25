@@ -86,9 +86,9 @@ const Layout = ( {children}:LayoutProps ) => {
             <link rel="icon" href="/favicon.ico" />
         </Head>
         {/* Root */}
-        <div className="root border">
+        <div className="root">
             {/* App Row - Lowest*/}
-            <div className="flex flex-col items-center h-0 overflow-hidden md:h-fit w-0 md:w-42 absolute top-3 left-3 -z-10">
+            <div className="flex flex-col items-center h-0 overflow-hidden md:h-fit md:w-42 absolute top-3 left-3 -z-10">
             {
                 appData.map((val,i) => (
                     <App key={i} img={val.img} title={val.title} />
@@ -114,7 +114,7 @@ const Layout = ( {children}:LayoutProps ) => {
                     </div>
                 </div>
                 {/* Page/Children */}
-                <div className='h-full border border-black border-l-2 border-t-2 border-b-slate-200 w-full'>
+                <div className='h-full border border-black border-l-2 border-t-2 border-b-slate-200 w-full overflow-y-scroll no-scrollbar'>
                     {children}
                 </div>
             </div>
