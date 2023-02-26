@@ -86,9 +86,9 @@ const Layout = ( {children}:LayoutProps ) => {
             <link rel="icon" href="/favicon.ico" />
         </Head>
         {/* Root */}
-        <div className="root">
+        <div className="root border">
             {/* App Row - Lowest*/}
-            <div className="flex flex-col items-center h-0 overflow-hidden md:h-fit md:w-42 absolute top-3 left-3 -z-10">
+            <div className="flex flex-col items-center h-0 overflow-hidden lg:h-fit lg:w-42 absolute top-3 left-3 -z-10">
             {
                 appData.map((val,i) => (
                     <App key={i} img={val.img} title={val.title} />
@@ -101,9 +101,9 @@ const Layout = ( {children}:LayoutProps ) => {
                 <div className='w-full min-h-fit bg-[#C5C5C5] pt-[2px] pb-1'>
                     <div className="page-container-tab">
                         {/* Window info */}
-                        <div className="w-1/2 h-full flex flex-row items-center justify-start">
+                        <div className="w-full h-full flex flex-row items-center justify-start">
                             <Image className='h-7 w-7 mx-2' src={fragz} alt='logo'/>
-                            <h1 className="font-windows text-white"> FRAG-Z &#8226; {(router.route ==='/') ? 'HOME' : router.route.toUpperCase()}</h1>
+                            <h1 className="font-windows text-white"> FRAG-Z &#8226; {(router.route ==='/') ? 'HOME' : router.route.toUpperCase().replace(/[^0-9a-z]/gi, '')}</h1>
                         </div>
                         {/* Tab button group */}
                         <div className="w-1/2 h-full flex flex-row items-center justify-end">
