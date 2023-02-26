@@ -2,9 +2,11 @@ import Head from 'next/head'
 import Image, { StaticImageData } from 'next/image'
 import React from 'react'
 import logo from '../public/appIcons/fragz-logo.png'
+import { useCookies } from "react-cookie"
+
 
 export default function Home() {
-  const [toggle,setToggle] = React.useState(false)
+  const [toggle, setToggle] = React.useState(false)
 
   return (
     <>
@@ -15,15 +17,39 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="h-full flex flex-col items-center justify-center">
-        {/* Main screen */}
-        <div className="flex flex-col items-center">
-          {/* logo */}
-          <div className="my-14">
-            <Image src={logo} alt='logo'/>
-          </div>
-          {/* Enter */}
-          <h1 className="font-arash text-white text-6xl hover:scale-110 tracking-wide">ENTER</h1>
-        </div>
+        {
+          (!toggle) ?
+          // Splash screen
+            <div className="flex flex-col items-center">
+              {/* logo */}
+              <div className="">
+                <Image src={logo} alt='logo' />
+              </div>
+              <h1 onClick={(e) => { setToggle(true) }} className="font-arash text-white text-6xl hover:scale-110 tracking-wide cursor-pointer">ENTER</h1>
+            </div>
+            :
+            // Page Content
+            <div className="overflow-y-scroll no-scrollbar flex flex-col items-center h-full w-full p-5 text-white">
+              {/* logo */}
+              <div className=" w-full">
+                <Image src={logo} alt='logo' />
+              </div>
+              {/* Text */}
+              <div className="w-full h-fit md:w-4/5">
+                {/* TG-1 */}
+                <h1 className="font-arash font-bold text-3xl">The Art Of Hitting Clips</h1>
+                <p className="font-sans">y&apos;know when you&apos;re in that lobby - strafing around at mach 10 trying to hit the sickest shots possible while you make yourself and others dizzy? it&apos;s the best. games that allow you to move around like this are a dying craft. the best breakneck shooters are on their way out. servers are few and far between, filled with cheaters or a couple washed pros who are too fucking good. we&apos;re trying to bring this kind of gameplay back with frag-z. </p>
+                {/* TG-2 */}
+                <h1 className="font-arash font-bold text-3xl mt-10">Principles</h1>
+                <p className="font-sans">at its core, frag-z is a multiplayer shooter with a focus on movement and fluidity. graphics will be minimal (sorta pixelated/bitcrushed) with performance in mind. we&apos;re thinking of a super high speed cap so that players can go mad with classic techniques like strafing, c-jumps, and edge bugs. there will be a bunch of weapons for players to use, each one with a distinct playstyle. the gist is to reward the kind of gameplay you&apos;d see in a 2009 nitecore frag movie.</p>
+                {/* Weapons Section */}
+
+                {/* TG-3 */}
+                <h1 className="font-arash font-bold text-3xl mt-10">Most Points Win</h1>
+                <p className="font-sans">for now we&apos;re working on a Most Points Win (MPW) sort of thing. in this mode, players have infinite ammo and can use any weapon. kills will award points on the basis of the weapon used and how nice the shot was (we&apos;re trying for a clear system here - join the discord to suggest what sorts of shots should be rewarded most). the matches will last for 10 minutes and the player/team with the most points wins.  </p>
+              </div>
+            </div>
+        }
       </main>
     </>
   )
