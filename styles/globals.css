@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Windows-Regular';
+  src: url('../public/fonts/leviwindows/Windows\ Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Arashnaz';
+  src: url('../public/fonts/arashnazblurb-cufonfonts/ARashNazBlurb.ttf');
+}
+
+@layer base {
+  :root {
+    background: #239867;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+}
+
+@layer components {
+  .aid {
+    @apply
+    border border-red-500
+  }
+
+  .sizeTest {
+    @apply
+    sm:bg-green-400 md:bg-red-400 lg:bg-purple-400 xl:bg-amber-400
+  }
+
+/* Root needs a border for some reason to prevent scrolling */
+  .root{
+    @apply
+    w-full h-screen max-h-screen border border-transparent
+  }
+
+  .page-container{
+    @apply
+    flex flex-col w-full h-[94.9%] lg:h-[95.7%] xl:h-[93%] xl:my-4 mx-auto items-center justify-start max-w-[1220px] border-2 border-[#C5C5C5] bg-wall bg-no-repeat bg-cover bg-center overflow-y-scroll no-scrollbar
+  }
+
+  .page-container-tab{
+    @apply
+    w-full h-10 bg-gradient-to-r from-[#020C67] to-[#3372BC] flex flex-row items-center justify-end
+  }
+
+  .tab-button {
+    @apply
+    h-7 w-7 border mr-1 border-b-black border-r-black bg-[#C5C5C5] relative flex justify-center items-center
+  }
+
+  .navbar {
+    @apply
+    bg-[#C5C5C5] w-full h-[5%] max-h-20 min-h-[40px] fixed bottom-0 overflow-x-scroll overflow-y-hidden py-1 z-10 flex items-center no-scrollbar
+  }
+  .navbar-inner {
+    @apply
+    w-full h-full bg-[#BABABA] py-1 px-2 flex flex-row items-center justify-start max-h-20
+  }
+}
