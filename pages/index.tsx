@@ -6,7 +6,27 @@ import { useCookies } from "react-cookie"
 
 
 export default function Home() {
-  const [toggle, setToggle] = React.useState(false)
+  const [toggle, setToggle]  = React.useState(false);
+  const [cookies,setCookies] = useCookies();
+
+  // Used for splash page
+  // On the first load add cookies
+  // cookies last 10min
+  React.useEffect(() => {
+    if (!cookies.toggle) {
+      setCookies(
+        'toggle',
+        'true',
+        {
+          maxAge: 60 * 10
+        }
+      )
+      setToggle(true)
+      // 
+      
+    }
+  },[])
+
 
   return (
     <>
@@ -18,7 +38,7 @@ export default function Home() {
       </Head>
       <main className="h-full flex flex-col items-center justify-center">
         {
-          (!toggle) ?
+          (!cookies) ?
           // Splash screen
             <div className="flex flex-col items-center">
               {/* logo */}
