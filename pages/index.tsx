@@ -38,14 +38,14 @@ export default function Home() {
       </Head>
       <main className="h-full flex flex-col items-center justify-center">
         {
-          (!cookies) ?
+          (toggle) ?
             // Splash screen
             <div className="flex flex-col items-center">
               {/* logo */}
               <div className="">
                 <Image src={logo} alt='logo' />
               </div>
-              <h1 onClick={(e) => { setToggle(true) }} className="font-arash text-white text-6xl hover:scale-110 tracking-wide cursor-pointer">ENTER</h1>
+              <h1 onClick={(e) => { setToggle(false) }} className="font-arash text-white text-6xl hover:scale-110 tracking-wide cursor-pointer">ENTER</h1>
             </div>
             :
             // Page Content
