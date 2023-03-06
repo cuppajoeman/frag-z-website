@@ -6,8 +6,8 @@ import { useCookies } from "react-cookie"
 
 
 export default function Home() {
-  const [toggle, setToggle]  = React.useState(false);
-  const [cookies,setCookies] = useCookies();
+  const [toggle, setToggle] = React.useState(false);
+  const [cookies, setCookies] = useCookies();
 
   // Used for splash page
   // On the first load add cookies
@@ -23,9 +23,9 @@ export default function Home() {
       )
       setToggle(true)
       // 
-      
+
     }
-  },[])
+  }, [])
 
 
   return (
@@ -39,7 +39,7 @@ export default function Home() {
       <main className="h-full flex flex-col items-center justify-center">
         {
           (!cookies) ?
-          // Splash screen
+            // Splash screen
             <div className="flex flex-col items-center">
               {/* logo */}
               <div className="">
@@ -49,24 +49,82 @@ export default function Home() {
             </div>
             :
             // Page Content
-            <div className="overflow-y-scroll no-scrollbar flex flex-col items-center h-full w-full p-5 text-white">
+            <div className="overflow-y-scroll no-scrollbar flex flex-col items-center h-full w-full p-5 text-white relative">
               {/* logo */}
-              <div className=" w-full">
-                <Image src={logo} alt='logo' />
+              <div className="w-full z-10">
+                <Image className='h-10 w-24' src={logo} alt='logo' />
               </div>
+              {/* Video */}
+              <div className="flex flex-col items-center justify-center w-full h-80 absolute top-0 z-0">
+                <video loop autoPlay playsInline muted className='h-full object-fill' src="https://d21vt9tthjew1s.cloudfront.net/fragzGP0.mp4" poster='images/thumbnails/fragzGPOThumbnail.jpg' />
+              </div>
+
+              {/* Info group */}
+              <div className="mt-[270px] w-full min-h-fit">
+
+                {/* TG-1 */}
+                <div className="flex flex-col w-full">
+                  {/* Text */}
+                  <div className="w-full h-fit my-5">
+                    <h1 className="font-arash font-bold text-3xl">The Art Of Hitting Clips</h1>
+                    <p className="font-sans">
+                      y&apos;know when you&apos;re in that lobby - strafing around at mach 10 trying to hit the sickest shots possible while you make yourself and others dizzy? it&apos;s the best. games that allow you to move around like this are a dying craft. the best breakneck shooters are on their way out. servers are few and far between, filled with cheaters or a couple washed pros who are too fucking good. we&apos;re trying to bring this kind of gameplay back with frag-z.
+                    </p>
+                  </div>
+                  {/* Video */}
+                  <div className="w-full h-60 my-5">
+                    <video loop autoPlay playsInline muted className='h-full object-fill' src="https://d21vt9tthjew1s.cloudfront.net/clip0.mp4" poster='images/thumbnails/fragzGPOThumbnail.jpg' />
+                  </div>
+                </div>
+
+                {/* TG-2 */}
+                <div className="flex flex-col w-full">
+                  {/* Text */}
+                  <div className="w-full h-fit my-5">
+                    <h1 className="font-arash font-bold text-3xl mt-10">Principles</h1>
+                    <p className="font-sans">
+                      at its core, frag-z is a multiplayer shooter with a focus on movement and fluidity. graphics will be minimal (sorta pixelated/bitcrushed) with performance in mind. we&apos;re thinking of a super high speed cap so that players can go mad with classic techniques like strafing, c-jumps, and edge bugs. there will be a bunch of weapons for players to use, each one with a distinct playstyle. the gist is to reward the kind of gameplay you&apos;d see in a 2009 nitecore frag movie.
+                    </p>
+                  </div>
+                  {/* Video */}
+                  <div className="w-full h-60 my-5">
+                    <video loop autoPlay playsInline muted className='h-full object-fill' src="https://d21vt9tthjew1s.cloudfront.net/clip1.mp4" poster='images/thumbnails/fragzGPOThumbnail.jpg' />
+                  </div>
+                </div>
+                {/* Weapons Section */}
+
+
+                {/* TG-3 */}
+                <div className="flex flex-col w-full">
+                  {/* Text */}
+                  <div className="w-full h-fit my-5">
+                    <h1 className="font-arash font-bold text-3xl mt-10">Most Points Win</h1>
+                    <p className="font-sans">
+                      for now we&apos;re working on a Most Points Win (MPW) sort of thing. in this mode, players have infinite ammo and can use any weapon. kills will award points on the basis of the weapon used and how nice the shot was (we&apos;re trying for a clear system here - join the discord to suggest what sorts of shots should be rewarded most). the matches will last for 10 minutes and the player/team with the most points wins.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               {/* Text */}
               <div className="w-full h-fit md:w-4/5">
                 {/* TG-1 */}
-                <h1 className="font-arash font-bold text-3xl">The Art Of Hitting Clips</h1>
-                <p className="font-sans">y&apos;know when you&apos;re in that lobby - strafing around at mach 10 trying to hit the sickest shots possible while you make yourself and others dizzy? it&apos;s the best. games that allow you to move around like this are a dying craft. the best breakneck shooters are on their way out. servers are few and far between, filled with cheaters or a couple washed pros who are too fucking good. we&apos;re trying to bring this kind of gameplay back with frag-z. </p>
+                {/* <h1 className="font-arash font-bold text-3xl">The Art Of Hitting Clips</h1>
+                <p className="font-sans">
+                  y&apos;know when you&apos;re in that lobby - strafing around at mach 10 trying to hit the sickest shots possible while you make yourself and others dizzy? it&apos;s the best. games that allow you to move around like this are a dying craft. the best breakneck shooters are on their way out. servers are few and far between, filled with cheaters or a couple washed pros who are too fucking good. we&apos;re trying to bring this kind of gameplay back with frag-z. 
+                </p> */}
                 {/* TG-2 */}
-                <h1 className="font-arash font-bold text-3xl mt-10">Principles</h1>
-                <p className="font-sans">at its core, frag-z is a multiplayer shooter with a focus on movement and fluidity. graphics will be minimal (sorta pixelated/bitcrushed) with performance in mind. we&apos;re thinking of a super high speed cap so that players can go mad with classic techniques like strafing, c-jumps, and edge bugs. there will be a bunch of weapons for players to use, each one with a distinct playstyle. the gist is to reward the kind of gameplay you&apos;d see in a 2009 nitecore frag movie.</p>
+                {/* <h1 className="font-arash font-bold text-3xl mt-10">Principles</h1>
+                <p className="font-sans">
+                  at its core, frag-z is a multiplayer shooter with a focus on movement and fluidity. graphics will be minimal (sorta pixelated/bitcrushed) with performance in mind. we&apos;re thinking of a super high speed cap so that players can go mad with classic techniques like strafing, c-jumps, and edge bugs. there will be a bunch of weapons for players to use, each one with a distinct playstyle. the gist is to reward the kind of gameplay you&apos;d see in a 2009 nitecore frag movie.
+                </p> */}
                 {/* Weapons Section */}
 
                 {/* TG-3 */}
-                <h1 className="font-arash font-bold text-3xl mt-10">Most Points Win</h1>
-                <p className="font-sans">for now we&apos;re working on a Most Points Win (MPW) sort of thing. in this mode, players have infinite ammo and can use any weapon. kills will award points on the basis of the weapon used and how nice the shot was (we&apos;re trying for a clear system here - join the discord to suggest what sorts of shots should be rewarded most). the matches will last for 10 minutes and the player/team with the most points wins.  </p>
+                {/* <h1 className="font-arash font-bold text-3xl mt-10">Most Points Win</h1>
+                <p className="font-sans">
+                  for now we&apos;re working on a Most Points Win (MPW) sort of thing. in this mode, players have infinite ammo and can use any weapon. kills will award points on the basis of the weapon used and how nice the shot was (we&apos;re trying for a clear system here - join the discord to suggest what sorts of shots should be rewarded most). the matches will last for 10 minutes and the player/team with the most points wins.  
+                </p> */}
               </div>
             </div>
         }
