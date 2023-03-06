@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image, { StaticImageData } from 'next/image'
 import React from 'react'
 import logo from '../public/appIcons/fragz-logo.png'
+import caution from '../public/images/caution.png'
 
 export default function Store() {
   const [toggle,setToggle] = React.useState(false)
@@ -15,7 +16,7 @@ export default function Store() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="h-full flex flex-col items-center justify-center">
-        store
+        <Image src={caution} alt='caution'/>
       </main>
     </>
   )

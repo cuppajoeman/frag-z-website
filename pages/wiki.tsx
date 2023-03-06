@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import React from 'react'
-
+import Image, { StaticImageData } from 'next/image'
+import caution from '../public/images/caution.png'
 
 export default function Home() {
   const [toggle,setToggle] = React.useState(false)
@@ -14,7 +15,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="h-full flex flex-col items-center justify-center">
-        wiki
+        <Image src={caution} alt='caution'/>
       </main>
     </>
   )
