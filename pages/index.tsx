@@ -106,6 +106,23 @@ export default function Home() {
                     </p>
                   </div>
                 </div>
+
+                {/* TG-4 */}
+                <div className="flex flex-col md:flex-row w-full md:items-center md:justify-center">
+                  {/* Text */}
+                  <div className="w-full md:w-3/4 h-fit my-5 mx-auto">
+                    <h1 className="font-arash font-bold text-3xl mt-10">Support Us</h1>
+                    <p className="font-sans">
+                      right now everyone working on frag-z is doing it for the fun of the game, supporting us will cover costs associated with the game and eventually be able to hire on our contributors full-time.
+                    </p>
+                    <ul>
+                      <li><a href="https://patreon.com/user?u=89056897">patreon</a></li>
+                      <li><a href="https://www.youtube.com/channel/UC85fkO9QnMYru6a2ZKPPK3g">youtube</a></li>
+                      <li><a href="https://www.instagram.com/frag.z.game/">instagram</a></li>
+                    </ul>
+                  </div>
+                </div>
+
               </div>
 
               {/* Text */}
