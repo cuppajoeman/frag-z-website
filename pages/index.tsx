@@ -115,7 +115,7 @@ export default function Home() {
                     <p className="font-sans">
                       right now everyone working on frag-z is doing it for the fun of the game, supporting us will cover costs associated with the game and eventually be able to hire on our contributors full-time.
                     </p>
-                    <ul>
+                    <ul className="list-disc list-inside font-bold text-red-400">
                       <li><a href="https://patreon.com/user?u=89056897">patreon</a></li>
                       <li><a href="https://www.youtube.com/channel/UC85fkO9QnMYru6a2ZKPPK3g">youtube</a></li>
                       <li><a href="https://www.instagram.com/frag.z.game/">instagram</a></li>
