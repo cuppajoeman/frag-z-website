@@ -84,7 +84,7 @@ export default function Home() {
                   <div className="w-full h-fit my-5 md:my-0 md:p-5">
                     <h1 className="font-arash font-bold text-3xl mt-10 md:mt-0">Principles</h1>
                     <p className="font-sans">
-                      at its core, frag-z is a multiplayer shooter with a focus on movement and fluidity. graphics will be minimal/low poly with performance in mind supporting windows, linux and mac. players can go mad with classic techniques with quake style strafing, c-jumps, and edge bugs. there will be a handful of classic weapons for players to use, each one targeting an aim style. The gist is to reward the kind of gameplay you&apos;d see in a 90&apos;s frag movie.
+                      at its core, frag-z is a multiplayer shooter with a focus on movement and fluidity. graphics will be minimal/low poly with performance in mind supporting windows, linux and mac. players can go mad with quake style strafing and speed around the map. There will be a handful of classic weapons for players to use, each one targeting an aim style. The gist is to reward the kind of gameplay you&apos;d see in a 90&apos;s frag movie.
                     </p>
                   </div>
                   {/* Video */}
@@ -96,14 +96,34 @@ export default function Home() {
 
 
                 {/* TG-3 */}
-                <div className="flex flex-col md:flex-row w-full md:items-center md:justify-center">
+                <div className="flex flex-col md:flex-row w-full md:items-center md:justify-center ">
                   {/* Text */}
-                  <div className="w-full md:w-3/4 h-fit my-5 mx-auto">
-                    <h1 className="font-arash font-bold text-3xl mt-10">Skill Death Match</h1>
+                  <div className="w-full md:w-3/4 h-fit my-5 mx-auto rounded-lg bg-slate-800/[.7] p-8">
+                    <h1 className="font-arash font-bold text-3xl ">Skill Death Match</h1>
                     <p className="font-sans">
-                      the main gamemode is a classic death match where players roam around with infinte ammo and any weapon. when players hit high skilled shots, they do more damage forcing you to go for intense plays or die. Games will last 10 mins and of course, most frags win.
-                      {/* for now we&apos;re working on a Most Points Win (MPW) sort of thing. in this mode, players have infinite ammo and can use any weapon. kills will award points on the basis of the weapon used and how nice the shot was (we&apos;re trying for a clear system here - join the discord to suggest what sorts of shots should be rewarded most). the matches will last for 10 minutes and the player/team with the most points wins. */}
+                      The main gamemode will a classic death match with a twist. Players roam around with infinte ammo and any weapon. When players hit high skilled events they&apos;re awarded more points. Games will last 10 mins and the player with the most points by the end wins forcing them to go for intense plays to win the game
                     </p>
+                    <details>
+                      <summary>rewarded skills</summary>
+                      <ul className="list-disc list-inside font-bold text-red-400">
+                        <li>backstab - you sneak up on an enemy and then hit them with meele in the back</li>
+                        <li>air shot - projectile or sniper hits enemy while they&apos;re mid-air [above a certain height]</li>
+                        <li>meat shot - you hit a shotgun blast point blank on someone</li>
+                        <li>jump shot - you are scoped in on a sniper, jump above cover and hit a shot</li>
+                        <li>drop shot - you are scoped in on a sniper, fall off an object and hit a shot</li>
+                        <li>360 shot - you whip around a 360 and scope in and hit someone</li>
+                        <li>skeet shot - knock someone up with a projectile and snipe them out of the air</li>
+                        <li>kill streak - gain more points by being on a higher killstreak</li>
+                        <li>high speed - you frag someone while moving over a certain speed</li>
+                        <li>speed ticket - points earned are proportional to time spent over speed limit</li>
+                        <li>pinning - gun pinning you hold someone up in the air with the lightning gun</li>
+                        <li>mid air - kill both players are in the air and kill eachother</li>
+                        <li>delayed - fire a projectile and it kills someone after a few seconds of travel time</li>
+                        <li>from the grave - you kill a player after you are dead</li>
+                        <li>untouchable - you kill someone while they don&apos;t get any damage on you</li>
+                        <li>team wipe - all enemies are currently dead due to you</li>
+                      </ul>
+                    </details>
                   </div>
                 </div>
 

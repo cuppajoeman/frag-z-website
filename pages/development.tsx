@@ -15,7 +15,53 @@ export default function Development() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="h-full flex flex-col items-center justify-center">
-        dev
+        <div className="overflow-y-scroll no-scrollbar flex flex-col items-center h-full w-full p-5 text-white relative">
+          {/* logo */}
+          <div className="w-full z-10">
+            <Image className='h-10 w-24' src={logo} alt='logo' />
+          </div>
+
+          {/* Info group */}
+          <div className="mt-[270px] lg:mt-[400px] w-full min-h-fit">
+
+            {/* TG-1 */}
+            <div className="flex flex-col md:flex-row w-full md:items-center md:justify-center">
+              {/* Text */}
+              <div className="w-full h-fit my-5 md:p-5">
+                <h1 className="font-arash font-bold text-3xl">Current State</h1>
+                <p className="font-sans">
+                  As it stands, frag-z is a fully playable first person shooter, we have the following
+                </p>
+                <ul className="list-disc list-inside text-red-400">
+                  <li>multiplayer using basic networking</li>
+                  <li>a rudimentary death match game mode</li>
+                  <li>skill based movement (quake 3 style) with precise air-control</li>
+                  <li>a single deathmatch map <code>dm_checkerboard</code></li>
+                  <li>rockets, shotgun, railgun, lightning gun</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* TG-2 */}
+            <div className="flex flex-col md:flex-row w-full md:items-center md:justify-center">
+              {/* Text */}
+              <div className="w-full h-fit my-5 md:p-5">
+                <h1 className="font-arash font-bold text-3xl">Coming Up</h1>
+                <p className="font-sans">
+                  A few things are missing which would improve the game considerably, these are what we're currently working on:
+                </p>
+                <ul className="list-disc list-inside text-red-400">
+                  <li>lag compensation techniques, to improve smoothness in-game</li>
+                  <li>team based game modes</li>
+                  <li>skill death match</li>
+                  <li>more maps</li>
+                </ul>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
       </main>
     </>
   )
