@@ -48,7 +48,7 @@ export default function Development() {
               <div className="w-full h-fit my-5 md:p-5">
                 <h1 className="font-arash font-bold text-3xl">Coming Up</h1>
                 <p className="font-sans">
-                  A few things are missing which would improve the game considerably, these are what we're currently working on:
+                  A few things are missing which would improve the game considerably, these are what we&apos;re currently working on:
                 </p>
                 <ul className="list-disc list-inside text-red-400">
                   <li>lag compensation techniques, to improve smoothness in-game</li>
