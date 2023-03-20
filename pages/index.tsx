@@ -68,7 +68,7 @@ export default function Home() {
                   <div className="w-full h-fit my-5 md:p-5">
                     <h1 className="font-arash font-bold text-3xl">The Art Of Hitting Clips</h1>
                     <p className="font-sans">
-                      you know those moments when you're flying around a map, in a flow state fragging everyone who comes in your path? It's the best. Games that give the player this freedom are dying out, nowadays most games have bullshit abilities, slow movement and footage that the average person can't appreciate. For the ones that are still around, servers are far and few between, are no longer under active development or have bots/cheaters. We're going to bring back the OG gameplay with frag-z.
+                      you know those moments when you&apos;re flying around a map, in a flow state fragging everyone who comes in your path? It&apos;s the best. Games that give the player this freedom are dying out, nowadays most games have bullshit abilities, slow movement and footage that the average person can&apos;t appreciate. For the ones that are still around, servers are far and few between, are no longer under active development or have bots/cheaters. We&apos;re going to bring back the OG gameplay with frag-z.
                       {/* y&apos;know when you&apos;re in that lobby - strafing around at mach 10 trying to hit the sickest shots possible while you make yourself and others dizzy? it&apos;s the best. games that allow you to move around like this are a dying craft. the best breakneck shooters are on their way out. servers are few and far between, filled with cheaters or a couple washed pros who are too fucking good. we&apos;re trying to bring this kind of gameplay back with frag-z. */}
                     </p>
                   </div>
@@ -84,7 +84,7 @@ export default function Home() {
                   <div className="w-full h-fit my-5 md:my-0 md:p-5">
                     <h1 className="font-arash font-bold text-3xl mt-10 md:mt-0">Principles</h1>
                     <p className="font-sans">
-                      at its core, frag-z is a multiplayer shooter with a focus on movement and fluidity. graphics will be minimal/low poly with performance in mind supporting windows, linux and mac. players can go mad with classic techniques with quake style strafing, c-jumps, and edge bugs. there will be a handful of classic weapons for players to use, each one targeting an aim style. The gist is to reward the kind of gameplay you&apos;d see in a 90's frag movie.
+                      at its core, frag-z is a multiplayer shooter with a focus on movement and fluidity. graphics will be minimal/low poly with performance in mind supporting windows, linux and mac. players can go mad with classic techniques with quake style strafing, c-jumps, and edge bugs. there will be a handful of classic weapons for players to use, each one targeting an aim style. The gist is to reward the kind of gameplay you&apos;d see in a 90&apos;s frag movie.
                     </p>
                   </div>
                   {/* Video */}
@@ -115,7 +115,7 @@ export default function Home() {
                     <p className="font-sans">
                       right now everyone working on frag-z is doing it for the fun of the game, supporting us will cover costs associated with the game and eventually be able to hire on our contributors full-time.
                     </p>
-                    <ul>
+                    <ul className="list-disc list-inside font-bold text-red-400">
                       <li><a href="https://patreon.com/user?u=89056897">patreon</a></li>
                       <li><a href="https://www.youtube.com/channel/UC85fkO9QnMYru6a2ZKPPK3g">youtube</a></li>
                       <li><a href="https://www.instagram.com/frag.z.game/">instagram</a></li>
