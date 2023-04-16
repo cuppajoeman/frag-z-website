@@ -37,6 +37,11 @@
     border border-red-500
   }
 
+  .smoothed {
+    @apply
+    transition-all ease-in-out duration-500
+  }
+
   .sizeTest {
     @apply
     sm:bg-green-400 md:bg-red-400 lg:bg-purple-400 xl:bg-amber-400
