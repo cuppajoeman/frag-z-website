@@ -17,7 +17,7 @@ const VideoPlayer = ( { link } : VideoProps ) => {
                 <video loop autoPlay playsInline muted className='h-full object-fill' src={link} poster='images/thumbnails/clip0Thumbnail.jpg' />
             </div>
             {/* Icon group */}
-            <div className="flex h-8 flex-row items-center justify-evenly text-[#b7b6b6] text-xl">
+            <div className="flex h-8 lg:h-16 flex-row items-center justify-evenly text-[#b7b6b6] text-xl">
                 <BsPlayFill/>
                 <BsPauseFill/>
                 <BsStopFill/>
