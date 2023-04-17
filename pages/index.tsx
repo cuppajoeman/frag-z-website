@@ -158,7 +158,7 @@ export default function Home() {
         {
           (toggle) ?
             // Splash screen
-            <div className="flex flex-col items-center">
+            <div className="w-full flex flex-col items-center">
               {/* logo */}
               <div className="">
                 <Image src={logo} alt='logo' />
