@@ -83,7 +83,7 @@ const SkillDeathMatchInfo = () => (
 )
 
 const SupportInfo = () => (
-  <div className="flex flex-col items-center justify-center w-full">
+  <div className="flex flex-col items-center justify-center w-full md:w-1/3">
     <h1 className="font-bold">Follow Us</h1>
     <div className="flex flex-row w-full justify-evenly items-center my-5">
       <a href='https://patreon.com/user?u=89056897' target='/' className="text-4xl mx-auto">
