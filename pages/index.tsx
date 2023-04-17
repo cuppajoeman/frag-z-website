@@ -13,9 +13,9 @@ interface CardProps {
 }
 
 const SkillDeathMatchInfo = () => (
-  <div className="flex flex-col items-center justify-center">
+  <div className="flex flex-col items-center justify-center w-full md:w-1/3">
     <h1 className="font-bold text-xl">Rewarded Skills</h1>
-    <ul className="w-[95%] h-44 md:w-1/2 md:h-60 md:mt-0 mt-3 text-sm p-3 text-justify border-b-white/90  border-r-white/90  border-l-2 border-t-2 border-b-2 border-t-black border-l-black border-r-2 bg-[#BEBEBE] md:text-lg overflow-y-scroll no-scrollbar">
+    <ul className="h-44 md:h-60 md:mt-0 mt-3 text-sm p-3 text-justify border-b-white/90  border-r-white/90  border-l-2 border-t-2 border-b-2 border-t-black border-l-black border-r-2 bg-[#BEBEBE] md:text-lg overflow-y-scroll no-scrollbar">
       <li className="">
         <span className="font-bold">Backstab </span>
         you sneak up on an enemy and then hit them with meele in the back
