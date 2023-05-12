@@ -3,7 +3,125 @@ import Image, { StaticImageData } from 'next/image'
 import React from 'react'
 import logo from '../public/appIcons/fragz-logo.png'
 import { useCookies } from "react-cookie"
+import { Card, VideoPlayer } from '@/components'
+import { FaYoutube, FaPatreon, FaInstagram } from 'react-icons/fa'
 
+interface CardProps {
+  title: string,
+  video: JSX.Element
+  text: string,
+}
+
+const SkillDeathMatchInfo = () => (
+  <div className="flex flex-col items-center justify-center w-full md:w-1/3">
+    <h1 className="font-bold text-xl">Rewarded Skills</h1>
+    <ul className="h-44 md:h-60 md:mt-0 mt-3 text-sm p-3 text-justify border-b-white/90  border-r-white/90  border-l-2 border-t-2 border-b-2 border-t-black border-l-black border-r-2 bg-[#BEBEBE] md:text-lg overflow-y-scroll no-scrollbar">
+      <li className="">
+        <span className="font-bold">Backstab </span>
+        you sneak up on an enemy and then hit them with meele in the back
+      </li>
+      <li className="">
+        <span className="font-bold">Air shot </span>
+        projectile or sniper hits enemy while they&apos;re mid-air [above a certain height]</li>
+      <li className="">
+        <span className="font-bold">Meat shot </span>
+        you hit a shotgun blast point blank on someone
+      </li>
+      <li className="">
+        <span className="font-bold">Jump shot </span>
+        you are scoped in on a sniper, jump above cover and hit a shot
+      </li>
+      <li className=""><span className="font-bold">Drop shot </span>
+        you are scoped in on a sniper, fall off an object and hit a shot
+      </li>
+      <li className="">
+        <span className="font-bold">360 shot </span>
+        you whip around a 360 and scope in and hit someone
+      </li>
+      <li className="">
+        <span className="font-bold">Skeet shot </span>
+        knock someone up with a projectile and snipe them out of the air
+      </li>
+      <li className="">
+        <span className="font-bold">Kill streak </span>
+        gain more points by being on a higher killstreak
+      </li>
+      <li className="">
+        <span className="font-bold">High speed </span>
+        you frag someone while moving over a certain speed
+      </li>
+      <li className="">
+        <span className="font-bold">Speed ticket </span>
+        points earned are proportional to time spent over speed limit
+      </li>
+      <li className="">
+        <span className="font-bold">Pinning </span>
+        gun pinning you hold someone up in the air with the lightning gun
+      </li>
+      <li className="">
+        <span className="font-bold">Mid air </span>
+        kill both players are in the air and kill eachother
+      </li>
+      <li className="">
+        <span className="font-bold">Delayed </span>
+        fire a projectile and it kills someone after a few seconds of travel time
+      </li>
+      <li className="">
+        <span className="font-bold">From the grave </span>
+        you kill a player after you are dead
+      </li>
+      <li className="">
+        <span className="font-bold">Untouchable </span>
+        you kill someone while they don&apos;t get any damage on you
+      </li>
+      <li className="">
+        <span className="font-bold">Team wipe </span>
+        all enemies are currently dead due to you
+      </li>
+    </ul>
+  </div>
+)
+
+const SupportInfo = () => (
+  <div className="flex flex-col items-center justify-center w-full md:w-1/3">
+    <h1 className="font-bold">Follow Us</h1>
+    <div className="flex flex-row w-full justify-evenly items-center my-5">
+      <a href='https://patreon.com/user?u=89056897' target='/' className="text-4xl mx-auto">
+        <FaPatreon />
+      </a>
+      <a href='https://www.youtube.com/channel/UC85fkO9QnMYru6a2ZKPPK3g' target='/' className="text-4xl mx-auto">
+        <FaYoutube />
+      </a>
+      <a href='https://www.instagram.com/frag.z.game/' target='/' className="text-4xl mx-auto">
+        <FaInstagram />
+      </a>
+    </div>
+  </div>
+)
+
+const cardData = [
+  {
+    title: "The Art Of Hitting Clips",
+    text: "you know those moments when you're flying around a map, in a flow state fragging everyone who comes in your path? It's the best. Games that give the player this freedom are dying out, nowadays most games have bullshit abilities, slow movement and footage that the average person can't appreciate. For the ones that are still around, servers are far and few between, are no longer under active development or have bots/cheaters. We're going to bring back the OG gameplay with frag-z.",
+    video: <VideoPlayer link='https://d21vt9tthjew1s.cloudfront.net/clip0.mp4' />,
+  },
+  {
+    title: "Principles",
+    text: "at its core, frag-z is a multiplayer shooter with a focus on movement and fluidity. graphics will be minimal/low poly with performance in mind supporting windows, linux and mac. players can go mad with classic techniques with quake style strafing, c-jumps, and edge bugs. there will be a handful of classic weapons for players to use, each one targeting an aim style. The gist is to reward the kind of gameplay you&apos;d see in a 90&apos;s frag movie.",
+    video: <VideoPlayer link='https://d21vt9tthjew1s.cloudfront.net/clip1.mp4' />,
+  },
+  {
+    title: "Skill Death Match",
+    text: "the main gamemode is a classic death match where players roam around with infinte ammo and any weapon. when players hit high skilled shots, they do more damage forcing you to go for intense plays or die. Games will last 10 mins and of course, most frags win.",
+    video: <SkillDeathMatchInfo />,
+  },
+  {
+    title: "Support Us",
+    text: "right now everyone working on frag-z is doing it for the fun of the game, supporting us will cover costs associated with the game and eventually be able to hire on our contributors full-time.",
+    video: <SupportInfo />,
+  },
+
+]
 
 export default function Home() {
   const [toggle, setToggle] = React.useState(false);
@@ -32,138 +150,43 @@ export default function Home() {
     <>
       <Head>
         <title>Frag-Z &#8226; Home </title>
-        <meta name="description" content="Generated by create next app" />
+        <meta name="description" content="Frag-Z Game" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="h-full flex flex-col items-center justify-center">
+      <main className="h-full min-h-fit overflow-y-scroll no-scrollbar flex flex-col items-start justify-center">
         {
-          (!cookies) ?
+          (toggle) ?
             // Splash screen
-            <div className="flex flex-col items-center">
+            <div className="w-full flex flex-col items-center">
               {/* logo */}
               <div className="">
                 <Image src={logo} alt='logo' />
               </div>
-              <h1 onClick={(e) => { setToggle(true) }} className="font-arash text-white text-6xl hover:scale-110 tracking-wide cursor-pointer">ENTER</h1>
+              <h1 onClick={(e) => { setToggle(false) }} className="font-arash text-white text-6xl hover:scale-110 tracking-wide cursor-pointer">ENTER</h1>
             </div>
             :
             // Page Content
-            <div className="overflow-y-scroll no-scrollbar flex flex-col items-center h-full w-full p-5 text-white relative">
-              {/* logo */}
-              <div className="w-full z-10">
-                <Image className='h-10 w-24' src={logo} alt='logo' />
-              </div>
-              {/* Video */}
-              <div className="flex flex-col items-center justify-center w-full h-80 absolute top-0 z-0">
-                <video loop autoPlay playsInline muted className='h-full w-full object-fill lg:h-[500px]' src="https://d21vt9tthjew1s.cloudfront.net/fragzGP0.mp4" poster='images/thumbnails/fragzGP0Thumbnail.jpg' />
-              </div>
-
-              {/* Info group */}
-              <div className="mt-[270px] lg:mt-[400px] w-full min-h-fit">
-
-                {/* TG-1 */}
-                <div className="flex flex-col md:flex-row w-full md:items-center md:justify-center">
-                  {/* Text */}
-                  <div className="w-full h-fit my-5 md:p-5">
-                    <h1 className="font-arash font-bold text-3xl">The Art Of Hitting Clips</h1>
-                    <p className="font-sans">
-                      you know those moments when you&apos;re flying around a map, in a flow state fragging everyone who comes in your path? It&apos;s the best. Games that give the player this freedom are dying out, nowadays most games have bullshit abilities, slow movement and footage that the average person can&apos;t appreciate. For the ones that are still around, servers are far and few between, are no longer under active development or have bots/cheaters. We&apos;re going to bring back the OG gameplay with frag-z.
-                      {/* y&apos;know when you&apos;re in that lobby - strafing around at mach 10 trying to hit the sickest shots possible while you make yourself and others dizzy? it&apos;s the best. games that allow you to move around like this are a dying craft. the best breakneck shooters are on their way out. servers are few and far between, filled with cheaters or a couple washed pros who are too fucking good. we&apos;re trying to bring this kind of gameplay back with frag-z. */}
-                    </p>
-                  </div>
-                  {/* Video */}
-                  <div className="w-full lg:w-2/3 h-60 my-5 md:my-0 flex items-center justify-center">
-                    <video loop autoPlay playsInline muted className='h-full object-fill' src="https://d21vt9tthjew1s.cloudfront.net/clip0.mp4" poster='images/thumbnails/clip0Thumbnail.jpg' />
-                  </div>
+            <div className="flex flex-col h-full w-full text-white relative">
+              {/* Main video thing */}
+              <div className="h-96 md:h-[450px] mb-5">
+                <span className="w-fit h-fit absolute top-0 z-10">
+                  <Image className='h-10 w-24' src={logo} alt='logo' />
+                </span>
+                {/* Video */}
+                <div className="flex flex-col items-center justify-center w-full h-full z-0">
+                  <video loop autoPlay playsInline muted className='h-full w-full object-cover' src="https://d21vt9tthjew1s.cloudfront.net/fragzGP0.mp4" poster='images/thumbnails/fragzGP0Thumbnail.jpg' />
                 </div>
-
-                {/* TG-2 */}
-                <div className="flex flex-col md:flex-row-reverse w-full md:items-center md:justify-center ">
-                  {/* Text */}
-                  <div className="w-full h-fit my-5 md:my-0 md:p-5">
-                    <h1 className="font-arash font-bold text-3xl mt-10 md:mt-0">Principles</h1>
-                    <p className="font-sans">
-                      at its core, frag-z is a multiplayer shooter with a focus on movement and fluidity. graphics will be minimal/low poly with performance in mind supporting windows, linux and mac. players can go mad with quake style strafing and speed around the map. There will be a handful of classic weapons for players to use, each one targeting an aim style. The gist is to reward the kind of gameplay you&apos;d see in a 90&apos;s frag movie.
-                    </p>
-                  </div>
-                  {/* Video */}
-                  <div className="w-full lg:w-2/3 h-60 my-5 md:my-0 flex items-center justify-center">
-                    <video loop autoPlay playsInline muted className='h-full object-fill' src="https://d21vt9tthjew1s.cloudfront.net/clip1.mp4" poster='images/thumbnails/clip1Thumbnail.jpg' />
-                  </div>
-                </div>
-                {/* Weapons Section */}
-
-
-                {/* TG-3 */}
-                <div className="flex flex-col md:flex-row w-full md:items-center md:justify-center ">
-                  {/* Text */}
-                  <div className="w-full md:w-3/4 h-fit my-5 mx-auto rounded-lg bg-slate-800/[.7] p-8">
-                    <h1 className="font-arash font-bold text-3xl ">Skill Death Match</h1>
-                    <p className="font-sans">
-                      The main gamemode will a classic death match with a twist. Players roam around with infinte ammo and any weapon. When players hit high skilled events they&apos;re awarded more points. Games will last 10 mins and the player with the most points by the end wins forcing them to go for intense plays to win the game
-                    </p>
-                    <details>
-                      <summary>rewarded skills</summary>
-                      <ul className="list-disc list-inside font-bold text-red-400">
-                        <li>backstab - you sneak up on an enemy and then hit them with meele in the back</li>
-                        <li>air shot - projectile or sniper hits enemy while they&apos;re mid-air [above a certain height]</li>
-                        <li>meat shot - you hit a shotgun blast point blank on someone</li>
-                        <li>jump shot - you are scoped in on a sniper, jump above cover and hit a shot</li>
-                        <li>drop shot - you are scoped in on a sniper, fall off an object and hit a shot</li>
-                        <li>360 shot - you whip around a 360 and scope in and hit someone</li>
-                        <li>skeet shot - knock someone up with a projectile and snipe them out of the air</li>
-                        <li>kill streak - gain more points by being on a higher killstreak</li>
-                        <li>high speed - you frag someone while moving over a certain speed</li>
-                        <li>speed ticket - points earned are proportional to time spent over speed limit</li>
-                        <li>pinning - gun pinning you hold someone up in the air with the lightning gun</li>
-                        <li>mid air - kill both players are in the air and kill eachother</li>
-                        <li>delayed - fire a projectile and it kills someone after a few seconds of travel time</li>
-                        <li>from the grave - you kill a player after you are dead</li>
-                        <li>untouchable - you kill someone while they don&apos;t get any damage on you</li>
-                        <li>team wipe - all enemies are currently dead due to you</li>
-                      </ul>
-                    </details>
-                  </div>
-                </div>
-
-                {/* TG-4 */}
-                <div className="flex flex-col md:flex-row w-full md:items-center md:justify-center">
-                  {/* Text */}
-                  <div className="w-full md:w-3/4 h-fit my-5 mx-auto">
-                    <h1 className="font-arash font-bold text-3xl mt-10">Support Us</h1>
-                    <p className="font-sans">
-                      right now everyone working on frag-z is doing it for the fun of the game, supporting us will cover costs associated with the game and eventually be able to hire on our contributors full-time.
-                    </p>
-                    <ul className="list-disc list-inside font-bold text-red-400">
-                      <li><a href="https://patreon.com/user?u=89056897">patreon</a></li>
-                      <li><a href="https://www.youtube.com/channel/UC85fkO9QnMYru6a2ZKPPK3g">youtube</a></li>
-                      <li><a href="https://www.instagram.com/frag.z.game/">instagram</a></li>
-                    </ul>
-                  </div>
-                </div>
-
               </div>
 
-              {/* Text */}
-              <div className="w-full h-fit md:w-4/5">
-                {/* TG-1 */}
-                {/* <h1 className="font-arash font-bold text-3xl">The Art Of Hitting Clips</h1>
-                <p className="font-sans">
-                  y&apos;know when you&apos;re in that lobby - strafing around at mach 10 trying to hit the sickest shots possible while you make yourself and others dizzy? it&apos;s the best. games that allow you to move around like this are a dying craft. the best breakneck shooters are on their way out. servers are few and far between, filled with cheaters or a couple washed pros who are too fucking good. we&apos;re trying to bring this kind of gameplay back with frag-z. 
-                </p> */}
-                {/* TG-2 */}
-                {/* <h1 className="font-arash font-bold text-3xl mt-10">Principles</h1>
-                <p className="font-sans">
-                  at its core, frag-z is a multiplayer shooter with a focus on movement and fluidity. graphics will be minimal (sorta pixelated/bitcrushed) with performance in mind. we&apos;re thinking of a super high speed cap so that players can go mad with classic techniques like strafing, c-jumps, and edge bugs. there will be a bunch of weapons for players to use, each one with a distinct playstyle. the gist is to reward the kind of gameplay you&apos;d see in a 2009 nitecore frag movie.
-                </p> */}
-                {/* Weapons Section */}
+              {/* Card group */}
+              <div className="w-full h-fit flex flex-col items-center ">
+                {
+                  cardData.map((data: CardProps, i) => (
+                    <Card key={i} title={data.title} video={data.video} text={data.text} />
+                  ))
+                }
 
-                {/* TG-3 */}
-                {/* <h1 className="font-arash font-bold text-3xl mt-10">Most Points Win</h1>
-                <p className="font-sans">
-                  for now we&apos;re working on a Most Points Win (MPW) sort of thing. in this mode, players have infinite ammo and can use any weapon. kills will award points on the basis of the weapon used and how nice the shot was (we&apos;re trying for a clear system here - join the discord to suggest what sorts of shots should be rewarded most). the matches will last for 10 minutes and the player/team with the most points wins.  
-                </p> */}
               </div>
             </div>
         }
