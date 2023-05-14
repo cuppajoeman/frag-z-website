@@ -8,58 +8,54 @@ import bin from "@/public/appIcons/bin.png";
 import "@/public/globals.css";
 import { Navbar } from "@/components";
 
-export const metadata = {
-  title: {
-    default: "Frag-Z",
-    template: "%s | Frag-Z",
-  },
-  description: "",
-  keywords: [],
-  authors: [],
-  icons: {
-    icon: "",
-    apple: "",
-  },
-  robots: {
-    index: false,
-    follow: true,
-    nocache: true,
-    googleBot: {
-      index: true,
-      follow: false,
-      noimageindex: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  openGraph: {
-    title: {
-      default: "Frag-Z",
-      template: "%s | Frag-Z",
-    },
-    description: "",
-    url: "",
-    siteName: "Frag-Z",
-    images: [
-      {
-        url: "",
-        width: 1200,
-        height: 700,
-      },
-    ],
-    locale: "en-US",
-    type: "website",
-  },
-};
+// export const metadata = {
+//   title: {
+//     default: "Frag-Z",
+//     template: "%s | Frag-Z",
+//   },
+//   description: "",
+//   keywords: [],
+//   authors: [],
+//   icons: {
+//     icon: "",
+//     apple: "",
+//   },
+//   robots: {
+//     index: false,
+//     follow: true,
+//     nocache: true,
+//     googleBot: {
+//       index: true,
+//       follow: false,
+//       noimageindex: true,
+//       "max-video-preview": -1,
+//       "max-image-preview": "large",
+//       "max-snippet": -1,
+//     },
+//   },
+//   openGraph: {
+//     title: {
+//       default: "Frag-Z",
+//       template: "%s | Frag-Z",
+//     },
+//     description: "",
+//     url: "",
+//     siteName: "Frag-Z",
+//     images: [
+//       {
+//         url: "",
+//         width: 1200,
+//         height: 700,
+//       },
+//     ],
+//     locale: "en-US",
+//     type: "website",
+//   },
+// };
 
 interface AppProps {
   img: StaticImageData;
   title: string;
-}
-
-interface LayoutProps {
-  children: JSX.Element;
 }
 
 const appData = [
@@ -137,7 +133,7 @@ export default function RootLayout({
           ))}
         </div>
         {/* Page container - Highest*/}
-        <main className="border lg:border-4 page-container">
+        <div className="border lg:border-4 page-container">
           {/* Top tab */}
           <div className="w-full min-h-fit bg-[#C5C5C5] pt-[2px] pb-1">
             <div className="page-container-tab">
@@ -165,7 +161,7 @@ export default function RootLayout({
             {children}
             <Analytics />
           </div>
-        </main>
+        </div>
         {/* Navbar - Middle*/}
         <Navbar />
       </body>
