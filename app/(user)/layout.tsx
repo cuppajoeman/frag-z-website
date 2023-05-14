@@ -1,12 +1,12 @@
 import { Analytics } from "@vercel/analytics/react";
 import Image, { StaticImageData } from "next/image";
-// import { usePathname } from "next/navigation";
 import fragz from "@/public/appIcons/fragz.png";
 import computer from "@/public/appIcons/computer.png";
 import folder from "@/public/appIcons/folder.png";
 import bin from "@/public/appIcons/bin.png";
 import "@/public/globals.css";
 import { Navbar } from "@/components";
+import { WindowInfo } from "@/components/WindowInfo";
 
 // export const metadata = {
 //   title: {
@@ -121,7 +121,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // const path = usePathname();
 
   return (
     <html lang="en">
@@ -138,16 +137,7 @@ export default function RootLayout({
           <div className="w-full min-h-fit bg-[#C5C5C5] pt-[2px] pb-1">
             <div className="page-container-tab">
               {/* Window info */}
-              <div className="w-full h-full flex flex-row items-center justify-start">
-                <Image className="h-7 w-7 mx-2" src={fragz} alt="logo" />
-                <h1 className="font-windows text-white">
-                  {/* {" "}
-                  FRAG-Z &#8226;{" "}
-                  {path === "/"
-                    ? "HOME"
-                    : path.toUpperCase().replace(/[^0-9a-z]/gi, "")} */}
-                </h1>
-              </div>
+              <WindowInfo/>
               {/* Tab button group */}
               <div className="w-1/2 h-full flex flex-row items-center justify-end">
                 <Minimize />
