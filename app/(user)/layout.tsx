@@ -7,7 +7,8 @@ import bin from "@/public/appIcons/bin.png";
 import "@/public/globals.css";
 import { Navbar } from "@/components";
 import { WindowInfo } from "@/components/WindowInfo";
-import SupabaseProvider from "./supabase-provider";
+import SupabaseProvider from "@/components/supabase/supabase-provider";
+import { createClient } from "@/utils/supabase-server";
 // export const metadata = {
 //   title: {
 //     default: "Frag-Z",
@@ -116,11 +117,14 @@ const App = ({ img, title }: AppProps) => {
   );
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const supabase = createClient();
+  const { data: { session } } = await supabase.auth.getSession();
+
   return (
     <html lang="en">
       <body className="root">
@@ -147,7 +151,7 @@ export default function RootLayout({
           </div>
           {/* Page/Children */}
           <div className="h-full border border-black border-l-2 border-t-2 border-b-slate-200 w-full overflow-y-scroll no-scrollbar">
-            <SupabaseProvider session={null}>
+            <SupabaseProvider session={session}>
               {children}
               <Analytics />
             </SupabaseProvider>
