@@ -1,12 +1,12 @@
 'use client'
 import React from 'react'
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
-import { useSupabase } from '@/app/(user)/supabase-provider'
+import { useSupabase } from '@/components/supabase/supabase-provider'
 const LoginDialogue = () => {
     const { supabase } = useSupabase()
 
 
-    const signUp = async () => {
+    const handleSignUp = async () => {
         await supabase.auth.signUp({
             email: 'michochieng@gmail.com',
             password: 'k}5|tY9Orq',
@@ -19,7 +19,7 @@ const LoginDialogue = () => {
             })
     }
 
-    const signIn = async () => {
+    const handleLogin = async () => {
        await supabase.auth.signInWithPassword({
             email: 'michochieng@gmail.com',
             password: 'k}5|tY9Orq',
@@ -32,7 +32,7 @@ const LoginDialogue = () => {
             })
     }
 
-    const signout =  async() => {
+    const handleLogout =  async() => {
        await supabase.auth.signOut()
             .then(res => {
                 console.log(res)
@@ -44,9 +44,9 @@ const LoginDialogue = () => {
 
     return (
         <div className='flex flex-col gap-4'>
-            <button onClick={signIn} className="">Sign In</button>
-            <button onClick={signout} className="">Sign Out</button>
-            <button onClick={signUp} className="">Sign up</button>
+            <button onClick={handleLogin} className="">Sign In</button>
+            <button onClick={handleLogout} className="">Sign Out</button>
+            <button onClick={handleSignUp} className="">Sign up</button>
         </div>
     )
 }
