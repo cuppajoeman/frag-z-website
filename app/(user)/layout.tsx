@@ -7,7 +7,7 @@ import bin from "@/public/appIcons/bin.png";
 import "@/public/globals.css";
 import { Navbar } from "@/components";
 import { WindowInfo } from "@/components/WindowInfo";
-
+import SupabaseProvider from "./supabase-provider";
 // export const metadata = {
 //   title: {
 //     default: "Frag-Z",
@@ -121,7 +121,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-
   return (
     <html lang="en">
       <body className="root">
@@ -137,7 +136,7 @@ export default function RootLayout({
           <div className="w-full min-h-fit bg-[#C5C5C5] pt-[2px] pb-1">
             <div className="page-container-tab">
               {/* Window info */}
-              <WindowInfo/>
+              <WindowInfo />
               {/* Tab button group */}
               <div className="w-1/2 h-full flex flex-row items-center justify-end">
                 <Minimize />
@@ -148,8 +147,10 @@ export default function RootLayout({
           </div>
           {/* Page/Children */}
           <div className="h-full border border-black border-l-2 border-t-2 border-b-slate-200 w-full overflow-y-scroll no-scrollbar">
-            {children}
-            <Analytics />
+            <SupabaseProvider session={null}>
+              {children}
+              <Analytics />
+            </SupabaseProvider>
           </div>
         </div>
         {/* Navbar - Middle*/}

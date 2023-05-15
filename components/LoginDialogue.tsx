@@ -1,12 +1,13 @@
 'use client'
 import React from 'react'
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
-
+import { useSupabase } from '@/app/(user)/supabase-provider'
 const LoginDialogue = () => {
-    const [supabase] = React.useState(() => createBrowserSupabaseClient())
+    const { supabase } = useSupabase()
 
-    const signUp = () => {
-        supabase.auth.signUp({
+
+    const signUp = async () => {
+        await supabase.auth.signUp({
             email: 'michochieng@gmail.com',
             password: 'k}5|tY9Orq',
         })
@@ -18,8 +19,8 @@ const LoginDialogue = () => {
             })
     }
 
-    const signIn = () => {
-        supabase.auth.signInWithPassword({
+    const signIn = async () => {
+       await supabase.auth.signInWithPassword({
             email: 'michochieng@gmail.com',
             password: 'k}5|tY9Orq',
         })
@@ -31,8 +32,8 @@ const LoginDialogue = () => {
             })
     }
 
-    const signout = () => {
-        supabase.auth.signOut()
+    const signout =  async() => {
+       await supabase.auth.signOut()
             .then(res => {
                 console.log(res)
             })
