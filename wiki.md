@@ -10,6 +10,9 @@
 In frag-z the main game mode is skill dm, in order to facilitate this gamemode, we need to have code that can detect when something skillful has occurred
 The only two was of hitting shots in frag-z are with projectiles or hitscan weapons
 
+## speed up development
+display relevant player flags on screen to debug
+
 ## projectiles:
 * A skill detection is performed when the projectile damages an enemy (directly or splash)
 
