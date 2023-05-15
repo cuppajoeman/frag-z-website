@@ -6,8 +6,6 @@
 * If it's not yet implemented there will be text explaining how to implement the feature.
 
 
-
-
 # Skill detection system
 In frag-z the main game mode is skill dm, in order to facilitate this gamemode, we need to have code that can detect when something skillful has occurred
 The only two was of hitting shots in frag-z are with projectiles or hitscan weapons
@@ -47,13 +45,18 @@ If victim is in air and attacker hits them directly with rocket, then using trav
 
 ## skeet shot
 player is knocked up into the air with a projectile and then hit with the sniper rifle
-## check occurs when
+### check occurs when
 direct hit with sniper rifle
-## required information
+### required information
 * player
   * knocked_into_air_by_projectile 
     * can be computed by determining this the moment you have been hit by a rocket, we can check on the next frame if you are now in the air, by having a flag which says if the player has been hit with a rocket on the last frame, if they've just been hit and they're in the air, then they have been "launched", when they are touching the ground, then they are no longer launched.
 ### implementation
 if the enemy is currently launched by attacker, then assign points.
+
+## meat shot
+victim is hit by 80% of the spray of attackers shotgun
+### check occurs when
+at least one ray hits the victim
 
 
