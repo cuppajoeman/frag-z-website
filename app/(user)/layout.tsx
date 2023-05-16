@@ -1,14 +1,18 @@
 import { Analytics } from "@vercel/analytics/react";
 import Image, { StaticImageData } from "next/image";
+
+import { Navbar } from "@/components";
+import { WindowInfo } from "@/components/WindowInfo";
+import SupabaseProvider from "@/components/supabase/supabase-provider";
+
+import { createClient } from "@/utils/supabase-server";
+
 import fragz from "@/public/appIcons/fragz.png";
 import computer from "@/public/appIcons/computer.png";
 import folder from "@/public/appIcons/folder.png";
 import bin from "@/public/appIcons/bin.png";
 import "@/public/globals.css";
-import { Navbar } from "@/components";
-import { WindowInfo } from "@/components/WindowInfo";
-import SupabaseProvider from "@/components/supabase/supabase-provider";
-import { createClient } from "@/utils/supabase-server";
+
 // export const metadata = {
 //   title: {
 //     default: "Frag-Z",
