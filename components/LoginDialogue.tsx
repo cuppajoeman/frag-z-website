@@ -8,6 +8,7 @@ import logo from "@/public/appIcons/fragz-logo.png";
 import discord from "@/public/images/discordlogo.png";
 import google from "@/public/images/googlelogo.png";
 import github from "@/public/images/githublogo.png";
+import Link from 'next/link'
 
 
 const LoginDialogue = () => {
@@ -59,7 +60,7 @@ const LoginDialogue = () => {
     }
 
     return (
-        <div className='flex flex-col gap-4 w-[370px] md:w-[400px] h-[600px] items-center justify-start aid'>
+        <div className='flex flex-col gap-4 w-[370px] md:w-[400px] h-[600px] items-center justify-start'>
             {/* Logo header */}
             <span className="logo-header">
                 <Image src={logo} alt='logo' className='object-cover' />
@@ -81,7 +82,7 @@ const LoginDialogue = () => {
                         </span>
                     </div>
                 </div>
-                <h1 className="w-full text-white font-windows text-center text-2xl tracking-wider">or</h1>
+                <h1 className="w-full text-white font-windows text-center text-xl tracking-wider my-3">or</h1>
                 {/* Email login */}
                 <div className="flex flex-col w-full h-[300px]">
                     <Formik
@@ -93,7 +94,7 @@ const LoginDialogue = () => {
                             console.log(values);
                         }}
                     >
-                        <Form className='form'>
+                        <Form className='form mb-3'>
                             <label className='form-label'>Email</label>
                             <Field className='form-field' type="email" name="email" />
                             <label className='form-label'>Password</label>
@@ -101,6 +102,7 @@ const LoginDialogue = () => {
                             <button type="submit" className='form-button'>Login</button>
                         </Form>
                     </Formik>
+                    <Link className='mx-auto text-white font-windows text-center' href={'/register'}>Sign Up</Link>
                 </div>
             </section>
         </div>
