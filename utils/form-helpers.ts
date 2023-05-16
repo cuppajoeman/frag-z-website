@@ -1,4 +1,4 @@
-function validateEmail(value: string) {
+export function validateEmail(value: string) {
     let error;
 
     if (!value) {
@@ -9,7 +9,7 @@ function validateEmail(value: string) {
     return error;
 }
 
-function validateUsername(value: string) {
+export function validateUsername(value: string) {
     let error;
     if (value === 'admin') {
         error = 'Nice try!';
@@ -23,7 +23,7 @@ function validateUsername(value: string) {
     return error;
 }
 
-function validatePassword(value: string) {
+export function validatePassword(value: string) {
     let error;
     if (!value) {
         error = 'Required';
