@@ -12,6 +12,8 @@ import github from "@/public/images/githublogo.png";
 import Link from 'next/link'
 
 const SignUpDialogue = () => {
+    const { supabase } = useSupabase();
+
     return (
         <div className='flex flex-col gap-4 w-[370px] md:w-[400px] h-[650px] min-h-fit items-center justify-start'>
             {/* Logo header */}
@@ -45,7 +47,20 @@ const SignUpDialogue = () => {
                             username: '',
                         }}
                         onSubmit={async (values) => {
-                            console.log(values);
+                            const { data, error } = await supabase.auth.signUp({
+                                email: values.email,
+                                password: values.password,
+                                options: {
+                                    data: {
+                                        username: values.username
+                                    }
+                                },
+                            })
+                            if (error) {
+                                console.log(error.message);
+                            } else {
+                                console.log("No errors");
+                            }
                         }}
                     >
                         {({ errors, touched, isValidating}) => (
