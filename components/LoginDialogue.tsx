@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { Formik, Field, Form, ErrorMessage  } from 'formik'
+import { Formik, Field, Form  } from 'formik'
 import { useSupabase } from '@/components/supabase/supabase-provider'
 import Image from 'next/image'
 
@@ -9,7 +9,8 @@ import discord from "@/public/images/discordlogo.png";
 import google from "@/public/images/googlelogo.png";
 import github from "@/public/images/githublogo.png";
 import Link from 'next/link'
-
+import { LoginFormValues } from '@/types'
+import { validateEmail, validatePassword  } from '@/utils/form-helpers'
 
 const LoginDialogue = () => {
     const { supabase } = useSupabase()
@@ -90,17 +91,22 @@ const LoginDialogue = () => {
                             email: '',
                             password: '',
                         }}
-                        onSubmit={async (values) => {
+                        onSubmit={async (values: LoginFormValues) => {
                             console.log(values);
                         }}
                     >
-                        <Form className='form mb-3'>
+                        {({ errors, touched, isValidating}) => (
+                            <Form className='form mb-3'>
                             <label className='form-label'>Email</label>
-                            <Field className='form-field' type="email" name="email" />
+                            <Field className='form-field' type="email" name="email" validate={validateEmail} />
+                            {errors.email && touched.email && <div className='form-error'>{errors.email}</div>}
+
                             <label className='form-label'>Password</label>
-                            <Field className='form-field' type="password" name="password" />
+                            <Field className='form-field' type="password" name="password" validate={validatePassword} />
+                            {errors.password && touched.password && <div className='form-error'>{errors.password}</div>}
                             <button type="submit" className='form-button'>Login</button>
                         </Form>
+                        )}
                     </Formik>
                     <Link className='mx-auto text-white font-windows text-center' href={'/register'}>Sign Up</Link>
                 </div>
