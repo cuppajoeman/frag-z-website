@@ -131,4 +131,9 @@
     @apply
     button text-left p-2 w-full h-[40px] mb-5
   }
+
+  .form-error{
+    @apply
+    text-red-500 text-xs animate-pulse -mt-5 mb-5
+  }
 }
