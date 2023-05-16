@@ -3,6 +3,7 @@ import React from 'react'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import { useSupabase } from '@/components/supabase/supabase-provider'
 import Image from 'next/image'
+import { validateEmail, validatePassword, validateUsername  } from '@/utils/form-helpers'
 
 import logo from "@/public/appIcons/fragz-logo.png";
 import discord from "@/public/images/discordlogo.png";
@@ -12,7 +13,7 @@ import Link from 'next/link'
 
 const SignUpDialogue = () => {
     return (
-        <div className='flex flex-col gap-4 w-[370px] md:w-[400px] h-[600px] min-h-fit items-center justify-start'>
+        <div className='flex flex-col gap-4 w-[370px] md:w-[400px] h-[650px] min-h-fit items-center justify-start'>
             {/* Logo header */}
             <span className="logo-header">
                 <Image src={logo} alt='logo' className='object-cover' />
@@ -41,20 +42,28 @@ const SignUpDialogue = () => {
                         initialValues={{
                             email: '',
                             password: '',
+                            username: '',
                         }}
                         onSubmit={async (values) => {
                             console.log(values);
                         }}
                     >
-                        <Form className='form mb-3'>
+                        {({ errors, touched, isValidating}) => (
+                            <Form className='form mb-3'>
                             <label className='form-label'>Username</label>
-                            <Field className='form-field' type="email" name="email" />
+                            <Field className='form-field' type="username" name="username" validate={validateUsername}/>
+                            {errors.username && touched.username && <div className='form-error'>{errors.username}</div>}
+
                             <label className='form-label'>Email</label>
-                            <Field className='form-field' type="email" name="email" />
+                            <Field className='form-field' type="email" name="email" validate={validateEmail}/>
+                            {errors.email && touched.email && <div className='form-error'>{errors.email}</div>}
+
                             <label className='form-label'>Password</label>
-                            <Field className='form-field' type="password" name="password" />
-                            <button type="submit" className='form-button'>Login</button>
+                            <Field className='form-field' type="password" name="password" validate={validatePassword}/>
+                            {errors.password && touched.password && <div className='form-error'>{errors.password}</div>}
+                            <button type="submit" className='form-button'>Sign Up</button>
                         </Form>
+                        )}
                     </Formik>
                     <Link className='mx-auto text-white font-windows text-center' href={'/login'}>Login</Link>
                 </div>
