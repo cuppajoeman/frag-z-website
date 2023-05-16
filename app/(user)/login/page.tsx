@@ -4,8 +4,8 @@ import React from 'react'
 export default function LoginPage() {
 
     return (
-        <div className="text-white">
+        <main className="h-full flex flex-col min-h-fit overflow-y-scroll no-scrollbar items-center justify-center">
             <LoginDialogue/>
-        </div>
+        </main>
     )
 }
