@@ -1,64 +1,21 @@
 'use client'
 import React from 'react'
 import { Formik, Field, Form  } from 'formik'
-import { useSupabase } from '@/components/supabase/supabase-provider'
+import Link from 'next/link'
 import Image from 'next/image'
+
+import { useSupabase } from '@/components/supabase/supabase-provider'
 
 import logo from "@/public/appIcons/fragz-logo.png";
 import discord from "@/public/images/discordlogo.png";
 import google from "@/public/images/googlelogo.png";
 import github from "@/public/images/githublogo.png";
-import Link from 'next/link'
+
 import { LoginFormValues } from '@/types'
 import { validateEmail, validatePassword  } from '@/utils/form-helpers'
 
 const LoginDialogue = () => {
     const { supabase } = useSupabase()
-
-    // Login logic
-
-    // Logout Logic
-
-    // SignUp logic
-
-    const handleSignUp = async () => {
-        await supabase.auth.signUp({
-            email: 'test@gmail.com',
-            password: 'k}5|tY9Orq',
-            options: {
-
-            },
-        })
-            .then(res => {
-                console.log(res)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }
-
-    const handleLogin = async () => {
-        await supabase.auth.signInWithPassword({
-            email: 'michochieng@gmail.com',
-            password: 'k}5|tY9Orq',
-        })
-            .then(res => {
-                console.log(res)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }
-
-    const handleLogout = async () => {
-        await supabase.auth.signOut()
-            .then(res => {
-                console.log(res)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }
 
     return (
         <div className='flex flex-col gap-4 w-[370px] md:w-[400px] h-[600px] items-center justify-start'>
@@ -92,7 +49,15 @@ const LoginDialogue = () => {
                             password: '',
                         }}
                         onSubmit={async (values: LoginFormValues) => {
-                            console.log(values);
+                            const { data, error } = await supabase.auth.signInWithPassword({
+                                email: values.email,
+                                password: values.password,
+                            })
+                            if (error) {
+                                console.log(error.message);
+                            } else {
+                                console.log("No errors");
+                            }
                         }}
                     >
                         {({ errors, touched, isValidating}) => (
