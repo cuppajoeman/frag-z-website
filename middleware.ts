@@ -13,11 +13,16 @@ export async function middleware(req: NextRequest) {
     const { data: session } = await supabase.auth.getSession(); // check if user is logged in
 
     // If user is logged in and trying to access login or register page, redirect to home page
-    // if (session.session?.user && (pathname === "/login" || pathname === "/register")) {
-    //     console.log(session);
-        
-    //     return NextResponse.redirect(new URL("/", req.nextUrl));
-    // }
+    if (session.session?.user && (pathname === "/login" || pathname === "/register")) {
+        console.log(session);
+        return NextResponse.redirect(new URL("/", req.nextUrl));
+    }
+
+    // If user isnt logged in and trying to access development or wiki page, redirect to home page
+    if (!session.session?.user && (pathname === "/development" || pathname === "/wiki")) {
+        console.log(session);
+        return NextResponse.redirect(new URL("/", req.nextUrl));
+    }
 
     return res;
 }
