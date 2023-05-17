@@ -1,0 +1,140 @@
+'use client';
+
+import { useSupabase } from "./supabase-provider";
+import { Session } from "@supabase/supabase-js";
+import { Profile } from "@/types";
+
+import { useRouter } from "next/navigation";
+import React, { createContext, useContext, useEffect } from "react";
+import useSwr from "swr";
+
+type AuthContext = {
+    user: Profile | null | undefined;
+    error: any;
+    isLoading: boolean;
+    mutate: any;
+    signOut: () => Promise<void>
+    signInWithGmail: () => Promise<void>;
+    signInWithEmail: (email: string, password: string) => Promise<string | null> ;
+    signInWithGithub: () => Promise<void> ;
+    signInWithDiscord:  () => Promise<void> ;
+}
+
+const Context = createContext<AuthContext>({
+    user: null,
+    error: null,
+    isLoading: true,
+    mutate: null,
+    signOut: async () => {},
+    signInWithGmail: async () => {},
+    signInWithEmail: async (email: string, password: string) => null,
+    signInWithDiscord: async () => {},
+    signInWithGithub: async () => {}
+})
+
+export default function SupabaseAuthProvider({
+    serverSession,
+    children,
+}: {
+    serverSession?: Session | null,
+    children: React.ReactNode
+}){
+    const { supabase } = useSupabase();
+    const router = useRouter();
+    
+    // User stuff
+
+    const getUser = async () => {
+        const { data: user, error } = await supabase
+            .from("profiles")
+            .select("*")
+            .eq("id",serverSession?.user?.id)
+            .single()
+        if(error){
+            console.log(error);
+            return null
+        }
+        else {
+            return user
+        }
+    }
+
+    const {
+        data: user,
+        error,
+        isLoading,
+        mutate,
+    } = useSwr(serverSession ? "profile-context": null, getUser)
+
+
+    const signOut = async () => {
+        await supabase.auth.signOut();
+        router.push('/')
+    }
+
+    // Login stuff
+
+    const signInWithGithub = async () => {
+        await supabase.auth.signInWithOAuth({ provider: "github"})
+    }
+
+    const signInWithDiscord = async () => {
+        await supabase.auth.signInWithOAuth({ provider: "discord"})
+    }
+
+
+    const signInWithGmail = async () => {
+        await supabase.auth.signInWithOAuth({ provider: "google"})
+    }
+
+    const signInWithEmail = async (email: string, password: string) => {
+        const { error } = await supabase.auth.signInWithPassword({
+            email,
+            password
+        })
+        if (error) {
+            console.log(error.message);
+        }
+        return null
+    }
+
+    // Page refresh for server and client
+    useEffect(() => {
+        const { data: subscription } = supabase.auth.onAuthStateChange((event, session) => {
+            if (session?.access_token !== serverSession?.access_token) {
+                router.refresh()
+            }
+        });
+
+        return () => {
+            subscription.subscription.unsubscribe()
+        };
+    },[router, supabase, serverSession?.access_token]);
+
+    const exposed: AuthContext = {
+        user,
+        error,
+        isLoading,
+        mutate,
+        signOut,
+        signInWithGithub,
+        signInWithDiscord,
+        signInWithGmail,
+        signInWithEmail
+    };
+
+    return (
+        <Context.Provider value={exposed}> 
+            {children} 
+        </Context.Provider>
+    )
+}
+
+export const useAuth = () => {
+    let context =  useContext(Context)
+    if (context === undefined) {
+        throw new Error("useAuth must be used inside SupabaseAuthProvider");
+    } else {
+        return context;
+    }
+}
