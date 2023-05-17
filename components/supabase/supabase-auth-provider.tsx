@@ -18,6 +18,7 @@ type AuthContext = {
     signInWithEmail: (email: string, password: string) => Promise<string | null> ;
     signInWithGithub: () => Promise<void> ;
     signInWithDiscord:  () => Promise<void> ;
+    signUpWithEmail: (email: string, username: string, password: string) => Promise<string | null> ;
 }
 
 const Context = createContext<AuthContext>({
@@ -29,7 +30,8 @@ const Context = createContext<AuthContext>({
     signInWithGmail: async () => {},
     signInWithEmail: async (email: string, password: string) => null,
     signInWithDiscord: async () => {},
-    signInWithGithub: async () => {}
+    signInWithGithub: async () => {},
+    signUpWithEmail: async (email: string, username: string, password: string) => null
 })
 
 export default function SupabaseAuthProvider({
@@ -66,6 +68,27 @@ export default function SupabaseAuthProvider({
         mutate,
     } = useSwr(serverSession ? "profile-context": null, getUser)
 
+    // signup stuff
+
+    const signUpWithEmail = async (email: string, username: string, password: string) => {
+        console.log("Signing up...");
+        const { error } = await supabase.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+                data: {
+                    username: username
+                }
+            },
+        })
+        if (error) {
+            console.log(error.message);
+        } else {
+            console.log("Signed up with email!");
+            router.push('/')
+        }
+        return null
+    }
 
     const signOut = async () => {
         await supabase.auth.signOut();
@@ -75,25 +98,32 @@ export default function SupabaseAuthProvider({
     // Login stuff
 
     const signInWithGithub = async () => {
+        console.log("Signing in with Github...");
         await supabase.auth.signInWithOAuth({ provider: "github"})
     }
 
     const signInWithDiscord = async () => {
+        console.log("Signing in with Discord...");
         await supabase.auth.signInWithOAuth({ provider: "discord"})
     }
 
 
     const signInWithGmail = async () => {
+        console.log("Signing in with GMail...");
         await supabase.auth.signInWithOAuth({ provider: "google"})
     }
 
     const signInWithEmail = async (email: string, password: string) => {
+        console.log("Signing in with Email...");
         const { error } = await supabase.auth.signInWithPassword({
-            email,
-            password
+            email: email,
+            password: password,
         })
         if (error) {
             console.log(error.message);
+        } else {
+            console.log("Signed in with email!");
+            router.push('/');
         }
         return null
     }
@@ -120,7 +150,8 @@ export default function SupabaseAuthProvider({
         signInWithGithub,
         signInWithDiscord,
         signInWithGmail,
-        signInWithEmail
+        signInWithEmail,
+        signUpWithEmail
     };
 
     return (
