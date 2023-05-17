@@ -127,42 +127,44 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const supabase = createClient();
-  const { data: { session } } = await supabase.auth.getSession();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
   return (
     <html lang="en">
       <body className="root">
-        {/* App Row - Lowest*/}
-        <div className="flex flex-col items-center h-0 overflow-hidden lg:h-fit lg:w-42 absolute top-3 left-3 -z-10">
-          {appData.map((val, i) => (
-            <App key={i} img={val.img} title={val.title} />
-          ))}
-        </div>
-        {/* Page container - Highest*/}
-        <div className="border lg:border-4 page-container">
-          {/* Top tab */}
-          <div className="w-full min-h-fit bg-[#C5C5C5] pt-[2px] pb-1">
-            <div className="page-container-tab">
-              {/* Window info */}
-              <WindowInfo />
-              {/* Tab button group */}
-              <div className="w-1/2 h-full flex flex-row items-center justify-end">
-                <Minimize />
-                <Maximize />
-                <Close />
+        <SupabaseProvider session={session}>
+          {/* App Row - Lowest*/}
+          <div className="flex flex-col items-center h-0 overflow-hidden lg:h-fit lg:w-42 absolute top-3 left-3 -z-10">
+            {appData.map((val, i) => (
+              <App key={i} img={val.img} title={val.title} />
+            ))}
+          </div>
+          {/* Page container - Highest*/}
+          <div className="border lg:border-4 page-container">
+            {/* Top tab */}
+            <div className="w-full min-h-fit bg-[#C5C5C5] pt-[2px] pb-1">
+              <div className="page-container-tab">
+                {/* Window info */}
+                <WindowInfo />
+                {/* Tab button group */}
+                <div className="w-1/2 h-full flex flex-row items-center justify-end">
+                  <Minimize />
+                  <Maximize />
+                  <Close />
+                </div>
               </div>
             </div>
-          </div>
-          {/* Page/Children */}
-          <div className="h-full border border-black border-l-2 border-t-2 border-b-slate-200 w-full overflow-y-scroll no-scrollbar">
-            <SupabaseProvider session={session}>
+            {/* Page/Children */}
+            <div className="h-full border border-black border-l-2 border-t-2 border-b-slate-200 w-full overflow-y-scroll no-scrollbar">
               {children}
               <Analytics />
-            </SupabaseProvider>
+            </div>
           </div>
-        </div>
-        {/* Navbar - Middle*/}
-        <Navbar />
+          {/* Navbar - Middle*/}
+          <Navbar />
+        </SupabaseProvider>
       </body>
     </html>
   );
