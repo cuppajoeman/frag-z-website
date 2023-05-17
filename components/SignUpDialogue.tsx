@@ -1,18 +1,16 @@
 'use client'
 import React from 'react'
-import { Formik, Field, Form, ErrorMessage } from 'formik'
-import { useSupabase } from '@/components/supabase/supabase-provider'
+import { Formik, Field, Form } from 'formik'
 import Image from 'next/image'
 import { validateEmail, validatePassword, validateUsername  } from '@/utils/form-helpers'
 
 import logo from "@/public/appIcons/fragz-logo.png";
-import discord from "@/public/images/discordlogo.png";
-import google from "@/public/images/googlelogo.png";
-import github from "@/public/images/githublogo.png";
 import Link from 'next/link'
 
+import { useAuth } from './supabase/supabase-auth-provider'
+
 const SignUpDialogue = () => {
-    const { supabase } = useSupabase();
+    const { signUpWithEmail } = useAuth();
 
     return (
         <div className='flex flex-col gap-4 w-[370px] md:w-[400px] h-[650px] min-h-fit items-center justify-start'>
@@ -22,22 +20,6 @@ const SignUpDialogue = () => {
             </span>
             {/* Dialogue */}
             <section className="">
-                {/* 3rd Party Login */}
-                <div className="flex flex-col w-[200px] h-[100px] text-white font-windows text-center justify-between">
-                    <h1 className="w-full text-2xl tracking-wider">Sign Up With</h1>
-                    <div className="flex flex-row items-end justify-between w-full h-[60px]">
-                        <span className="auth-provider-button">
-                            <Image src={google} alt='logo' width={100} height={100} className='object-cover' />
-                        </span>
-                        <span className="auth-provider-button">
-                            <Image src={github} alt='logo' width={100} height={100} className='object-cover' />
-                        </span>
-                        <span className="auth-provider-button">
-                            <Image src={discord} alt='logo' width={100} height={100} className='object-cover' />
-                        </span>
-                    </div>
-                </div>
-                <h1 className="w-full text-white font-windows text-center text-xl tracking-wider my-3">or</h1>
                 {/* Email login */}
                 <div className="flex flex-col w-full h-[300px]">
                     <Formik
@@ -47,19 +29,11 @@ const SignUpDialogue = () => {
                             username: '',
                         }}
                         onSubmit={async (values) => {
-                            const { data, error } = await supabase.auth.signUp({
-                                email: values.email,
-                                password: values.password,
-                                options: {
-                                    data: {
-                                        username: values.username
-                                    }
-                                },
-                            })
-                            if (error) {
-                                console.log(error.message);
-                            } else {
-                                console.log("No errors");
+                            try {
+                                await signUpWithEmail(values.email, values.username, values.password);
+                            } catch (error) {
+                                console.log("Something went wrong signing up with email");
+                                console.log(error);
                             }
                         }}
                     >
