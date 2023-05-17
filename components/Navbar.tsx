@@ -21,7 +21,6 @@ interface TabProps {
 
 const Navbar = () => {
   const { user } = useAuth();
-
   const tabdata: TabProps[] = [
     {
       img: windows,
@@ -53,34 +52,49 @@ const Navbar = () => {
   const Tab = ({ img, title, link }: TabProps) => {
     return (
       <>
-        {/* Only render home login and store if user isnt logged in */}
-        {(user === null && title === "Development" || title === "Wiki") ?
+        {/* 
+          If User isnt logged in
+          - Hide the dev and wiki links
+          - Render remaining links
+          If User is logged in
+          - Render all links
+          - For login tab show username 
+        */}
+        {(user === null || user === undefined) ?
           <>
+            {/* Hide Dev and wiki */}
+            {(title === "Development" || title === "Wiki") ?
+              <></>
+              :
+              <Link
+                href={link}
+                className={`flex flex-row items-center justify-start ${title === "Home" ? "" : "w-[140px]"
+                  } min-w-fit px-1 py-4 h-full mr-3 border-2 border-b-black border-r-black overflow-hidden max-h-12 `}
+              >
+                <Image className="w-6 h-6" src={img} width={100} height={100} alt="img" />
+                <h1 className="font-windows font-bold mx-1">{title}</h1>
+              </Link>
+            }
           </>
           :
           <>
             {/* If users logged in show user tab instead of login tab */}
-            {(user!== null && title === "Login") ?
-              <>
-                <Link
-                  href={link}
-                  className={`flex flex-row items-center justify-start w-[140px] min-w-fit px-1 py-4 h-full mr-3 border-2 border-b-black border-r-black overflow-hidden max-h-12 `}
-                >
-                  <Image className="w-6 h-6" src={img} width={100} height={100} alt="img" />
-                  <h1 className="font-windows font-bold mx-1">{user.username}</h1>
-                </Link>
-              </>
+            {(title === "Login") ?
+              <span
+                className={`flex flex-row items-center justify-start w-[140px] min-w-fit px-1 py-4 h-full mr-3 border-2 border-b-black border-r-black overflow-hidden max-h-12 `}
+              >
+                <Image className="w-6 h-6" src={img} width={100} height={100} alt="img" />
+                <h1 className="font-windows font-bold mx-1">{user.username}</h1>
+              </span>
               :
-              <>
-                <Link
-                  href={link}
-                  className={`flex flex-row items-center justify-start ${title === "Home" ? "" : "w-[140px]"
-                    } min-w-fit px-1 py-4 h-full mr-3 border-2 border-b-black border-r-black overflow-hidden max-h-12 `}
-                >
-                  <Image className="w-6 h-6" src={img} width={100} height={100} alt="img" />
-                  <h1 className="font-windows font-bold mx-1">{title}</h1>
-                </Link>
-              </>
+              <Link
+                href={link}
+                className={`flex flex-row items-center justify-start ${title === "Home" ? "" : "w-[140px]"
+                  } min-w-fit px-1 py-4 h-full mr-3 border-2 border-b-black border-r-black overflow-hidden max-h-12 `}
+              >
+                <Image className="w-6 h-6" src={img} width={100} height={100} alt="img" />
+                <h1 className="font-windows font-bold mx-1">{title}</h1>
+              </Link>
             }
           </>
         }
