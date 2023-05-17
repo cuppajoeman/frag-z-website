@@ -4,8 +4,6 @@ import { Formik, Field, Form  } from 'formik'
 import Link from 'next/link'
 import Image from 'next/image'
 
-import { useSupabase } from '@/components/supabase/supabase-provider'
-
 import logo from "@/public/appIcons/fragz-logo.png";
 import discord from "@/public/images/discordlogo.png";
 import google from "@/public/images/googlelogo.png";
