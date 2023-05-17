@@ -13,9 +13,10 @@ import github from "@/public/images/githublogo.png";
 
 import { LoginFormValues } from '@/types'
 import { validateEmail, validatePassword  } from '@/utils/form-helpers'
+import { useAuth } from './supabase/supabase-auth-provider'
 
 const LoginDialogue = () => {
-    const { supabase } = useSupabase()
+    const { signInWithEmail,  signInWithGithub, signInWithDiscord, signInWithGmail } = useAuth();
 
     return (
         <div className='flex flex-col gap-4 w-[370px] md:w-[400px] h-[600px] items-center justify-start'>
@@ -49,14 +50,11 @@ const LoginDialogue = () => {
                             password: '',
                         }}
                         onSubmit={async (values: LoginFormValues) => {
-                            const { data, error } = await supabase.auth.signInWithPassword({
-                                email: values.email,
-                                password: values.password,
-                            })
-                            if (error) {
-                                console.log(error.message);
-                            } else {
-                                console.log("No errors");
+                            try {
+                                await signInWithEmail(values.email, values.password);
+                            } catch (error) {
+                                console.log("Something went wrong signing in with email");
+                                console.log(error);
                             }
                         }}
                     >
