@@ -12,6 +12,7 @@ import computer from "@/public/appIcons/computer.png";
 import folder from "@/public/appIcons/folder.png";
 import bin from "@/public/appIcons/bin.png";
 import "@/public/globals.css";
+import SupabaseAuthProvider from "@/components/supabase/supabase-auth-provider";
 
 // export const metadata = {
 //   title: {
@@ -127,14 +128,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const supabase = createClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const { data: { session } } = await supabase.auth.getSession();
 
   return (
     <html lang="en">
       <body className="root">
-        <SupabaseProvider session={session}>
+        <SupabaseProvider>
+          <SupabaseAuthProvider serverSession={session}>
           {/* App Row - Lowest*/}
           <div className="flex flex-col items-center h-0 overflow-hidden lg:h-fit lg:w-42 absolute top-3 left-3 -z-10">
             {appData.map((val, i) => (
@@ -164,6 +164,7 @@ export default async function RootLayout({
           </div>
           {/* Navbar - Middle*/}
           <Navbar />
+          </SupabaseAuthProvider>
         </SupabaseProvider>
       </body>
     </html>
