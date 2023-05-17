@@ -1,4 +1,5 @@
 import { StaticImageData } from "next/image";
+import { Database } from "./lib/database.types";
 
 export interface Item {
   name: string;
@@ -17,4 +18,6 @@ export interface RegisterFormValues {
   password: string;
   name: string;
 }
+
+export type Profile = Database["public"]["Tables"]["profiles"]["Row"]
 
