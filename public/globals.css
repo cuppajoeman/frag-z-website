@@ -110,7 +110,7 @@
 
   .auth-provider-button {
     @apply
-    button h-[50px] w-[50px] flex items-center justify-center p-3 hover:scale-105
+    button h-[50px] w-[50px] flex items-center justify-center p-3 hover:scale-105 cursor-pointer
   }
 
   .form{

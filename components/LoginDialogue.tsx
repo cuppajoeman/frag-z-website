@@ -28,13 +28,13 @@ const LoginDialogue = () => {
                 <div className="flex flex-col w-[200px] h-[100px] text-white font-windows text-center justify-between">
                     <h1 className="w-full text-2xl tracking-wider">Login With</h1>
                     <div className="flex flex-row items-end justify-between w-full h-[60px]">
-                        <span className="auth-provider-button">
+                        <span onClick={signInWithGmail} className="auth-provider-button">
                             <Image src={google} alt='logo' width={100} height={100} className='object-cover' />
                         </span>
-                        <span className="auth-provider-button">
+                        <span onClick={signInWithGithub} className="auth-provider-button">
                             <Image src={github} alt='logo' width={100} height={100} className='object-cover' />
                         </span>
-                        <span className="auth-provider-button">
+                        <span onClick={signInWithDiscord} className="auth-provider-button">
                             <Image src={discord} alt='logo' width={100} height={100} className='object-cover' />
                         </span>
                     </div>
