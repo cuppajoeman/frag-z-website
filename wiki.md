@@ -6,6 +6,66 @@
 * If it's not yet implemented there will be text explaining how to implement the feature.
 
 
+# GODOT 
+
+As you can see we are using godot to develop our game, it has a few quirks:
+	
+* Classes:
+	
+* Singletons:
+	
+	
+* Networking:
+	* Instead of working at a low level with sockets and packets, we mostly work
+	with the higher level implementations that godot provides. To that end, we 
+	will work with rpc calls which is a way to call a function from the client 
+	that exists on the server.
+	* In order for this call to go through the node at which the function exists
+	must be present on both the client and server, the nodes path and function
+	signature must be identical, but implementations do not (one side uses pass)
+	* Instead of keeping track of what the node path is of the node, we can 
+	can simply just make a singleton
+ 
+ 
+ 
+ # In-game player rewards for supporting
+ 
+ add in the new character player model. If we add in the new player model, then we have to figure 
+out how to keep the player levitating off the ground so that they can walk up objects, the issue
+is that when it's low to the ground, what if we turn off map collisions with the feet? we'll think 
+about this more. for now we can just give it a cylender mesh and just leave it as the model.
+
+continue uploading videos, when the website gets updated, then we can start uploading conent on patreon.
+If you subscribe on patreon you get a badge, which is like a binary number/colenel badge on your player.
+kind of like a badge/shield/thing on your back?
+
+embed cool information about the player directly on the player. We need accounts for the player to keep
+track of these things...
+
+patreon subscriber (orange/red?)
+first gametest (blue color)
+game tester (green pixel color)
+developer (purple)
+creator (gold)
+
+it could be like a pixel array, and you want to get them all colored?
+
+# Game Modes
+
+## Team Death Match
+
+Last Player Standing Deathmatch (aka clan arena)
+everyone starts with infinite ammo and every weapon, you have more health than usual? The game ends 
+when there is one player left.
+
+In order to facilitate teams, we need to know what team a player is on.
+for this we can add a field to all players which is just given a number, and -1, if not doing teams.
+so if two players hit eachother, but they are on the same team do nothing. We also need to assign a color
+to each team and color the players respectively.
+
+## Insta Kill
+
+
 # Skill detection system
 In frag-z the main game mode is skill dm, in order to facilitate this gamemode, we need to have code that can detect when something skillful has occurred
 The only two was of hitting shots in frag-z are with projectiles or hitscan weapons
