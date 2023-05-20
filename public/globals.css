@@ -70,7 +70,7 @@
 
   .tab-button {
     @apply
-    h-7 w-7 border mr-1 border-b-black border-r-black bg-[#C5C5C5] relative flex justify-center items-center
+    h-7 w-7 border-2 mr-1 border-b-black border-r-black bg-[#C5C5C5] relative flex justify-center items-center
   }
 
   .button{
@@ -165,5 +165,20 @@
   .form-error{
     @apply
     text-red-500 text-xs animate-pulse -mt-5 mb-5
+  }
+
+  .properties-window{
+    @apply
+    w-[350px] h-[600px] min-h-[600px] border-2 border-b-black border-r-black bg-[#C5C5C5] flex flex-col items-start justify-start p-1
+  }
+
+  .tab-gradient{
+    @apply
+    w-full h-7 mb-1 bg-gradient-to-r from-[#020C67] to-[#3372BC] flex flex-row items-center relative text-white justify-between font-windows text-sm tracking-widest p-1
+  }
+
+  .tab-gradient-button{
+    @apply
+    h-[20px] w-[20px] bg-[#C5C5C5] border-2 border-b-black border-r-black flex items-center justify-center text-black
   }
 }
