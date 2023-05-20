@@ -12,6 +12,11 @@
   src: url('../public/fonts/arashnazblurb-cufonfonts/ARashNazBlurb.ttf');
 }
 
+@font-face {
+  font-family: 'Broshk';
+  src: url('../public/fonts/broshk/BroshK.ttf');
+}
+
 @layer base {
   :root {
     background: #239867;
@@ -80,7 +85,7 @@
 
   .navbar {
     @apply
-    bg-[#C5C5C5] w-full h-[5%] max-h-20 min-h-[40px] fixed bottom-0 overflow-x-scroll overflow-y-hidden py-1 z-10 flex items-center no-scrollbar
+    bg-[#C5C5C5] w-full h-[5%] max-h-20 min-h-[40px] z-50 fixed bottom-0 overflow-x-scroll overflow-y-hidden py-1 z-10 flex items-center no-scrollbar
   }
   .navbar-inner {
     @apply
@@ -94,7 +99,22 @@
 
   .popup-player{
     @apply
-    bg-[#C5C5C5] w-[320px] flex flex-col h-[300px] p-1 overflow-hidden border-t-white/90  border-l-white/90  border-l-2 border-t-2 border-b-2 border-b-black border-r-black border-r-2 text-white lg:h-72 lg:w-[360px]
+    bg-[#C5C5C5] w-[320px] flex flex-col h-fit min-w-[320px] min-h-[180px] p-1 overflow-hidden border-t-white/90  border-l-white/90  border-l-2 border-t-2 border-b-2 border-b-black border-r-black border-r-2 text-white lg:h-[350px] lg:w-[460px]
+  }
+
+  .popup-container > span:nth-child(1){
+    @apply
+    absolute top-2 right-2 -z-0
+  }
+
+  .popup-container > span:nth-child(2){
+    @apply
+    absolute left-2 top-14 -z-0
+  }
+
+  .popup-container > span:nth-child(3){
+    @apply
+    absolute left-14 top-24 -z-0
   }
 
   .card{
