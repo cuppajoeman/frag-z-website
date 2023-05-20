@@ -92,6 +92,11 @@
     bg-[#C5C5C5] w-[320px] h-60 p-1 overflow-hidden border-t-white/90  border-l-white/90  border-l-2 border-t-2 border-b-2 border-b-black border-r-black border-r-2 text-white lg:h-72 lg:w-[360px]
   }
 
+  .popup-player{
+    @apply
+    bg-[#C5C5C5] w-[320px] flex flex-col h-[300px] p-1 overflow-hidden border-t-white/90  border-l-white/90  border-l-2 border-t-2 border-b-2 border-b-black border-r-black border-r-2 text-white lg:h-72 lg:w-[360px]
+  }
+
   .card{
     @apply
     w-full h-[570px] md:h-[450px] rounded-tl-md rounded-tr-md relative flex justify-center my-6
