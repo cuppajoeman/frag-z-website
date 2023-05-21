@@ -24,7 +24,7 @@ const AlertDialogue = ({ title, message }: Props) => {
                     <Image src={alert} alt='alert' className='object-cover' width={100} height={100} />
                 </span>
                 {/* Message */}
-                <p className="font-windows">{message}</p>
+                <p className="font-windows sm:text-xs md:text-base">{message}</p>
             </section>
             {/* Button */}
             <button className="button-v2 mx-auto text-[#b4b4b4]">
