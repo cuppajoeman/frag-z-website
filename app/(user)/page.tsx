@@ -7,7 +7,9 @@ export default function HomePage() {
       {/* Hero */}
       <Hero/>
       {/* Properties window */}
-      <PropertiesWindow/>
+      <section className="my-10">
+        <PropertiesWindow/>
+      </section>
     </main>
   );
 }
