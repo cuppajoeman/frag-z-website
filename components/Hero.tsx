@@ -106,7 +106,7 @@ const Hero = () => {
     <section className="w-full h-fit flex flex-col">
       <div className=" w-full flex flex-col md:flex-row mb-10 lg:mb-32">
         {/* Video block */}
-        <div className="w-full h-[350px] md:w-1/2 popup-container relative">
+        <div className="w-full mx-auto max-w-[500px] h-[350px] md:w-1/2 popup-container relative">
           <PopupPlayer src={thumbnail0} id={0} />
           <PopupPlayer src={thumbnail1} id={1} />
           <PopupPlayer link="https://d21vt9tthjew1s.cloudfront.net/fragzGP0.mp4" src={videoThumbnail} id={2} />
@@ -123,7 +123,7 @@ const Hero = () => {
         </div>
       </div>
       {/* Alert row */}
-      <div className="w-full h-fit flex flex-col gap-2 md:flex-row items-center justify-center px-2">
+      <div className="w-full h-fit flex flex-col gap-2 sm:flex-row items-center justify-center px-2">
         {AlertData.map((alert, index) => (
           <AlertDialogue key={index} {...alert}/>
         ))}
