@@ -39,6 +39,7 @@ const TabDataInfo: TabDataProps[] = [
   {
     header: "Support our vision",
     videoLink: "",
+    thumbnail: undefined,
     blurb: "Everyone on our team is driven by the sheer love and passion for the game. We are committed to delivering an incredible gaming experience, and your support will not only cover the costs associated with the development of Frag-Z but also help us realize our vision of bringing on our dedicated contributors full-time. Join us in shaping the future of Frag-Z and be a part of something truly special.",
   },
 ];
@@ -93,26 +94,28 @@ export const PropertiesWindow = () => {
   const TabData = ({ header, videoLink, thumbnail, blurb }: TabDataProps) => (
     <div className="w-full flex flex-col items-center justify-start sm:flex-row h-full border-2  border-b-black border-r-black p-2 overflow-y-scroll">
       {/* Video Group */}
-      <div className="flex flex-col w-full sm:w-1/2 h-fit aid">
-        <h1 className="font-broshk text-3xl">{header}</h1>
-        <div className="mx-auto w-[250px]">
+      <div className="flex flex-col w-full sm:w-1/2 h-fit">
+        <h1 className="font-broshk text-[26px] flex items-center justify-center leading-[30px] h-16">{header}</h1>
+        <div className="mx-auto h-[180px] w-full mb-2">
           {thumbnail !== undefined ? (
             <video
               loop
               autoPlay
               playsInline
               muted
-              className="object-fill aid bg-black"
+              className="object-fill bg-black"
               src={videoLink}
               poster="images/thumbnails/clip0Thumbnail.jpg"
             />
           ) : (
-            <></>
+            <div className="mx-auto h-[180px] w-full mb-2">
+                test
+            </div>
           )}
         </div>
       </div>
-      <div className="aid">
-        <p className="">{blurb}</p>
+      <div className="w-full">
+        <p className="px-3 text-justify">{blurb}</p>
       </div>
     </div>
   );
