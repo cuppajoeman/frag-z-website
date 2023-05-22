@@ -1,12 +1,13 @@
-'use client'
 import React from "react";
 import Image, { StaticImageData } from 'next/image'
 import alert from '@/public/appIcons/alert.png'
 import FileSystem from "@/components/FileSystem";
+import { createClient } from "@/utils/supabase-server";
 
 interface PointProps {
   text: string;
 }
+
 
 const Point = ({ text }: PointProps) => (
   <span className="flex flex-row items-center mx-auto justify-start w-[340px] h-[70px] bg-[#C5C5C5] border-2 border-b-black border-r-black">
@@ -29,10 +30,13 @@ const PointData: PointProps[] = [
 ]
 
 
-export default function WikiPage() {
+export default async function WikiPage() {
+  const supabase = createClient()
+  const { data: articles }: any = await supabase.from('wiki_articles').select('*')
+
   
   return (
-    <main className="h-full flex flex-col items-center justify-start p-5">
+    <main className="h-fit flex flex-col items-center justify-start p-5">
       {/* Header */}
       <div className="flex flex-col gap-4 items-center justify-center text-white max-w-[800px] mx-auto">
         <h1 className="font-broshk text-center text-5xl">Developer Wiki Page</h1>
@@ -44,7 +48,9 @@ export default function WikiPage() {
         </div>
       </div>
       {/* File system */}
-      <FileSystem />
+      <section className="my-5">
+        <FileSystem articles={articles} />
+      </section>
     </main>
   );
 }
