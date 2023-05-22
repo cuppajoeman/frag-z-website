@@ -13,7 +13,6 @@ type AuthContext = {
     error: any;
     isLoading: boolean;
     mutate: any;
-    getWikiArticles: () => Promise<any>;
     signOut: () => Promise<void>
     signInWithGmail: () => Promise<void>;
     signInWithEmail: (email: string, password: string) => Promise<string | null> ;
@@ -27,7 +26,6 @@ const Context = createContext<AuthContext>({
     error: null,
     isLoading: true,
     mutate: null,
-    getWikiArticles: async () => [],
     signOut: async () => {},
     signInWithGmail: async () => {},
     signInWithEmail: async (email: string, password: string) => null,
@@ -69,20 +67,6 @@ export default function SupabaseAuthProvider({
         isLoading,
         mutate,
     } = useSwr(serverSession ? "profile-context": null, getUser)
-
-    const getWikiArticles =  async () => {
-        console.log("Getting wiki articles...");
-        const { data: articles, error } = await supabase
-            .from("wiki_articles")
-            .select("*")
-        if(error){
-            console.log("Error fetching wiki articles!");
-        }else{
-            console.log("Fetched wiki articles!");
-            return articles
-        }
-    }
-
 
     // signup stuff
 
@@ -168,7 +152,6 @@ export default function SupabaseAuthProvider({
         signInWithGmail,
         signInWithEmail,
         signUpWithEmail,
-        getWikiArticles
     };
 
     return (
