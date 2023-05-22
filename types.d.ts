@@ -19,5 +19,13 @@ export interface RegisterFormValues {
   name: string;
 }
 
+export interface FileProps {
+  id: number;
+  title: string;
+  content: string;
+  created_at: string;
+  authors: string[];
+}
+
 export type Profile = Database["public"]["Tables"]["profiles"]["Row"]
 
