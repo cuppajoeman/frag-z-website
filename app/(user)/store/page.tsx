@@ -4,24 +4,24 @@ import caution from "@/public/images/caution.png";
 import { Item } from "@/types";
 
 const dummyItems: Item[] = [
-  {
-    name: "Dummy Item",
-    desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur sint quisquam, ad nihil animi iusto obcaecati optio sit dolorem repudiandae, voluptas illo aliquid eveniet impedit ullam. Tempore in eaque optio.",
-    price: 'Free 99',
-    img: caution
-  },
-  {
-    name: "Dummy Item",
-    desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur sint quisquam, ad nihil animi iusto obcaecati optio sit dolorem repudiandae, voluptas illo aliquid eveniet impedit ullam. Tempore in eaque optio.",
-    price: 'Free 99',
-    img: caution
-  },
-  {
-    name: "Dummy Item",
-    desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur sint quisquam, ad nihil animi iusto obcaecati optio sit dolorem repudiandae, voluptas illo aliquid eveniet impedit ullam. Tempore in eaque optio.",
-    price: 'Free 99',
-    img: caution
-  },
+  // {
+  //   name: "Dummy Item",
+  //   desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur sint quisquam, ad nihil animi iusto obcaecati optio sit dolorem repudiandae, voluptas illo aliquid eveniet impedit ullam. Tempore in eaque optio.",
+  //   price: 'Free 99',
+  //   img: caution
+  // },
+  // {
+  //   name: "Dummy Item",
+  //   desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur sint quisquam, ad nihil animi iusto obcaecati optio sit dolorem repudiandae, voluptas illo aliquid eveniet impedit ullam. Tempore in eaque optio.",
+  //   price: 'Free 99',
+  //   img: caution
+  // },
+  // {
+  //   name: "Dummy Item",
+  //   desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur sint quisquam, ad nihil animi iusto obcaecati optio sit dolorem repudiandae, voluptas illo aliquid eveniet impedit ullam. Tempore in eaque optio.",
+  //   price: 'Free 99',
+  //   img: caution
+  // },
 ]
 
 export default function StorePage() {

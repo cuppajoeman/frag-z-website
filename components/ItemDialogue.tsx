@@ -24,7 +24,7 @@ const ItemDialogue = ({ items }: Props) => {
         setItemPrice(price);
     }
 
-    const Item = ( { name, desc, price, img } : Item) => {
+    const Item = ({ name, desc, price, img }: Item) => {
         return (
             <div
                 onClick={(e) => {
@@ -48,10 +48,14 @@ const ItemDialogue = ({ items }: Props) => {
                     SHOP
                 </h1>
                 {/* Items */}
-                <div className="w-full h-5/6 flex flex-row flex-wrap items-start justify-center border-2 border-white overflow-y-scroll no-scrollbar">
-                    {items.map((item: Item, index: number) => (
-                        <Item key={index} {...item} />
-                    ))}
+                <div className="w-full h-5/6 flex flex-row flex-wrap items-center justify-center border-2 border-white overflow-y-scroll no-scrollbar">
+                    {items.length > 0 ?
+                        items.map((item: Item, index: number) => (
+                            <Item key={index} {...item} />
+                        ))
+                        :
+                        <h1 className="font-windows text-white text-2xl">Items coming soon!</h1>
+                    }
                 </div>
             </div>
             <div
@@ -60,7 +64,7 @@ const ItemDialogue = ({ items }: Props) => {
                 <div className="w-full h-full flex flex-col items-center justify-evenly bg-black overflow-y-scroll no-scrollbar">
                     {/* Close button */}
                     <span
-                        onClick={() => {setToggle(false)}}
+                        onClick={() => { setToggle(false) }}
                         className="absolute z-20 h-8 w-8 -top-0 -right-0 text-center cursor-pointer lg:hidden"
                     >
                         X
