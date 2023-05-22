@@ -2,10 +2,13 @@ import React from 'react'
 import fileIcon from '@/public/appIcons/wikiicon.png'
 import Image from 'next/image'
 import { FileProps } from '@/types'
+import Link from 'next/link'
 
 
 const WikiFile = ({ title, created_at, authors }: FileProps) => (
-    <span className="w-full h-[50px] flex flex-row items-center justify-start bg-[#C5C5C5] border-2 border-b-black border-r-black hover:scale-105">
+    <Link 
+        href={`/wiki/${title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '')}`}
+        className="w-full h-[50px] flex flex-row items-center justify-start bg-[#C5C5C5] border-2 border-b-black border-r-black hover:scale-105">
         {/* img */}
         <div className="w-[50px] h-[50px] flex items-center justify-center">
             <Image src={fileIcon} alt="fileIcon" width={100} height={100} />
@@ -16,7 +19,7 @@ const WikiFile = ({ title, created_at, authors }: FileProps) => (
             {/* Authors */}
             <h1 className="mx-auto">{authors}</h1>
         </div>
-    </span>
+    </Link>
 )
 
 const FileSystem = (articles: any) => {
