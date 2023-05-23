@@ -1,20 +1,22 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# The website for frag-z
+
+# technology
+
+* This is a [Next.js](https://nextjs.org/) project 
+* It was bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app)
+* Uses tailwindcss for styles
+
+## Setting up for development
+Currently our main developer uses the following setup, though feel free to use what works for you.
+* IDE: Visual Studio Code
+* Extensions: <TODO fill in>
 
 ## Getting Started
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+* Make sure you have nodejs installed and npm (try `npm -v` to see if you have it)
+* Now get into the project directory and run `npm install` to download the requirements
+* Launch the website for development using `npm run dev` and open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
 [API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
