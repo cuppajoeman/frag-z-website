@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { StaticImageData } from "next/image";
-import { FaYoutube, FaPatreon, FaInstagram } from 'react-icons/fa'
+import { FaYoutube, FaPatreon, FaInstagram, FaDiscord } from 'react-icons/fa'
 
 import thumbnail0 from "@/public/images/thumbnails/clip0Thumbnail.jpg";
 
@@ -115,6 +115,9 @@ export const PropertiesWindow = () => {
                 </a>
                 <a href='https://www.instagram.com/frag.z.game/' target='/' className="text-4xl mx-auto">
                   <FaInstagram />
+                </a>
+                <a href='https://discord.gg/v8uGkx2g77' target='/' className="text-4xl mx-auto">
+                  <FaDiscord />
                 </a>
               </div>
             </div>
