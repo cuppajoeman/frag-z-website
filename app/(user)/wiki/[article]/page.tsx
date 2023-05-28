@@ -1,7 +1,8 @@
-import { FileProps } from "@/types";
-import { createClient } from "@/utils/supabase-server";
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
+import { FileProps } from "@/types";
+import Markdown from "markdown-to-jsx";
+import { createClient } from "@/utils/supabase-server";
 
 interface Props {
   params: {
@@ -9,13 +10,45 @@ interface Props {
   };
 }
 
+const ParserOptions: any = {
+  forceBlock: true,
+  wrapper: "article",
+  overrides: {
+    h1: {
+      props: {
+        className: "my-2 text-2xl font-bold",
+      },
+    },
+    h2: {
+      props: {
+        className: "text-lg font-bold",
+      },
+    },
+    h3: {
+      props: {
+        className: "text-base font-bold",
+      },
+    },
+    ul: {
+      props: {
+        className: "my-3",
+      },
+    },
+    li: {
+      props: {
+        className: "ml-5",
+      },
+    },
+  },
+};
+
 export default async function WikiArticle({ params: { article } }: Props) {
   const supabase = createClient();
   const { data } = await supabase
-    .from('wiki_articles')
-    .select('*')
-    .eq('slug',article)
-    .single()
+    .from("wiki_articles")
+    .select("*")
+    .eq("slug", article)
+    .single();
 
   return (
     <section className="flex flex-col items-center justify-center h-full w-full">
@@ -24,7 +57,9 @@ export default async function WikiArticle({ params: { article } }: Props) {
         <div className="tab-gradient">
           <h1 className="">Note</h1>
           <div className="flex flex-row gap-2">
-            <Link href={'/wiki'} className="tab-gradient-button cursor-pointer">X</Link>
+            <Link href={"/wiki"} className="tab-gradient-button cursor-pointer">
+              X
+            </Link>
           </div>
         </div>
         {/* Filesystem window */}
@@ -40,8 +75,8 @@ export default async function WikiArticle({ params: { article } }: Props) {
               </div>
             </div>
             {/* Content */}
-            <div className="w-full h-fit">
-              {data!.content}
+            <div className="w-full h-fit ">
+              {<Markdown options={ParserOptions}>{data!.content}</Markdown>}
             </div>
           </div>
         </section>
