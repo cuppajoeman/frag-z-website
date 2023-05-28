@@ -12,6 +12,11 @@
   src: url('../public/fonts/arashnazblurb-cufonfonts/ARashNazBlurb.ttf');
 }
 
+@font-face {
+  font-family: 'Broshk';
+  src: url('../public/fonts/broshk/BroshK.ttf');
+}
+
 @layer base {
   :root {
     background: #239867;
@@ -65,7 +70,7 @@
 
   .tab-button {
     @apply
-    h-7 w-7 border mr-1 border-b-black border-r-black bg-[#C5C5C5] relative flex justify-center items-center
+    h-7 w-7 border-2 mr-1 border-b-black border-r-black bg-[#C5C5C5] relative flex justify-center items-center
   }
 
   .button{
@@ -73,9 +78,14 @@
     h-12 w-28 border mr-1 border-b-black border-r-black bg-[#C5C5C5] relative flex justify-center items-center text-center font-windows font-bold text-black tracking-wider
   }
 
+  .button-v2{
+    @apply
+    h-[30px] w-[100px] border-2 border-b-black border-r-black bg-[#C5C5C5] relative flex justify-center items-center text-center font-windows font-bold text-black tracking-wider
+  }
+
   .navbar {
     @apply
-    bg-[#C5C5C5] w-full h-[5%] max-h-20 min-h-[40px] fixed bottom-0 overflow-x-scroll overflow-y-hidden py-1 z-10 flex items-center no-scrollbar
+    bg-[#C5C5C5] w-full h-[5%] max-h-20 min-h-[40px] z-50 fixed bottom-0 overflow-x-scroll overflow-y-hidden py-1 flex items-center no-scrollbar
   }
   .navbar-inner {
     @apply
@@ -85,6 +95,26 @@
   .videoplayer{
     @apply
     bg-[#C5C5C5] w-[320px] h-60 p-1 overflow-hidden border-t-white/90  border-l-white/90  border-l-2 border-t-2 border-b-2 border-b-black border-r-black border-r-2 text-white lg:h-72 lg:w-[360px]
+  }
+
+  .popup-player{
+    @apply
+    bg-[#C5C5C5] w-[320px] flex flex-col h-fit min-w-[320px] min-h-[180px] p-1 overflow-hidden border-t-white/90  border-l-white/90  border-l-2 border-t-2 border-b-2 border-b-black border-r-black border-r-2 text-white lg:h-[330px] lg:w-[460px]
+  }
+
+  .popup-container > span:nth-child(1){
+    @apply
+    absolute top-2 right-2 lg:right-0 lg:left-24  -z-0
+  }
+
+  .popup-container > span:nth-child(2){
+    @apply
+    absolute left-2 top-14 -z-0
+  }
+
+  .popup-container > span:nth-child(3){
+    @apply
+    absolute left-6 md:left-14 lg:left-32 top-24 -z-0
   }
 
   .card{
@@ -102,4 +132,53 @@
     bg-[#C5C5C5] w-[340px] h-[550px] rounded-tl-md rounded-tr-md z-20 absolute text-black font-windows border-2 border-black md:w-5/6
     md:h-96
   } 
+
+  .logo-header{
+    @apply
+    w-[300px] h-[100px] md:w-[450px] md:h-[150px]
+  }
+
+  .auth-provider-button {
+    @apply
+    button h-[50px] w-[50px] flex items-center justify-center p-3 hover:scale-105 cursor-pointer
+  }
+
+  .form{
+    @apply
+    flex flex-col text-white font-windows text-center
+  }
+  .form-button{
+    @apply
+    button w-full h-[60px] text-xl
+  }
+
+  .form-label{
+    @apply
+    text-xl 
+  }
+
+  .form-field{
+    @apply
+    button text-left p-2 w-full h-[40px] mb-5
+  }
+
+  .form-error{
+    @apply
+    text-red-500 text-xs animate-pulse -mt-5 mb-5
+  }
+
+  .properties-window{
+    @apply
+    w-[350px] sm:w-[600px] font-windows md:w-[700px] h-[600px] min-h-[600px] sm:h-[400px] sm:min-h-[400px] border-2 border-b-black border-r-black bg-[#C5C5C5] flex flex-col items-start justify-start p-1
+  }
+
+  .tab-gradient{
+    @apply
+    w-full h-7 mb-1 bg-gradient-to-r from-[#020C67] to-[#3372BC] flex flex-row items-center relative text-white justify-between font-windows text-sm tracking-widest p-1
+  }
+
+  .tab-gradient-button{
+    @apply
+    h-[20px] w-[20px] bg-[#C5C5C5] border-2 border-b-black border-r-black flex items-center justify-center text-black cursor-none
+  }
 }
