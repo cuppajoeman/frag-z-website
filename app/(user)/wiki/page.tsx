@@ -1,26 +1,11 @@
 import React from "react";
-import Image, { StaticImageData } from 'next/image'
-import alert from '@/public/appIcons/alert.png'
 import FileSystem from "@/components/FileSystem";
 import { createClient } from "@/utils/supabase-server";
+import Point from "@/components/Point";
 
 interface PointProps {
   text: string;
 }
-
-
-const Point = ({ text }: PointProps) => (
-  <span className="flex flex-row items-center mx-auto justify-start w-[340px] h-[70px] bg-[#C5C5C5] border-2 border-b-black border-r-black">
-    {/* Icon */}
-    <div className="flex items-center justify-center w-[50px] h-[50px] mx-2">
-      <Image src={alert} alt="alert" className="object-cover" width={100} height={100} />
-    </div>
-    {/* Text */}
-    <h1 className="font-sans font-semibold flex items-center justify-start text-black w-[250px] h-[70px]">
-      {text}
-    </h1>
-  </span>
-)
 
 const PointData: PointProps[] = [
   { text: "Relevant information for implementing features" },
@@ -28,7 +13,6 @@ const PointData: PointProps[] = [
   { text: "Ensures accessibility and clarity for developers" },
   { text: "Minimal working example to assist developers" },
 ]
-
 
 export default async function WikiPage() {
   const supabase = createClient()
@@ -40,7 +24,6 @@ export default async function WikiPage() {
   // Only do this one layer at a time when the user clicks on it so we can lazy load as we go instead of just loading everythign at once.
   const { data: articles }: any = await supabase.from('wiki_articles').select('*')
 
-  
   return (
     <main className="h-fit flex flex-col items-center justify-start p-5">
       {/* Header */}
