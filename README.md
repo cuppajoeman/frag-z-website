@@ -12,8 +12,15 @@
 * Clone this project to your computer using git (see github desktop, git bash for windows, otherwise use the terminal emulator of your choice).
 
 Currently our main developer uses the following setup to edit, though feel free to use what works for you:
-* IDE: Visual Studio Code
-* Extensions: <TODO fill in>
+* IDE:
+  * Visual Studio Code
+* Extensions:
+  * https://marketplace.visualstudio.com/items?itemName=skyran.js-jsx-snippets
+  * https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets
+  * https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss
+* Additional non required extensions:
+  * https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+  * https://marketplace.visualstudio.com/items?itemName=AmazonWebServices.aws-toolkit-vscode
   
 * Make sure you have nodejs installed and npm (try `npm -v` to see if you have it)
 * Now get into the project directory and run `npm install` to download the requirements
