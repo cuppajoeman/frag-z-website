@@ -36,9 +36,14 @@ const ParserOptions: any = {
     },
     li: {
       props: {
-        className: "ml-5",
+        className: "ml-5 list-disc",
       },
     },
+    p: {
+      props: {
+        className: "my-2.5"
+      }
+    }
   },
 };
 
@@ -56,6 +61,7 @@ export default async function WikiArticle({ params: { article } }: Props) {
     .single();
 
   const text = data!.content;
+  console.log(text)
 
   return (
     <section className="flex flex-col items-center justify-center h-full min-h-fit w-full ">
