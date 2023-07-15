@@ -3,16 +3,19 @@
 @tailwind utilities;
 
 @font-face {
+  font-display: swap;
   font-family: 'Windows-Regular';
   src: url('../public/fonts/leviwindows/Windows\ Regular.ttf');
 }
 
 @font-face {
+  font-display: swap;
   font-family: 'Arashnaz';
   src: url('../public/fonts/arashnazblurb-cufonfonts/ARashNazBlurb.ttf');
 }
 
 @font-face {
+  font-display: swap;
   font-family: 'Broshk';
   src: url('../public/fonts/broshk/BroshK.ttf');
 }
