@@ -32,6 +32,12 @@ const PointData: PointProps[] = [
 
 export default async function WikiPage() {
   const supabase = createClient()
+  // from wiki_directories get the root element, now with it's id, iterate through the wiki_dir_to_wiki_dirs table, 
+  // find all rows with matching parent_dir_id and and collect the child_directory ids into an array called child_dirs and articles in to wiki_articles
+  // then iterate through the id's stored in child_directory_ids and get the associated directory from the wiki_directories table and then load the meta data
+  // iterate through the articles and also add those in.
+
+  // Only do this one layer at a time when the user clicks on it so we can lazy load as we go instead of just loading everythign at once.
   const { data: articles }: any = await supabase.from('wiki_articles').select('*')
 
   
