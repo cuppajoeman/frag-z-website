@@ -22,7 +22,14 @@ export default async function WikiPage() {
   // iterate through the articles and also add those in.
 
   // Only do this one layer at a time when the user clicks on it so we can lazy load as we go instead of just loading everythign at once.
-  const { data: articles }: any = await supabase.from('wiki_articles').select('*')
+  // Select all the dirs inside the root dir
+  const { data: dirs }: any = await supabase
+    .from('wiki_dir_to_wiki_dirs')
+    .select('*')
+    .eq("parent_dir_id", "3")
+
+  console.log(dirs);
+  
 
   return (
     <main className="h-fit flex flex-col items-center justify-start p-5">
@@ -38,7 +45,7 @@ export default async function WikiPage() {
       </div>
       {/* File system */}
       <section className="my-5">
-        <FileSystem articles={articles} />
+        {/* <FileSystem articles={dirs} /> */}
       </section>
     </main>
   );
