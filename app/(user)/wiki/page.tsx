@@ -1,26 +1,11 @@
 import React from "react";
-import Image, { StaticImageData } from 'next/image'
-import alert from '@/public/appIcons/alert.png'
 import FileSystem from "@/components/FileSystem";
 import { createClient } from "@/utils/supabase-server";
+import Point from "@/components/Point";
 
 interface PointProps {
   text: string;
 }
-
-
-const Point = ({ text }: PointProps) => (
-  <span className="flex flex-row items-center mx-auto justify-start w-[340px] h-[70px] bg-[#C5C5C5] border-2 border-b-black border-r-black">
-    {/* Icon */}
-    <div className="flex items-center justify-center w-[50px] h-[50px] mx-2">
-      <Image src={alert} alt="alert" className="object-cover" width={100} height={100} />
-    </div>
-    {/* Text */}
-    <h1 className="font-sans font-semibold flex items-center justify-start text-black w-[250px] h-[70px]">
-      {text}
-    </h1>
-  </span>
-)
 
 const PointData: PointProps[] = [
   { text: "Relevant information for implementing features" },
@@ -29,12 +14,23 @@ const PointData: PointProps[] = [
   { text: "Minimal working example to assist developers" },
 ]
 
-
 export default async function WikiPage() {
   const supabase = createClient()
-  const { data: articles }: any = await supabase.from('wiki_articles').select('*')
+  // from wiki_directories get the root element, now with it's id, iterate through the wiki_dir_to_wiki_dirs table, 
+  // find all rows with matching parent_dir_id and and collect the child_directory ids into an array called child_dirs and articles in to wiki_articles
+  // then iterate through the id's stored in child_directory_ids and get the associated directory from the wiki_directories table and then load the meta data
+  // iterate through the articles and also add those in.
 
+  // Only do this one layer at a time when the user clicks on it so we can lazy load as we go instead of just loading everythign at once.
+  // Select all the dirs inside the root dir
+  const { data: dirs }: any = await supabase
+    .from('wiki_dir_to_wiki_dirs')
+    .select('*')
+    .eq("parent_dir_id", "3")
+
+  console.log(dirs);
   
+
   return (
     <main className="h-fit flex flex-col items-center justify-start p-5">
       {/* Header */}
@@ -49,7 +45,7 @@ export default async function WikiPage() {
       </div>
       {/* File system */}
       <section className="my-5">
-        <FileSystem articles={articles} />
+        {/* <FileSystem articles={dirs} /> */}
       </section>
     </main>
   );

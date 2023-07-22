@@ -172,7 +172,7 @@
 
   .properties-window{
     @apply
-    w-[350px] sm:w-[600px] font-windows md:w-[700px] h-[600px] min-h-[600px] sm:h-[400px] sm:min-h-[400px] border-2 border-b-black border-r-black bg-[#C5C5C5] flex flex-col items-start justify-start p-1
+    w-[350px] sm:w-[600px] font-windows md:w-[700px] h-[600px] min-h-[600px] sm:h-[400px] sm:min-h-[400px] border-2 border-b-black border-r-black bg-[#C5C5C5] flex flex-col items-start justify-start p-1 pb-5 overflow-hidden
   }
 
   .tab-gradient{

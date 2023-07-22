@@ -1,8 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { FileProps } from "@/types";
 import Markdown from "markdown-to-jsx";
-import { marked } from "marked";
 import { createClient } from "@/utils/supabase-server";
 
 interface Props {
@@ -46,11 +44,6 @@ const ParserOptions: any = {
     }
   },
 };
-
-const regexp_list_line = /^[ \t]*(\*|\d+\.)/gm;
-const regexp_text_line = /^[ \t]*[^\s]+/gm;
-const regexp_code_line = /^[ \t]*(\`{3})/gm;
-let isInCodeBlock = false;
 
 export default async function WikiArticle({ params: { article } }: Props) {
   const supabase = createClient();

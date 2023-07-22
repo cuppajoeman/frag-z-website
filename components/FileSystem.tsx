@@ -35,9 +35,9 @@ const FileSystem = (articles: any) => {
                 </div>
             </div>
             {/* Filesystem window */}
-            <section className="flex flex-col w-full h-full pt-4">
+            <section className="flex flex-col w-full h-full py-4">
                 {/* Explorer*/}
-                <div className="w-full h-full flex flex-col p-5 items-start justify-start border-2 border-t-black border-l-black bg-white">
+                <div className="w-full h-fit min-h-full overflow-y-scroll no-scrollbar flex flex-col p-5 items-start justify-start border-2 border-t-black border-l-black bg-white">
                     {articles.articles.map((article: any) =>
                         <WikiFile key={article.id} {...article} />
                     )}
