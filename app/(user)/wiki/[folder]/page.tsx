@@ -57,8 +57,6 @@ export default async function WikiFolder({
     .from("wiki_articles")
     .select("*")
     .in("id", uniqueArticleList);
-
-    console.log(articles);
     
 
   return (
