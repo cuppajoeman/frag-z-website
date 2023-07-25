@@ -47,15 +47,19 @@ export default async function WikiFolder({
     .from("wiki_dir_to_wiki_articles")
     .select("*")
     .eq("wiki_directory_id", folderID);
+
   // Get articles in dir
+  // **** Should add error handling for null ****
+  const uniqueArticles = new Set(filesIds!.map((obj) => obj.wiki_article_id))
+  const uniqueArticleList = Array.from(uniqueArticles);
+
   const { data:articles } = await supabase
     .from("wiki_articles")
     .select("*")
-    .eq("id", 4)
+    .in("id", uniqueArticleList);
 
-
-  console.log(articles);
-
+    console.log(articles);
+    
 
   return (
     <main className="h-fit flex flex-col items-center justify-start p-5">
@@ -76,7 +80,7 @@ export default async function WikiFolder({
       </div>
       {/* File system */}
       <section className="my-5">
-        {/* <FileSystem articles={files} /> */}
+        <FileSystem articles={articles} />
       </section>
     </main>
   );
