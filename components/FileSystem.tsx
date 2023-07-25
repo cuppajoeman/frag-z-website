@@ -72,7 +72,7 @@ const FileSystem = (articles: any) => {
                 {/* Explorer*/}
                 <div className="w-full h-fit min-h-full overflow-y-scroll no-scrollbar flex flex-col p-5 items-start justify-start border-2 border-t-black border-l-black bg-white">
                     {articles.articles.map((article: any) =>
-                        (article.parent_dir_id === null ? <WikiFile key={article.id} {...article} /> : <Folder key={article.id} {...article} />)
+                        (article.content !== undefined || null ? <WikiFile key={article.id} {...article} /> : <Folder key={article.id} {...article} />)
                     )}
                 </div>
             </section>
