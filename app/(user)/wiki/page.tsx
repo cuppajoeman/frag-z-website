@@ -27,8 +27,6 @@ export default async function WikiPage() {
     .from('wiki_dir_to_wiki_dirs')
     .select('*')
     .eq("parent_dir_id", "3")
-
-  console.log(dirs);
   
 
   return (
@@ -45,7 +43,7 @@ export default async function WikiPage() {
       </div>
       {/* File system */}
       <section className="my-5">
-        {/* <FileSystem articles={dirs} /> */}
+        <FileSystem articles={dirs} />
       </section>
     </main>
   );
