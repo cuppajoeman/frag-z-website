@@ -27,7 +27,6 @@ export default async function WikiPage() {
     .from('wiki_dir_to_wiki_dirs')
     .select('*')
     .eq("parent_dir_id", "3")
-  
 
   return (
     <main className="h-fit flex flex-col items-center justify-start p-5">
