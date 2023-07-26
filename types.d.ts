@@ -27,5 +27,12 @@ export interface FileProps {
   authors: string[];
 }
 
+export interface FolderProps {
+  id: number;
+  parent_directory_id: number;
+  child_directory_id: number;
+  created_at: string;
+}
+
 export type Profile = Database["public"]["Tables"]["profiles"]["Row"]
 

@@ -10,7 +10,7 @@ export const WindowInfo = () => {
     return (
         <div className="w-full h-full flex flex-row items-center justify-start">
             <Image className="h-7 w-7 mx-2" src={fragz} alt="logo" />
-            <h1 className="font-windows text-white">
+            <h1 className="font-windows text-white text-xs sm:text-base">
                 {" "}
                   FRAG-Z &#8226;{" "}
                   {path === "/"
