@@ -20,10 +20,10 @@ interface TabDataProps {
 
 const TabDataInfo: TabDataProps[] = [
   {
-    header: "Step into the Nostalgic Abyss",
+    header: "Time To Start Stacking Clips",
     videoLink: "https://d21vt9tthjew1s.cloudfront.net/clip0.mp4",
     thumbnail: thumbnail0,
-    blurb: "Relive the golden era of gaming with Frag-Z, capturing the essence of 90's frag movies. Immerse yourself in a world where skill, speed, and precision are celebrated. Get ready for an authentic experience that pays homage to the games that ignited your gaming passion, transporting you back to a time when gaming was pure, raw, and undeniably addictive.",
+    blurb: "Relive the golden era of fps gaming with Frag-Z, capturing the essence of 90's frag movies. Immerse yourself in a world where skill, speed, and precision are celebrated and is the way to win games. It's time to crack out your CRT monitors and crank your refresh rate, you'll be teleported back to a time when gaming was pure, raw, and undeniably addictive.",
   },
   {
     header: "Unparalleled Movement and Fluidity",
@@ -35,13 +35,13 @@ const TabDataInfo: TabDataProps[] = [
     header: "Master the Art of Fragging",
     videoLink: "https://d21vt9tthjew1s.cloudfront.net/clip1.mp4",
     thumbnail: thumbnail0,
-    blurb: "Experience the heart-pounding intensity of Frag-Z's multiplayer shooter gameplay. Engage in fast-paced battles where every move counts, as you unleash classic techniques and masterful strategies. Prepare for an adrenaline-fueled journey that will push your skills to the limit.",
+    blurb: "When the 90's rolled around, the masters already had started crystallizing what it takes to be a master fragger. To survive at the top the Ankh of Aiming had to be obtained. Only gamers with mastery of flicking, tracking, precision and prediction, as well as fluid movement and an understanding of the enemy could obtain it. These practices have been long since fallen out of style, are you willing to help bring them back?",
   },
   {
     header: "Support our vision",
     videoLink: "",
     thumbnail: undefined,
-    blurb: "Everyone on our team is driven by the sheer love and passion for the game. We are committed to delivering an incredible gaming experience, and your support will not only cover the costs associated with the development of Frag-Z but also help us realize our vision of bringing on our dedicated contributors full-time. Join us in shaping the future of Frag-Z and be a part of something truly special.",
+    blurb: "As of right now the game is currently in development. Everyone on our team is driven by the sheer love and passion for such a game to exist. We are committed to delivering what you have read about, and your support will not only cover the costs associated with the development of Frag-Z but also help us realize our vision of bringing on our dedicated contributors full-time. Join us in shaping the future of Frag-Z and be a part of something truly special.",
   },
 ];
 
