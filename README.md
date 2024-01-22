@@ -1,20 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# The website for frag-z
 
-## Getting Started
+## technology
 
-First, run the development server:
+* This is a [Next.js](https://nextjs.org/) project 
+* It was bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app)
+* Uses tailwindcss for styles
+* Supabase for backend
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+## Setting up for development
+
+* Clone this project to your computer using git (see github desktop, git bash for windows, otherwise use the terminal emulator of your choice).
+
+Currently our main developer uses the following setup to edit, though feel free to use what works for you:
+* IDE:
+  * Visual Studio Code
+* Extensions:
+  * https://marketplace.visualstudio.com/items?itemName=skyran.js-jsx-snippets
+  * https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets
+  * https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss
+* Additional non required extensions:
+  * https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+  * https://marketplace.visualstudio.com/items?itemName=AmazonWebServices.aws-toolkit-vscode
+  
+* Make sure you have nodejs installed and npm (try `npm -v` to see if you have it)
+* Now get into the project directory and run `npm install` to download the requirements
+ 
+* In order to setup supabase you have to make an `.env` file in the root directory and fill it in with the following content:
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+NEXT_PUBLIC_SUPABASE_URL=<...>
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<...>
+```
+where those values can be pulled from the supabase settings page on the dashboard.
+  
+* Launch the website for development using `npm run dev` and open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
 [API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 

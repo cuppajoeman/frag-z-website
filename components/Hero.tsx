@@ -89,15 +89,15 @@ const PopupPlayer = ({ link, src, id }: PlayerProps) => {
 const AlertData: AlertProps[] = [
   {
     title: "Gameplay",
-    message: "Frag-Z is a multiplayer shooter game focused on movement and fluidity.",
+    message: "Frag-Z is a multiplayer shooter game that rewards you for hitting insane shots and moving at breakneck speeds",
   },
   {
     title: "Our goal",
-    message: "Frag-Z strives to bring back originality and rewarding gameplay of the past.",
+    message: "Frag-Z combines the creativity of skateboarding to bring a new twist on 90's fps gameplay",
   },
   {
     title: "Platforms",
-    message: "Frag-Z supports Windows, Linux, and Mac platforms.",
+    message: "Frag-Z supports Windows, Linux, and Mac platforms with Low spec requirements, so you can shred on your toaster",
   },
 ]
 
@@ -114,10 +114,10 @@ const Hero = () => {
         {/* Text Block */}
         <div className="w-full flex flex-col text-white items-start justify-evenly md:w-1/2 -z-0 px-5 lg:mt-10">
           <h1 className="font-broshk text-4xl lg:text-5xl">
-            Dominate in a World of <br></br>Unparalleled Movement and Fluidity
+            Express your Skill in a World of Unparalleled Movement and Fluidity
           </h1>
           <h3 className="text-lg md:text-xl font-sans my-3">
-            Master the Classics: Frag-Z Brings Back Quake-Style Techniques for Unstoppable Fragging!
+            Master your Mouse: Crush your Opponents Through Stylish Death Match Ability and Game-Sense. Simple as That.
           </h3>
           <button className="button-v2 h-[45px] w-[120px] ">Coming Soon</button>
         </div>
