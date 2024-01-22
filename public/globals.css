@@ -24,6 +24,10 @@
   :root {
     background: #239867;
   }
+  body {
+    min-height: 100vh; 
+    cursor: url('/textures/rocket_cursor.png'), auto
+}
 }
 
 @layer utilities {
