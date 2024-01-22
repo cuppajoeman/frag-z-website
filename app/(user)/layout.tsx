@@ -13,6 +13,7 @@ import folder from "@/public/appIcons/folder.png";
 import bin from "@/public/appIcons/bin.png";
 import "@/public/globals.css";
 import SupabaseAuthProvider from "@/components/supabase/supabase-auth-provider";
+import Cursor from "@/components/Cursor";
 
 // export const metadata = {
 //   title: {
@@ -166,6 +167,7 @@ export default async function RootLayout({
           <Navbar />
           </SupabaseAuthProvider>
         </SupabaseProvider>
+        <Cursor/>
       </body>
     </html>
   );
