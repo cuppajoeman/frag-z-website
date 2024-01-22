@@ -114,7 +114,7 @@ const Hero = () => {
         {/* Text Block */}
         <div className="w-full flex flex-col text-white items-start justify-evenly md:w-1/2 -z-0 px-5 lg:mt-10">
           <h1 className="font-broshk text-4xl lg:text-5xl">
-            Express your Skill in a World of Unparalleled Movement and Fluidity
+            TestExpress your Skill in a World of Unparalleled Movement and Fluidity
           </h1>
           <h3 className="text-lg md:text-xl font-sans my-3">
             Master your Mouse: Crush your Opponents Through Stylish Death Match Ability and Game-Sense. Simple as That.
