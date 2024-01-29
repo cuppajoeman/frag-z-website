@@ -27,7 +27,6 @@ As you can see we are using godot to develop our game, it has a few quirks:
 	can simply just make a singleton
  
  
- 
  # In-game player rewards for supporting
  
  add in the new character player model. If we add in the new player model, then we have to figure 
