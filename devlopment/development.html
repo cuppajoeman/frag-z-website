@@ -9,21 +9,13 @@
             color: red;
         }
     </style>
+
+    <script src="https://unpkg.com/cursor-effects@latest/dist/browser.js"></script>
+    <script src="/index.js"></script>
 </head>
 <body>
 
-<div class="top_bar">
-    <a href="../index.html">
-        <img src="../assets/text/frag-z-text.png" alt="" style="height: 70px;">
-    </a>
-    <ul>
-        <li><a href="https://discord.gg/FDkzF3C7C6"><h2>discord</h2></a></li>
-        <li><a href="../store.html"><h2>store</h2></a></li>
-        <li><a href="../download.html"><h2>download</h2></a></li>
-        <li><a href="development.html"><h2>development</h2></a></li>
-        <li><a href="../wiki/wiki.html"><h2>wiki</h2></a></li>
-    </ul>
-</div>
+	<header id="header"></header>
 <div class="wrapper">
     <h1>
         <div class="fire-text big-text">
@@ -47,7 +39,7 @@
             Since last january I'm pretty sure I fleshed out the main architecture for how skills can be detected. I refactored the godot project into smaller sections and ran performance tests on windows mac and linux. The performance was not up to par and I abandoned godot for all of the above reasons.
         </p>
         <p>
-            Since abandoning blender I learned how to use blender to create my own models, re-learned c++ compiling, cmake, how to render using opengl, use shaders, load obj's into the game, learned bullet physics, unlearned bullet physics and learned the basics of jolt physics.
+            Since abandoning godot I learned how to use blender to create my own models, re-learned c++ compiling, cmake, how to render using opengl, use shaders, load obj's into the game, learned bullet physics, unlearned bullet physics and learned the basics of jolt physics.
         </p>
         <p>
             The current status of the game is that we have a game where there is gravity and you can move around and bump into the map, entirely without godot and just with c++.
