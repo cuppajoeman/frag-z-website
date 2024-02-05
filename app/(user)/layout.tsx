@@ -165,9 +165,9 @@ export default async function RootLayout({
           </div>
           {/* Navbar - Middle*/}
           <Navbar />
+          <Cursor/>
           </SupabaseAuthProvider>
         </SupabaseProvider>
-        <Cursor/>
       </body>
     </html>
   );
