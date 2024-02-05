@@ -3,7 +3,9 @@
 import { characterCursor } from "cursor-effects";
 
 const Cursor = () => {
-    const test = new characterCursor({ 
+    let ref = null
+    if (typeof window !== "undefined" ) {
+      ref = new characterCursor({ 
         element: document.querySelector("#character"), 
         characters: [ // For each color you need a character, this is a bug in my original pr.
           "*",
@@ -48,10 +50,11 @@ const Cursor = () => {
             return lifeLeft / 5;
         }
     })
+    }
 
   return (
     <>
-      <div ref={test}></div>
+      <div ref={ref}></div>
     </>
   );
 };
