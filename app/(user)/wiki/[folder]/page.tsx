@@ -50,7 +50,7 @@ export default async function WikiFolder({
 
   // Get articles in dir
   // **** Should add error handling for null ****
-  const uniqueArticles = new Set(filesIds!.map((obj) => obj.wiki_article_id))
+  const uniqueArticles = new Set(filesIds!.map((obj:any) => obj.wiki_article_id))
   const uniqueArticleList = Array.from(uniqueArticles);
 
   const { data:articles } = await supabase
