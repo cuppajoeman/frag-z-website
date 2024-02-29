@@ -8,8 +8,10 @@ window.addEventListener("load", (event) => {
             <img src="/assets/text/frag-z-text.png" alt="" style="height: 70px;">
         </a>
         <ul>
+        
             <li><a href="https://discord.gg/FDkzF3C7C6"><h2>discord</h2></a></li>
             <li><a href="/devlopment/development.html"><h2>development</h2></a></li>
+            <li><a target="_blank" href="https://frag-z.myspreadshop.com/"><h2>shop</h2></a></li>
         </ul>
     </div>`
 
