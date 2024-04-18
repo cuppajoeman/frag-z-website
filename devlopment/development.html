@@ -27,8 +27,57 @@
 
     <h2>dev log</h2>
 
+    <details>
+        <summary>april</summary>
+        <p>
+            This month was a little hectic because I had final exams.
+        </p>
+        <ul>
+            <li>Added code to generate arrows which get drawn to the screen</li>
+            <li>Add a movement indicator to the screen, the black arrow is your input direction and the green your current velocity</li>
+            <li>
+                Separated the hud drawing into it's own file and generally improved working on the hud
+            </li>
+            <li>
+                The debug renderer was only impelmented in isolation to the full game, but now it's integrated into the game. The orange outline on objects is the physics worlds representation of the game.
+            </li>
+        </ul>
+    </details>
 
     <details>
+        <summary>march</summary>
+
+        <p>
+            This month started out by implementing a debug renderer for Jolt Physics, because of that we got a cool wallpaper for you:
+        </p>
+
+        <img width="300px" src="/assets/in-game/frag-z_debug_renderer.png" alt="">
+
+        <ul>
+            <li>Implemented a "stopwatch" class which can be used to determine the frequency at which things occur in game.</li>
+            <li>
+                Added a font renderer to the game, so we can draw text to the screen
+            </li>
+            <li>
+                refactored the project to use testable submodules
+            </li>
+            <li>
+                pulled out game loop structure to simplify code in main
+            </li>
+            <li>
+                Added sound system and wind sound effect with gain relative to your velocity
+            </li>
+            <li>
+                Added crosshair
+            </li>
+
+        </ul>
+
+    </details>
+
+
+    <details>
+
 	    <summary>febuary</summary>
 	    <p>
 	    This month, I've mainly been focusing on getting individual things working in isolation, so that I can start slowly integrating them into the game. I did some preliminary work with openal to get sound working in the game, and now I'm working on getting text showing up on the screen. <a target="_blank" href="https://www.youtube.com/watch?v=5NYgfbfwsH8">Here's a timelapse I made when working getting sound working</a>
