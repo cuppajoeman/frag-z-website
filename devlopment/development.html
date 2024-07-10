@@ -32,7 +32,7 @@
     <details>
         <summary>may-june-(early july)</summary>
         <p>
-            This summer I've been making good progress, the past two months I have been working on client side prediction and server reconciliation. While the ideas behind it all aren't that complex, actually implementing it and being able to debug it can be quite difficult, here's how the progress went.
+            This summer I've been making good progress, the past two months I have been working on client side prediction and server reconciliation. If that word made no sense to you, understand this: without this feature your multiplayer game is going to have a horrible game feel with the input latency being as bad as the internet connection you have, making the game unplayable if you hope to have fast paced gameplay. While the ideas behind it all aren't that complex, actually implementing it and being able to debug it can be quite difficult, here's how the progress went.
         </p>
         <p>
             Initially I had no real debugging tools and had just a working client-server setup, with no client side interpolation and server reconciliation, first I created an <code>ExpiringDataContainer</code> which can store client side input snapshots for a fixed time duration, which automatically clears itself out when it gets accessed, also when server messages come through from the server, immediately set the client state to that then collect all input snapshots that have been applied after the one that the server has processed up to and render the game.
