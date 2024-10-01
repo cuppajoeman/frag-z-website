@@ -30,6 +30,35 @@
     <h3>2024</h3>
 
     <details>
+        <summary>july-august-september</summary>
+        <p>what got done</p>
+        <ul>
+            <li>got basic diffuse lighting working in an isolated repository</li>
+            <li>got skeletal animation working in an isolated repository</li>
+            <li>refactored vertex geometry submodule and updated frag-z to use it</li>
+            <li>got the sniper working</li>
+            <li>added scope to sniper model, and ability to actually scope in game</li>
+            <li>added a very sketchy player model</li>
+            <li>added weapon model to HUD</li>
+            <li>improved monitoring of one time key events</li>
+            <li>ability to read from config file</li>
+            <li>terminal where you can run commands, such as quitting and enabling the debug renderer</li>
+            <li>added the ability to die and respawn</li>
+            <li>fixed crash when playing audio from the same source before it was done playing</li>
+            <li>had a small gametest with two computers using hitscan on LAN</li>
+        </ul>
+        <p>what's to come</p>
+        <ul>
+            <li>creating benchmarking programs to start debugging performance</li>
+            <li>networked events, currently sounds emitted from players is only occuring locally</li>
+            <li>improved text rendering, using a single texture atlas, need to create a texture packer for this, once done I can render a leaderboard</li>
+            <li>rocket launcher</li>
+            <li>improved map loading</li>
+            <li>particle emitters</li>
+        </ul>
+    </details>
+
+    <details>
         <summary>may-june-(early july)</summary>
         <p>
             This summer I've been making good progress, the past two months I have been working on client side prediction and server reconciliation. If that word made no sense to you, understand this: without this feature your multiplayer game is going to have a horrible game feel with the input latency being as bad as the internet connection you have, making the game unplayable if you hope to have fast paced gameplay. While the ideas behind it all aren't that complex, actually implementing it and being able to debug it can be quite difficult, here's how the progress went.
