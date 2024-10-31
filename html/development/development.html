@@ -1,453 +1,427 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>progress</title>
-    <link rel="stylesheet" href="../index.css">
-    <style>
-        .todo {
-            color: red;
-        }
-    </style>
+<h1>
+    <div class="fire-text big-text">
+        development
+    </div>
+</h1>
 
-    <script src="https://unpkg.com/cursor-effects@latest/dist/browser.js"></script>
-    <script src="/index.js"></script>
-</head>
-<body>
+<h2>dev log</h2>
 
-	<header id="header"></header>
-<div class="wrapper">
-    <h1>
-        <div class="fire-text big-text">
-            development
-        </div>
-    </h1>
+<h3>2024</h3>
+
+<details>
+    <summary>july-august-september</summary>
+    <p>what got done</p>
+    <ul>
+        <li>got basic diffuse lighting working in an isolated repository</li>
+        <li>got skeletal animation working in an isolated repository</li>
+        <li>refactored vertex geometry submodule and updated frag-z to use it</li>
+        <li>got the sniper working</li>
+        <li>added scope to sniper model, and ability to actually scope in game</li>
+        <li>added a very sketchy player model</li>
+        <li>added weapon model to HUD</li>
+        <li>improved monitoring of one time key events</li>
+        <li>ability to read from config file</li>
+        <li>terminal where you can run commands, such as quitting and enabling the debug renderer</li>
+        <li>added the ability to die and respawn</li>
+        <li>fixed crash when playing audio from the same source before it was done playing</li>
+        <li>had a small gametest with two computers using hitscan on LAN</li>
+    </ul>
+    <p>what's to come</p>
+    <ul>
+        <li>creating benchmarking programs to start debugging performance</li>
+        <li>networked events, currently sounds emitted from players is only occuring locally</li>
+        <li>improved text rendering, using a single texture atlas, need to create a texture packer for this, once done I can render a leaderboard</li>
+        <li>rocket launcher</li>
+        <li>improved map loading</li>
+        <li>particle emitters</li>
+    </ul>
+</details>
+
+<details>
+    <summary>may-june-(early july)</summary>
+    <p>
+        This summer I've been making good progress, the past two months I have been working on client side prediction and server reconciliation. If that word made no sense to you, understand this: without this feature your multiplayer game is going to have a horrible game feel with the input latency being as bad as the internet connection you have, making the game unplayable if you hope to have fast paced gameplay. While the ideas behind it all aren't that complex, actually implementing it and being able to debug it can be quite difficult, here's how the progress went.
+    </p>
+    <p>
+        Initially I had no real debugging tools and had just a working client-server setup, with no client side interpolation and server reconciliation, first I created an <code>ExpiringDataContainer</code> which can store client side input snapshots for a fixed time duration, which automatically clears itself out when it gets accessed, also when server messages come through from the server, immediately set the client state to that then collect all input snapshots that have been applied after the one that the server has processed up to and render the game.
+    </p>
+    <p>
+        I had implemented this but there was jitter (by jitter I'm not referring to network variance, but rather a general feeling about how smooth the game felt as compared to single player) in the game, and I wasn't sure why because from the above it should have just worked, this made me confused but I realized the only way to debug this was to be able to visualize the interaction between the client and the server and so I learned how to use the C++ logging library <code>spdlog</code>, this turned out to be a great decision as I then used their file sink functionailty to start writing out events to the log files, then created a matplotlib visualizer, and even added more features by hooking into their mouse and keyboard callbacks.
+    </p>
+    <p>
+        During this initial phase I used the visualizer to help understand how much jitter was happening and when it was happening initially the jitter plot looked something like this:
+    </p>
+    <img src="assets/initial_jitter_graph.png" alt="" width="800px">
+    <p>
+        Where the jitter is plotted on the line "prediction_deltas_recorded" and further away from the dotted line is worse, even though the graph looks extreme, the actual jitter felt was much less pronounced then this graph, but felt nevertheless. </p> <p>
+        The first bug I figured out was that multithreading was causing problems, this is simply because of the un-ordered behavior of threads if they are all doing their own thing, for example here is an example:
+    </p>
+    <img src="assets/multithreading_problem_on_graph.png" alt="" width="800px">
+    <p>
+        An important discovery I made was that having things occur in the same order on every iteration is extremely important if you want to remove sources of jitter that would be caused by events occuring in different orders, therefore I removed multithreading entirely, by doing this it removed much of the jitter.  In the future I may be able to do rendering on its own thread because the order in which that occurs doesn't effect things like physics updates and network poll events.
+    </p>
+    <p>
+        After making the above changes jitter was reduced, but it was still there and I noticed that it occured right after a jump happened, the reason why this was happening was that when you receive the authorative server update containing your position and velocity by setting your position certain state about the player may not be accounted for, for example depending on your physics engine, it may require a physics tick to occur to update the property which states whether or not your player is touching the ground, this ends up mattering a lot, because if you use that property to allow jumping to occur in game, then a jump just may not occur during reconciliation, because that property was never updated when you set the position, in order to correct for this I had to call <code>RefreshContacts</code> on the player in order for the game to check for this, although I was warned by the creator of the physics engine that this may not always produce the same results as the physics tick that occured in the past. For a more robust solution you must have a history buffer of the physics simulation frames and rollback to the correct one before reconciling to make sure everything is the same, after correcting for this the jitter felt while jumping was removed.
+    </p>
+    <img src="assets/player_state_problems_during_reconciliation.png" alt="">
+    <p>
+       After I fixed this there was no more jitter, but at the same time all the testing so far had been done with the server hosted on the same computer, and reconciliation only used on average 1 input snapshot, so I went on a remote machine booted up the server, connected my client, and then jitter, again. This made me sad, but I decided to debug this as well, I wrote a script that can grab the log file of the server for visualization and tried debugging it, but the timing of things on the visualizer made no sense, and this is where I remembered that clock times differ between two computers, in fact first I saw that it was 4 hours off, so I tried just subtracting 4 hours from the server time, but there was a difference between the two clocks which I could detect which was around 4-7 seconds off.
+    </p>
+    <p>
+        I realized I needed a program which could deduce what the time delta is between two computers and so I took a side tangent to learn about how to do this, which ended up in the birth of a simple program which I called <a href="https://github.com/cuppajoeman/clock_deltas"><code>clock_deltas</code></a> which is a client server program which can estimate the clock deltas between two computers, this ended up being successful and the logs were able to be correctly visualized. One thing that I learned along the way was that different computers have what is known as clock drift which is that over time the difference between the clocks change, what this means is that every time I want to visualize the log files I have to measure the clock delta for this particular moment in time, which is fine and has to be done.
+    </p>
+    <p>
+        Now that I could visualize properly I was able to identify the next cause of jitter which can be seen here:
+    </p>
+    <img src="assets/double_input_event_server.png" alt="" width="800px">
+    <p>
+        In the above graph the top 8 lines are the client and the bottom 5 are the server, at around 3:07:08 we can see that two input snapshots got to the server between two server physics updates which is by the two blue lines corresponding to the same server physics update, I believe that this phenomenon is caused by time drift of the client/server clocks cause the server or client to have slightly longer ticks even both they both run at 60hz, eventually allowing the time for two packets to arrive during one physics tick, specifically this occurs when the server tick is very close to the time that an incoming packet is received at, combined with the randomness of the packets travel route, this may be the cause.
+    </p>
+    <p>
+        The reason why receiving double packets had not been dealt with up until this point was that I am sending and receiving at 60hz, which so far has shown to be ok performance wise, and so I never really had this issue until this moment, I started debugging why this causes a delta and I realized that it was because of the architecture of the server. The server has a thread safe queue and when the server receives new client input snapshtos they get thrown onto the queue, then during the physics update the queue is drained, and at each iteration the velocity of each player is updated, after iterating through all of them, a single physics update occurs. This is a problem because on the client, two physics updates occured for each of the client inputs snapshots, meaning that the server has accounted for less time then the server in terms of physics update time, this caused the delta, and by instead doing a local physics update on the individual character for each input snapshot, this fixed the issue.
+    </p>
+    <p>
+        Finally there was one last bug which was that after reconciliation the players rendering state was not updated (which just grabs the current yaw, pitch and positio of the player and stores it for rendering), after doing that I am able to have smooth performance on Toronto to New York around ~13ms of ping and to San Fran ~75ms ping, without reconciliation the input latency would be equivalent to this ping time, instead we only have 1-2ms of input lag which just comes from the rendering call which is much better. I've only tested up to 2 player connections at the moment, because that is what I minimally need to start doing basic gameplay test with people, when there is more interest in the game I will start looking at higher player count performance, which I think will result in me having to reduce the send rate of the server, which I will get to when I have to cross that bridge. As of right now the jitter graph over a period of 5 seconds looks like this:
+    </p>
+    <img src="assets/current_2_player_jitter.png" alt="" width="800px">
+    <p>
+        You'll notice that there still is some, but it is greatly reduced as compared to the initial state, I noticed that some of the jitter is still coming from the jump event, so I'll debug that further, but all in all it's feeling quite good.
+    </p>
+</details>
+
+<details>
+    <summary>april</summary>
+
+    <p>
+        This month was a little hectic because I had final exams. Here's a progress vid:
+    </p>
+    <video width="400px" controls>
+        <source src="/assets/in-game/frag-z-progress-mar-apr-2024.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <ul>
+        <li>
+            Added a prototype "grenade launcher". Note it simply launches those balls I need to actually fix the arc/speed and add explosions.
+        </li>
+        <li>Added code to generate arrows which get drawn to the screen</li>
+        <li>Add a movement indicator to the screen, the black arrow is your input direction and the green your current velocity</li>
+        <li>
+            Separated the hud drawing into it's own file and generally improved working on the hud
+        </li>
+        <li>
+            The debug renderer was only impelmented in isolation to the full game, but now it's integrated into the game. The orange outline on objects is the physics worlds representation of the game.
+        </li>
+    </ul>
+</details>
+
+<details>
+    <summary>march</summary>
+
+    <p>
+        This month started out by implementing a debug renderer for Jolt Physics, because of that we got a cool wallpaper for you:
+    </p>
+
+    <img width="300px" src="/assets/in-game/frag-z_debug_renderer.png" alt="">
+
+    <ul>
+        <li>Implemented a "stopwatch" class which can be used to determine the frequency at which things occur in game.</li>
+        <li>
+            Added a font renderer to the game, so we can draw text to the screen
+        </li>
+        <li>
+            refactored the project to use testable submodules
+        </li>
+        <li>
+            pulled out game loop structure to simplify code in main
+        </li>
+        <li>
+            Added sound system and wind sound effect with gain relative to your velocity
+        </li>
+        <li>
+            Added crosshair
+        </li>
+
+    </ul>
+
+</details>
 
 
+<details>
 
-    <h2>dev log</h2>
-
-    <h3>2024</h3>
-
-    <details>
-        <summary>july-august-september</summary>
-        <p>what got done</p>
+        <summary>febuary</summary>
+        <p>
+        This month, I've mainly been focusing on getting individual things working in isolation, so that I can start slowly integrating them into the game. I did some preliminary work with openal to get sound working in the game, and now I'm working on getting text showing up on the screen. <a target="_blank" href="https://www.youtube.com/watch?v=5NYgfbfwsH8">Here's a timelapse I made when working getting sound working</a>
+        </p>
+            
+        <p>
+            Stuff like this was so trivial when using godot, but now I literally have to make it all happen either by hand (sometimes with help from external libraries), but it's usually always lower level. 
+        </p>
+        <p>
+            At times this can be frustrating because it takes so long to get something that someone could actually recognize as a "game", but the main thing is that it's actually a finite list of things. Right now my list looks something like this.
+        </p>
         <ul>
-            <li>got basic diffuse lighting working in an isolated repository</li>
-            <li>got skeletal animation working in an isolated repository</li>
-            <li>refactored vertex geometry submodule and updated frag-z to use it</li>
-            <li>got the sniper working</li>
-            <li>added scope to sniper model, and ability to actually scope in game</li>
-            <li>added a very sketchy player model</li>
-            <li>added weapon model to HUD</li>
-            <li>improved monitoring of one time key events</li>
-            <li>ability to read from config file</li>
-            <li>terminal where you can run commands, such as quitting and enabling the debug renderer</li>
-            <li>added the ability to die and respawn</li>
-            <li>fixed crash when playing audio from the same source before it was done playing</li>
-            <li>had a small gametest with two computers using hitscan on LAN</li>
+                <li>ability to draw 3d geometry</li>
+                <li>ability to draw 2d geometry</li>
+                <li>ability to draw arbitrary text to the screen</li>
+                <li>produce sound</li>
+                <li>interact with the world through input devices</li>
         </ul>
-        <p>what's to come</p>
+        <p>
+            The timeline for doing this is skewed because I have to also focus on school and other things right now, but I'm currently working on getting text to show up on the screen which should help a lot with giving players information about their movement etc and help with debugging.
+        </p>
+</details>
+
+<details>
+    <summary>january</summary>
+    <p>
+        So much has happended since the last update, good and bad, either way frag-z progress is moving forward.
+    </p>
+    <p>
+        To sum it up, during the last year I was mainly working and just trying to make ends meet and in my spare time doing what I could with the game. The main issue was godot, I wanted really good performance even on older hardware because I want anyone to play the game and for it to be bloat free. Godot was a detractor in that regard and having so many available features at my finger tips and weird architectural choices I couldn't bend made motivation to work on the project harder and harder to find.
+    </p>
+    <p>
+        Since last january I'm pretty sure I fleshed out the main architecture for how skills can be detected. I refactored the godot project into smaller sections and ran performance tests on windows mac and linux. The performance was not up to par and I abandoned godot for all of the above reasons.
+    </p>
+    <p>
+        Since abandoning godot I learned how to use blender to create my own models, re-learned c++ compiling, cmake, how to render using opengl, use shaders, load obj's into the game, learned bullet physics, unlearned bullet physics and learned the basics of jolt physics.
+    </p>
+    <p>
+        The current status of the game is that we have a game where there is gravity and you can move around and bump into the map, entirely without godot and just with c++.
+    </p>
+</details>
+
+<hr>
+
+<h3>2023</h3>
+
+<details>
+    <summary>january</summary>
+    <p>
+        this month started off with the very first game test, with Nel, coli, Jacques, Teeare and me, the game test
+        went well and fun was had.
+    </p>
+    <img src="frag-z-game-test-%231.png" alt="" style="width: 50%;">
+    <h2>feedback</h2>
+    <ul>
+        <li>hud scales up with resolution</li>
+        <li>tab activated scoreboard</li>
+        <li>deathmatch gamemode</li>
         <ul>
-            <li>creating benchmarking programs to start debugging performance</li>
-            <li>networked events, currently sounds emitted from players is only occuring locally</li>
-            <li>improved text rendering, using a single texture atlas, need to create a texture packer for this, once done I can render a leaderboard</li>
-            <li>rocket launcher</li>
-            <li>improved map loading</li>
-            <li>particle emitters</li>
+            <li>create deathmatch map (thinking sewer level)</li>
         </ul>
-    </details>
-
-    <details>
-        <summary>may-june-(early july)</summary>
-        <p>
-            This summer I've been making good progress, the past two months I have been working on client side prediction and server reconciliation. If that word made no sense to you, understand this: without this feature your multiplayer game is going to have a horrible game feel with the input latency being as bad as the internet connection you have, making the game unplayable if you hope to have fast paced gameplay. While the ideas behind it all aren't that complex, actually implementing it and being able to debug it can be quite difficult, here's how the progress went.
-        </p>
-        <p>
-            Initially I had no real debugging tools and had just a working client-server setup, with no client side interpolation and server reconciliation, first I created an <code>ExpiringDataContainer</code> which can store client side input snapshots for a fixed time duration, which automatically clears itself out when it gets accessed, also when server messages come through from the server, immediately set the client state to that then collect all input snapshots that have been applied after the one that the server has processed up to and render the game.
-        </p>
-        <p>
-            I had implemented this but there was jitter (by jitter I'm not referring to network variance, but rather a general feeling about how smooth the game felt as compared to single player) in the game, and I wasn't sure why because from the above it should have just worked, this made me confused but I realized the only way to debug this was to be able to visualize the interaction between the client and the server and so I learned how to use the C++ logging library <code>spdlog</code>, this turned out to be a great decision as I then used their file sink functionailty to start writing out events to the log files, then created a matplotlib visualizer, and even added more features by hooking into their mouse and keyboard callbacks.
-        </p>
-        <p>
-            During this initial phase I used the visualizer to help understand how much jitter was happening and when it was happening initially the jitter plot looked something like this:
-        </p>
-        <img src="assets/initial_jitter_graph.png" alt="" width="800px">
-        <p>
-            Where the jitter is plotted on the line "prediction_deltas_recorded" and further away from the dotted line is worse, even though the graph looks extreme, the actual jitter felt was much less pronounced then this graph, but felt nevertheless. </p> <p>
-            The first bug I figured out was that multithreading was causing problems, this is simply because of the un-ordered behavior of threads if they are all doing their own thing, for example here is an example:
-        </p>
-        <img src="assets/multithreading_problem_on_graph.png" alt="" width="800px">
-        <p>
-            An important discovery I made was that having things occur in the same order on every iteration is extremely important if you want to remove sources of jitter that would be caused by events occuring in different orders, therefore I removed multithreading entirely, by doing this it removed much of the jitter.  In the future I may be able to do rendering on its own thread because the order in which that occurs doesn't effect things like physics updates and network poll events.
-        </p>
-        <p>
-            After making the above changes jitter was reduced, but it was still there and I noticed that it occured right after a jump happened, the reason why this was happening was that when you receive the authorative server update containing your position and velocity by setting your position certain state about the player may not be accounted for, for example depending on your physics engine, it may require a physics tick to occur to update the property which states whether or not your player is touching the ground, this ends up mattering a lot, because if you use that property to allow jumping to occur in game, then a jump just may not occur during reconciliation, because that property was never updated when you set the position, in order to correct for this I had to call <code>RefreshContacts</code> on the player in order for the game to check for this, although I was warned by the creator of the physics engine that this may not always produce the same results as the physics tick that occured in the past. For a more robust solution you must have a history buffer of the physics simulation frames and rollback to the correct one before reconciling to make sure everything is the same, after correcting for this the jitter felt while jumping was removed.
-        </p>
-        <img src="assets/player_state_problems_during_reconciliation.png" alt="">
-        <p>
-           After I fixed this there was no more jitter, but at the same time all the testing so far had been done with the server hosted on the same computer, and reconciliation only used on average 1 input snapshot, so I went on a remote machine booted up the server, connected my client, and then jitter, again. This made me sad, but I decided to debug this as well, I wrote a script that can grab the log file of the server for visualization and tried debugging it, but the timing of things on the visualizer made no sense, and this is where I remembered that clock times differ between two computers, in fact first I saw that it was 4 hours off, so I tried just subtracting 4 hours from the server time, but there was a difference between the two clocks which I could detect which was around 4-7 seconds off.
-        </p>
-        <p>
-            I realized I needed a program which could deduce what the time delta is between two computers and so I took a side tangent to learn about how to do this, which ended up in the birth of a simple program which I called <a href="https://github.com/cuppajoeman/clock_deltas"><code>clock_deltas</code></a> which is a client server program which can estimate the clock deltas between two computers, this ended up being successful and the logs were able to be correctly visualized. One thing that I learned along the way was that different computers have what is known as clock drift which is that over time the difference between the clocks change, what this means is that every time I want to visualize the log files I have to measure the clock delta for this particular moment in time, which is fine and has to be done.
-        </p>
-        <p>
-            Now that I could visualize properly I was able to identify the next cause of jitter which can be seen here:
-        </p>
-        <img src="assets/double_input_event_server.png" alt="" width="800px">
-        <p>
-            In the above graph the top 8 lines are the client and the bottom 5 are the server, at around 3:07:08 we can see that two input snapshots got to the server between two server physics updates which is by the two blue lines corresponding to the same server physics update, I believe that this phenomenon is caused by time drift of the client/server clocks cause the server or client to have slightly longer ticks even both they both run at 60hz, eventually allowing the time for two packets to arrive during one physics tick, specifically this occurs when the server tick is very close to the time that an incoming packet is received at, combined with the randomness of the packets travel route, this may be the cause.
-        </p>
-        <p>
-            The reason why receiving double packets had not been dealt with up until this point was that I am sending and receiving at 60hz, which so far has shown to be ok performance wise, and so I never really had this issue until this moment, I started debugging why this causes a delta and I realized that it was because of the architecture of the server. The server has a thread safe queue and when the server receives new client input snapshtos they get thrown onto the queue, then during the physics update the queue is drained, and at each iteration the velocity of each player is updated, after iterating through all of them, a single physics update occurs. This is a problem because on the client, two physics updates occured for each of the client inputs snapshots, meaning that the server has accounted for less time then the server in terms of physics update time, this caused the delta, and by instead doing a local physics update on the individual character for each input snapshot, this fixed the issue.
-        </p>
-        <p>
-            Finally there was one last bug which was that after reconciliation the players rendering state was not updated (which just grabs the current yaw, pitch and positio of the player and stores it for rendering), after doing that I am able to have smooth performance on Toronto to New York around ~13ms of ping and to San Fran ~75ms ping, without reconciliation the input latency would be equivalent to this ping time, instead we only have 1-2ms of input lag which just comes from the rendering call which is much better. I've only tested up to 2 player connections at the moment, because that is what I minimally need to start doing basic gameplay test with people, when there is more interest in the game I will start looking at higher player count performance, which I think will result in me having to reduce the send rate of the server, which I will get to when I have to cross that bridge. As of right now the jitter graph over a period of 5 seconds looks like this:
-        </p>
-        <img src="assets/current_2_player_jitter.png" alt="" width="800px">
-        <p>
-            You'll notice that there still is some, but it is greatly reduced as compared to the initial state, I noticed that some of the jitter is still coming from the jump event, so I'll debug that further, but all in all it's feeling quite good.
-        </p>
-    </details>
-
-    <details>
-        <summary>april</summary>
-
-        <p>
-            This month was a little hectic because I had final exams. Here's a progress vid:
-        </p>
-        <video width="400px" controls>
-            <source src="/assets/in-game/frag-z-progress-mar-apr-2024.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+        <li>view direction of enemy players</li>
         <ul>
-            <li>
-                Added a prototype "grenade launcher". Note it simply launches those balls I need to actually fix the arc/speed and add explosions.
-            </li>
-            <li>Added code to generate arrows which get drawn to the screen</li>
-            <li>Add a movement indicator to the screen, the black arrow is your input direction and the green your current velocity</li>
-            <li>
-                Separated the hud drawing into it's own file and generally improved working on the hud
-            </li>
-            <li>
-                The debug renderer was only impelmented in isolation to the full game, but now it's integrated into the game. The orange outline on objects is the physics worlds representation of the game.
-            </li>
+            <li>potentially add weapon model</li>
         </ul>
-    </details>
-
-    <details>
-        <summary>march</summary>
-
-        <p>
-            This month started out by implementing a debug renderer for Jolt Physics, because of that we got a cool wallpaper for you:
-        </p>
-
-        <img width="300px" src="/assets/in-game/frag-z_debug_renderer.png" alt="">
-
+        <li>movement has some quirks</li>
         <ul>
-            <li>Implemented a "stopwatch" class which can be used to determine the frequency at which things occur in game.</li>
-            <li>
-                Added a font renderer to the game, so we can draw text to the screen
-            </li>
-            <li>
-                refactored the project to use testable submodules
-            </li>
-            <li>
-                pulled out game loop structure to simplify code in main
-            </li>
-            <li>
-                Added sound system and wind sound effect with gain relative to your velocity
-            </li>
-            <li>
-                Added crosshair
-            </li>
-
+            <li>movement reverses with A/D only movement</li>
+            <li>circle hop with W only movement</li>
         </ul>
-
-    </details>
-
-
-    <details>
-
-	    <summary>febuary</summary>
-	    <p>
-	    This month, I've mainly been focusing on getting individual things working in isolation, so that I can start slowly integrating them into the game. I did some preliminary work with openal to get sound working in the game, and now I'm working on getting text showing up on the screen. <a target="_blank" href="https://www.youtube.com/watch?v=5NYgfbfwsH8">Here's a timelapse I made when working getting sound working</a>
-	    </p>
-		
-	    <p>
-	    	Stuff like this was so trivial when using godot, but now I literally have to make it all happen either by hand (sometimes with help from external libraries), but it's usually always lower level. 
-	    </p>
-	    <p>
-	    	At times this can be frustrating because it takes so long to get something that someone could actually recognize as a "game", but the main thing is that it's actually a finite list of things. Right now my list looks something like this.
-	    </p>
-	    <ul>
-		    <li>ability to draw 3d geometry</li>
-		    <li>ability to draw 2d geometry</li>
-		    <li>ability to draw arbitrary text to the screen</li>
-		    <li>produce sound</li>
-		    <li>interact with the world through input devices</li>
-	    </ul>
-	    <p>
-	    	The timeline for doing this is skewed because I have to also focus on school and other things right now, but I'm currently working on getting text to show up on the screen which should help a lot with giving players information about their movement etc and help with debugging.
-	    </p>
-    </details>
-
-    <details>
-        <summary>january</summary>
-        <p>
-            So much has happended since the last update, good and bad, either way frag-z progress is moving forward.
-        </p>
-        <p>
-            To sum it up, during the last year I was mainly working and just trying to make ends meet and in my spare time doing what I could with the game. The main issue was godot, I wanted really good performance even on older hardware because I want anyone to play the game and for it to be bloat free. Godot was a detractor in that regard and having so many available features at my finger tips and weird architectural choices I couldn't bend made motivation to work on the project harder and harder to find.
-        </p>
-        <p>
-            Since last january I'm pretty sure I fleshed out the main architecture for how skills can be detected. I refactored the godot project into smaller sections and ran performance tests on windows mac and linux. The performance was not up to par and I abandoned godot for all of the above reasons.
-        </p>
-        <p>
-            Since abandoning godot I learned how to use blender to create my own models, re-learned c++ compiling, cmake, how to render using opengl, use shaders, load obj's into the game, learned bullet physics, unlearned bullet physics and learned the basics of jolt physics.
-        </p>
-        <p>
-            The current status of the game is that we have a game where there is gravity and you can move around and bump into the map, entirely without godot and just with c++.
-        </p>
-    </details>
-
-    <hr>
-
-    <h3>2023</h3>
-
-    <details>
-        <summary>january</summary>
-        <p>
-            this month started off with the very first game test, with Nel, coli, Jacques, Teeare and me, the game test
-            went well and fun was had.
-        </p>
-        <img src="frag-z-game-test-%231.png" alt="" style="width: 50%;">
-        <h2>feedback</h2>
+        <li>AMD support</li>
+        <li>show movement stats on client</li>
         <ul>
-            <li>hud scales up with resolution</li>
-            <li>tab activated scoreboard</li>
-            <li>deathmatch gamemode</li>
-            <ul>
-                <li>create deathmatch map (thinking sewer level)</li>
-            </ul>
-            <li>view direction of enemy players</li>
-            <ul>
-                <li>potentially add weapon model</li>
-            </ul>
-            <li>movement has some quirks</li>
-            <ul>
-                <li>movement reverses with A/D only movement</li>
-                <li>circle hop with W only movement</li>
-            </ul>
-            <li>AMD support</li>
-            <li>show movement stats on client</li>
-            <ul>
-                <li>show the velocity vector</li>
-            </ul>
+            <li>show the velocity vector</li>
         </ul>
-        <h2>plan</h2>
+    </ul>
+    <h2>plan</h2>
+    <ul>
+        <li>death match</li>
+        <p>
+            On 2023-01-05 I decided that <code>Rulebook</code> isn't the right name for the class, it should just be
+            <code>Match</code> since a <code>Rulebook</code> shouldn't have methods, as it's only a book.
+        </p>
+        <p>
+            Notice that death match isn't actually that different from most points win, for example health can be
+            considered points, and that whenever your points go below 1, then you will respawn elsewhere on the map
+            with 100 points again.
+        </p>
         <ul>
-            <li>death match</li>
-            <p>
-                On 2023-01-05 I decided that <code>Rulebook</code> isn't the right name for the class, it should just be
-                <code>Match</code> since a <code>Rulebook</code> shouldn't have methods, as it's only a book.
-            </p>
-            <p>
-                Notice that death match isn't actually that different from most points win, for example health can be
-                considered points, and that whenever your points go below 1, then you will respawn elsewhere on the map
-                with 100 points again.
-            </p>
+            <li>
+                implement abstract <code>Rulebook</code>, then create <code>Rulebooks</code> for deathmatch and
+                most points win
+            </li>
             <ul>
                 <li>
-                    implement abstract <code>Rulebook</code>, then create <code>Rulebooks</code> for deathmatch and
-                    most points win
+                    in the deathmatch match, it will also contain the method <code>weapon_transaction(source_player, target_players)</code>
                 </li>
                 <ul>
-                    <li>
-                        in the deathmatch match, it will also contain the method <code>weapon_transaction(source_player, target_players)</code>
+                    <li><s>create abstract match class</s>(2023-01-04)</li>
+                    <li><s>create subclasses for actual match types</s>(2023-01-04)</li>
+                    <li><s>add transaction method</s>(2023-01-04)</li>
+                </ul>
+                <li>
+                    for now deathmatch will be timed
+                </li>
+            </ul>
+            <li>
+                <s>remove the logic inside of the railgun, and simply use <code>GlobalPlayerEvents</code></s>(2023-01-06)
+            </li>
+            <li>move the fire check inside of the player</li>
+            <ul>
+                give the weapon a
+            </ul>
+        </ul>
+        <li>new map</li>
+        <p>
+            in order to support the new game mode, we are going to build a new map oriented more towards death match
+        </p>
+        <ul>
+            <li>more long flat areas to fight on, not as vertical as previous map</li>
+            <li>more wedges that aren't steep</li>
+        </ul>
+        <li>projectile launcher</li>
+        <ul>
+            <li>create projectile launcher class</li>
+            <li>implement the physics movement function</li>
+            <li>implement check to see if it's collided</li>
+            <li>implement explosion</li>
+            <ul>
+                <li>create a sphere at the explosion point, with <code>explosion_radius</code></li>
+                <li>
+                    for each colliding thing, if it's a player, then draw a ray from the blast origin to the
+                    center of the player, if it reaches that player, then we can apply a force to the player, also
+                    perform a transaction (no points lost if you shoot yourself, only to other players)
+                </li>
+            </ul>
+            <li>
+                We'll need a way to know who fired which projectile, so instead of embedding a reference
+                to an entire player, we'll just add it to a group who's name is the id of the player.
+            </li>
+        </ul>
+        <li>shotgun & lightning gun</li>
+        <ul>
+            <li>
+                generalize the hitscan weapon, this generalized version has a method called <code>get_spray_pattern</code>
+                which will returns a list of hitscan rays. It will also have a method called <code>fire</code> which
+                iterates through the spray pattern and uses the referee to conduct a hitscan transaction.
+            </li>
+            <li>
+                in order to play different sounds for the different weapons, more information needs to be added in
+                players events pertaining to firing, we also have to specify which weapon is being fired.
+            </li>
+        </ul>
+        <li>movement</li>
+        <ul>
+            <li>quake style movement</li>
+            <li>turn of auto jump, implement queue jump</li>
+            <ul>
+                <li>we don't jump if we never received a false for jump pressed before the next time we hit the ground</li>
+            </ul>
+        </ul>
+        <li>performance</li>
+        <ul>
+            <li>I've found that even running locally, it feels like aim is a little choppy.</li>
+            <ul>
+                <li>
+                    First I created a version of the game with everything except movement, aiming and a map stripped
+                    away, next I checked the rates of the mouse polling, movement, and process function, all are
+                    being clocked at 60Hz, I also checked to see if data was being trucated across the network,
+                    which didn't seem to be the issue.
+                </li>
+                <li>
+                    My conclusion is that this choppiness is chalked up to the latency introduced by the network,
+                    this will be eventually remedied by using client side interpolation.
+                </li>
+            </ul>
+        </ul>
+    </ul>
+</details>
+
+<details>
+    <summary>december</summary>
+    <p>
+        first we will develop a thin slice through the whole game, that way we will have a minimal working game that
+        can
+        be played.
+        this way we can get user feedback as fast as possible instead of building the whole game and then having to
+        undo
+        previous work.
+    </p>
+    <p>
+        the thin slice will be a version of the game where you can connect to a server online through a UI, be able
+        to
+        ready
+        your players and then start the game, the game will be mpw with a single weapon (rail gun), rail gun beams
+        will
+        be
+        rendered on the client side and a scoreboard will be shown. After 10 minutes the game ends and you are
+        returned
+        to the
+        ready up state.
+    </p>
+    <ul>
+        <li><h2>slice</h2></li>
+        <ul>
+            <li>client side</li>
+            <ul>
+                <li><s>send over keypresses, mouse deltas to server</s>(2022-12-18)</li>
+                <li><s>terminal with sensitivity command</s>(2022-12-18)</li>
+                <li><s>crosshair</s>(2022-12-27)</li>
+            </ul>
+            <li>server side</li>
+            <ul>
+                <li><s>process keypresses and mouse deltas, send back rotation and position of player</s>(2022-12-20)
+                </li>
+                <li><s>create a Match class</s></li>
+                <ul>
+                    <li><s>contains the current state of the match preparation, live and complete</s>(2022-12-26)
                     </li>
                     <ul>
-                        <li><s>create abstract match class</s>(2023-01-04)</li>
-                        <li><s>create subclasses for actual match types</s>(2023-01-04)</li>
-                        <li><s>add transaction method</s>(2023-01-04)</li>
-                    </ul>
-                    <li>
-                        for now deathmatch will be timed
-                    </li>
-                </ul>
-                <li>
-                    <s>remove the logic inside of the railgun, and simply use <code>GlobalPlayerEvents</code></s>(2023-01-06)
-                </li>
-                <li>move the fire check inside of the player</li>
-                <ul>
-                    give the weapon a
-                </ul>
-            </ul>
-            <li>new map</li>
-            <p>
-                in order to support the new game mode, we are going to build a new map oriented more towards death match
-            </p>
-            <ul>
-                <li>more long flat areas to fight on, not as vertical as previous map</li>
-                <li>more wedges that aren't steep</li>
-            </ul>
-            <li>projectile launcher</li>
-            <ul>
-                <li>create projectile launcher class</li>
-                <li>implement the physics movement function</li>
-                <li>implement check to see if it's collided</li>
-                <li>implement explosion</li>
-                <ul>
-                    <li>create a sphere at the explosion point, with <code>explosion_radius</code></li>
-                    <li>
-                        for each colliding thing, if it's a player, then draw a ray from the blast origin to the
-                        center of the player, if it reaches that player, then we can apply a force to the player, also
-                        perform a transaction (no points lost if you shoot yourself, only to other players)
-                    </li>
-                </ul>
-                <li>
-                    We'll need a way to know who fired which projectile, so instead of embedding a reference
-                    to an entire player, we'll just add it to a group who's name is the id of the player.
-                </li>
-            </ul>
-            <li>shotgun & lightning gun</li>
-            <ul>
-                <li>
-                    generalize the hitscan weapon, this generalized version has a method called <code>get_spray_pattern</code>
-                    which will returns a list of hitscan rays. It will also have a method called <code>fire</code> which
-                    iterates through the spray pattern and uses the referee to conduct a hitscan transaction.
-                </li>
-                <li>
-                    in order to play different sounds for the different weapons, more information needs to be added in
-                    players events pertaining to firing, we also have to specify which weapon is being fired.
-                </li>
-            </ul>
-            <li>movement</li>
-            <ul>
-                <li>quake style movement</li>
-                <li>turn of auto jump, implement queue jump</li>
-                <ul>
-                    <li>we don't jump if we never received a false for jump pressed before the next time we hit the ground</li>
-                </ul>
-            </ul>
-            <li>performance</li>
-            <ul>
-                <li>I've found that even running locally, it feels like aim is a little choppy.</li>
-                <ul>
-                    <li>
-                        First I created a version of the game with everything except movement, aiming and a map stripped
-                        away, next I checked the rates of the mouse polling, movement, and process function, all are
-                        being clocked at 60Hz, I also checked to see if data was being trucated across the network,
-                        which didn't seem to be the issue.
-                    </li>
-                    <li>
-                        My conclusion is that this choppiness is chalked up to the latency introduced by the network,
-                        this will be eventually remedied by using client side interpolation.
-                    </li>
-                </ul>
-            </ul>
-        </ul>
-    </details>
-
-    <details>
-        <summary>december</summary>
-        <p>
-            first we will develop a thin slice through the whole game, that way we will have a minimal working game that
-            can
-            be played.
-            this way we can get user feedback as fast as possible instead of building the whole game and then having to
-            undo
-            previous work.
-        </p>
-        <p>
-            the thin slice will be a version of the game where you can connect to a server online through a UI, be able
-            to
-            ready
-            your players and then start the game, the game will be mpw with a single weapon (rail gun), rail gun beams
-            will
-            be
-            rendered on the client side and a scoreboard will be shown. After 10 minutes the game ends and you are
-            returned
-            to the
-            ready up state.
-        </p>
-        <ul>
-            <li><h2>slice</h2></li>
-            <ul>
-                <li>client side</li>
-                <ul>
-                    <li><s>send over keypresses, mouse deltas to server</s>(2022-12-18)</li>
-                    <li><s>terminal with sensitivity command</s>(2022-12-18)</li>
-                    <li><s>crosshair</s>(2022-12-27)</li>
-                </ul>
-                <li>server side</li>
-                <ul>
-                    <li><s>process keypresses and mouse deltas, send back rotation and position of player</s>(2022-12-20)
-                    </li>
-                    <li><s>create a Match class</s></li>
-                    <ul>
-                        <li><s>contains the current state of the match preparation, live and complete</s>(2022-12-26)
+                        <li><s>the complete state shows the scoreboard for everyone for at least 30 seconds.</s>(2022-12-28)
                         </li>
-                        <ul>
-                            <li><s>the complete state shows the scoreboard for everyone for at least 30 seconds.</s>(2022-12-28)
-                            </li>
-                        </ul>
-                        <li><s>contains a Referee class which monitors shots fired and allocates points to respective
-                            players</s></li>
-                        <ul>
-                            <li><s>it is aware of the current game type</s>(2022-12-26)</li>
-                            <li><s>each step of the game, we can ask the referee if the game is over.</s>(2022-12-25)
-                            </li>
-                        </ul>
-                        <li><s>scoring information passed along with high frequency info</s>(2022-12-26)</li>
-                        <li><s>if the Referee says the game is over, we move to the complete state</s>(2022-12-28)</li>
                     </ul>
-                    <li><s>chat messaging service</s>(2022-12-28)</li>
+                    <li><s>contains a Referee class which monitors shots fired and allocates points to respective
+                        players</s></li>
+                    <ul>
+                        <li><s>it is aware of the current game type</s>(2022-12-26)</li>
+                        <li><s>each step of the game, we can ask the referee if the game is over.</s>(2022-12-25)
+                        </li>
+                    </ul>
+                    <li><s>scoring information passed along with high frequency info</s>(2022-12-26)</li>
+                    <li><s>if the Referee says the game is over, we move to the complete state</s>(2022-12-28)</li>
                 </ul>
+                <li><s>chat messaging service</s>(2022-12-28)</li>
             </ul>
-            <li><h2>development</h2></li>
-            <ul>
-                <li>after the slice is developed we will work on features in the order most requested by the users it
-                    will
-                    probably be in this order
-                </li>
-                <ul>
-                    <li>sound/visual representation</li>
-                    <li>new maps</li>
-                    <li>add the other weapons</li>
-                    <li>team based gameplay</li>
-                </ul>
-            </ul>
-            <li><h2>performance</h2></li>
-            <ul>
-                <li>netcode</li>
-                <ul>
-                    <li>don't send info if there is no delta</li>
-                </ul>
-            </ul>
-            <li><h2>infrastructure</h2></li>
-            <ul>
-                <li><s>make discord server</s>(2022-12-22)</li>
-                <li><s>make website</s>(2022-12-25)</li>
-                <li>headless server</li>
-                <ul>
-                    <li><s>aquire remote linux machine</s>(2022-12-29)</li>
-                    <li><s>figure out how to compile game for headless</s>(2022-12-29)</li>
-                </ul>
-                <li>create download section on website</li>
-                <li>auto updater (long term)</li>
-            </ul>
-            <h2>review</h2>
-            <p>
-                this month was really good, I managed to get the game into a playable state in about a week. i built a
-                map
-                a system to run sound on the client, weapons, a referee system, messaging/commands and smoothed out
-                movement.
-            </p>
         </ul>
-    </details>
-
-
-</div>
-</body>
-</html>
+        <li><h2>development</h2></li>
+        <ul>
+            <li>after the slice is developed we will work on features in the order most requested by the users it
+                will
+                probably be in this order
+            </li>
+            <ul>
+                <li>sound/visual representation</li>
+                <li>new maps</li>
+                <li>add the other weapons</li>
+                <li>team based gameplay</li>
+            </ul>
+        </ul>
+        <li><h2>performance</h2></li>
+        <ul>
+            <li>netcode</li>
+            <ul>
+                <li>don't send info if there is no delta</li>
+            </ul>
+        </ul>
+        <li><h2>infrastructure</h2></li>
+        <ul>
+            <li><s>make discord server</s>(2022-12-22)</li>
+            <li><s>make website</s>(2022-12-25)</li>
+            <li>headless server</li>
+            <ul>
+                <li><s>aquire remote linux machine</s>(2022-12-29)</li>
+                <li><s>figure out how to compile game for headless</s>(2022-12-29)</li>
+            </ul>
+            <li>create download section on website</li>
+            <li>auto updater (long term)</li>
+        </ul>
+        <h2>review</h2>
+        <p>
+            this month was really good, I managed to get the game into a playable state in about a week. i built a
+            map
+            a system to run sound on the client, weapons, a referee system, messaging/commands and smoothed out
+            movement.
+        </p>
+    </ul>
+</details>

@@ -1,0 +1,3 @@
+[submodule "fast-html"]
+	path = scripts/fast-html
+	url = git@github.com:simple-web-tools/fast-html.git

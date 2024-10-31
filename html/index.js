@@ -1,23 +1,5 @@
 window.addEventListener("load", (event) => {
 
-	const header = document.getElementById("header");
-
-	const header_content = `
-    <div class="top_bar">
-        <a href="/index.html">
-            <img src="/assets/text/frag-z-text.png" alt="" style="height: 70px;">
-        </a>
-        <ul>
-        
-            <li><a href="https://discord.gg/FDkzF3C7C6"><h2>discord</h2></a></li>
-            <li><a href="/devlopment/development.html"><h2>development</h2></a></li>
-            <li><a target="_blank" href="https://frag-z.myspreadshop.com/"><h2>shop</h2></a></li>
-        </ul>
-    </div>`
-
-	header.innerHTML = header_content;
-
-
     new cursoreffects.characterCursor({ // rocket smoke
         element: document.querySelector("#character"),
         characters: [ // For each color you need a character, this is a bug in my original pr.
