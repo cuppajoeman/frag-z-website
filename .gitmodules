@@ -1,3 +1,9 @@
 [submodule "fast-html"]
 	path = scripts/fast-html
 	url = git@github.com:simple-web-tools/fast-html.git
+[submodule "html/graphs"]
+	path = html/graphs
+	url = https://github.com/simple-web-tools/graphs
+[submodule "html/cjm-css"]
+	path = html/cjm-css
+	url = git@github.com:cuppajoeman/cjm-css.git

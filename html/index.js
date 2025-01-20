@@ -47,7 +47,6 @@ window.addEventListener("load", (event) => {
         },
         characterNewRotationDegreesFunction: function(age, lifeSpan) {
             let lifeLeft = lifeSpan - age;
-            console.log(age, lifeSpan);
             return lifeLeft / 5;
         }
     })

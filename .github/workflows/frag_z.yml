@@ -27,9 +27,8 @@ jobs:
           submodules: true
 
       - name: Generate HTML
-        run: |
-          cd scripts/
-          python fast-html/main.py --base-dir ../html/ --gen-dir ../generated_html --base-template-file frag_z_template.html --custom-template-conversion-file template_conversion.py
+        run: ./build_site.sh
+
 
       - name: Setup Pages
         uses: actions/configure-pages@v3

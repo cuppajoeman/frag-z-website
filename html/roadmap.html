@@ -1,0 +1,58 @@
+
+<p>
+    Sometimes I am too lazy to update the development page about what's currently happening with frag-z, so while it might like there are no updates or things are at a stand still, it's certainly not the case, because I might feel too lazy to document the progess, instead I'll have this page which will let me show the state of progress without having to write too much:
+</p>
+
+<svg  id="graph" width="1000" height="600" style="background-color: #f0ffffa1;"></svg>
+
+<p>
+    In the following graph diagram, the arrows represent dependencies so that the one at the start of the arrow would be required to get to the one at the tip of the arrow, blue nodes represent what is in active development
+</p>
+
+
+
+<script src="/graphs/script.js"></script>
+<script>
+
+    // Example of defining the graph
+    const nodes = [
+        { id: "online playtest 1", x: 0, y: .5, color: "grey" }, 
+
+        { id: "rocket explosions", x: -.75 , y: 0, color: "grey" },
+        { id: "observatory scripted scene opening", x: -.75, y: -.5 , color: "blue" },
+
+        { id: "client server reconciliation", x: -.5, y: 0, color: "grey" },
+
+        { id: "look client server reconciliation", x: -.5 - .065, y: -.5, color: "blue" },
+        { id: "move client server reconciliation", x: -.5 + .065, y: -.5, color: "grey" },
+
+        { id: "integrate batcher render technique", x: .25, y: 0, color: "grey" },
+
+        { id: "use new input state architecture", x: -0.25, y: 0, color: "grey" },
+
+        { id: "integrate reload animations", x: 0, y: 0, color: "grey" },
+        { id: "create reload animation", x: -.125, y: -.5, color: "grey" },
+        { id: "observatory animation selection", x: .125, y: -.5, color: "blue" }
+    ];
+
+    // Update edges array to use acronyms instead of indices
+    const edges = [
+        { source: "RE", target: "OP1", directed: true },  
+        { source: "OSSO", target: "RE", directed: true },  
+
+        { source: "CSR", target: "OP1", directed: true },  
+        { source: "LCSR", target: "CSR", directed: true },  
+        { source: "MCSR", target: "CSR", directed: true },  
+
+        { source: "IBRT", target: "OP1", directed: true },  
+
+        { source: "UNISA", target: "OP1", directed: true },  
+        { source: "IRA", target: "OP1", directed: true },  
+        { source: "OAS", target: "IRA", directed: true },  
+        { source: "CRA", target: "IRA", directed: true },  
+    ];
+
+
+    // Create the graph
+    createGraph(nodes, edges);
+</script>
