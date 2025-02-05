@@ -4,7 +4,80 @@
     </div>
 </h1>
 
+<h3>2025</h3>
+
+<details>
+    <summary>january</summary>
+    <ul>
+        <li>observatory: created a program in which users can load in models and experiment with scripted events</li>
+        <li>texture packer: allowed for tiling textures even when using packed textures</li>
+        <li>batcher: fixed bugs by creating an external memory management class which keeps track of empty spaces, and compactifies when necessary</li>
+        <li>editor: created an editor, will eventually be used for development with frag-z later down the road</li>
+    </ul>
+</details>
+
 <h3>2024</h3>
+
+<details>
+    <summary>october-november-december</summary>
+    <p>
+        I'm not sure if you know this but to stay organized frag-z is broken down into a lot of really small "subprojects" each subproject allows us to focus on a really small piece of functionality and make sure it works properly. Making frag-z more robust really boils down to improving these submodules and then re-integrating them into the game. Here's the breakdown.
+    </p>
+    <h2>october</h2>
+    <ul>
+        <li>
+            batcher system: this system was devised to improve the rendering performance of frag-z to reduce the number of draw calls made per frame
+        </li>
+        <li>
+            packet handling system: created to simplify the way information is serialized and deserialized when sent over the network.
+        </li>
+        <li>
+            texture atlas system: allows for loading in of textures to be much easier
+        </li>
+        <li>
+            the shader standard: allows for easy and safe usage of shaders
+        </li>
+    </ul>
+    <h2>november</h2>
+    <ul>
+        <li>
+            batcher system: experimentation and improvements 
+        </li>
+        <li>
+            texture packer system: a way to get have our "bindless textures" in opengl3.3, equates to more rendering performance when using textures
+        </li>
+        <li>
+            fps camera: basic fps camera that can move around a scene with 
+        </li>
+        <li>
+            transform: a basic class to hold the transform of an object
+        </li>
+        <li>
+            mwe bullet trace: a working example of how to render flying bullets in a scene (will be used for bullets in-game)
+        </li>
+        <li>
+            mwe particle emitter: a working example of rendering particles (will be used for smoke particles in-game)
+        </li>
+    </ul>
+    <h2>december</h2>
+    <ul>
+        <li>
+            rigged model loading: add support for multiple armatures in an animation, something that most game engines do not support, allows for animations with multiple skeletons to be loaded in with ease.
+        </li>
+        <li>
+            scripted events: allows for any in-engine logic to be synchronized together, this allows things like animations to be loaded in and to be able to have sound effects/lighting/whatever run synchrnously
+        </li>
+        <li>
+            texture packer: general improvements and bug fixes
+        </li>
+        <li>
+            mwe multiple lights: working example of multiple lights in opengl
+        </li>
+        <li>
+            worked on 3d models
+        </li>
+    </ul>
+</details>
 
 <details>
     <summary>july-august-september</summary>
